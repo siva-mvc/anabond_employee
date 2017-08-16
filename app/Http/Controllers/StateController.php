@@ -26,7 +26,7 @@ class StateController extends Controller
      */
     public function index()
     {
-         $states = DB::table('state')
+        $states = DB::table('state')
         ->leftJoin('country', 'state.country_id', '=', 'country.id')
         ->select('state.id', 'state.name', 'country.name as country_name', 'country.id as country_id')
         ->paginate(5);
@@ -101,7 +101,7 @@ class StateController extends Controller
     public function update(Request $request, $id)
     {
         $state = State::findOrFail($id);
-         $this->validate($request, [
+        $this->validate($request, [
         'name' => 'required|max:60'
         ]);
         $input = [

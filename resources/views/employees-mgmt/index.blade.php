@@ -16,8 +16,8 @@
   <!-- /.box-header -->
   <div class="box-body">
       <div class="row">
-        <div class="col-sm-6"></div>
-        <div class="col-sm-6"></div>
+        <div class="col-sm-5"></div>
+        <div class="col-sm-5"></div>
       </div>
       <form method="POST" action="{{ route('employee-management.search') }}">
          {{ csrf_field() }}
@@ -40,7 +40,7 @@
                 <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Birthdate: activate to sort column ascending">Birthdate</th>
                 <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="HiredDate: activate to sort column ascending">Hired Date</th>
                 <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Department: activate to sort column ascending">Department</th>
-                <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Division: activate to sort column ascending">Division</th>
+                <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Designation: activate to sort column ascending">Designation</th>
                 <th tabindex="0" aria-controls="example2" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending">Action</th>
               </tr>
             </thead>
@@ -54,7 +54,7 @@
                   <td class="hidden-xs">{{ $employee->birthdate }}</td>
                   <td class="hidden-xs">{{ $employee->date_hired }}</td>
                   <td class="hidden-xs">{{ $employee->department_name }}</td>
-                  <td class="hidden-xs">{{ $employee->division_name }}</td>
+                  <td class="hidden-xs">{{ $employee->designation_name }}</td>
                   <td>
                     <form class="row" method="POST" action="{{ route('employee-management.destroy', ['id' => $employee->id]) }}" onsubmit = "return confirm('Are you sure?')">
                         <input type="hidden" name="_method" value="DELETE">
@@ -70,7 +70,7 @@
               </tr>
             @endforeach
             </tbody>
-            <tfoot>
+            <!-- <tfoot>
               <tr>
                 <tr role="row">
                 <th width="8%" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Picture: activate to sort column descending" aria-sort="ascending">Picture</th>
@@ -84,7 +84,7 @@
                 <th tabindex="0" aria-controls="example2" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending">Action</th>
               </tr>
               </tr>
-            </tfoot>
+            </tfoot> -->
           </table>
         </div>
       </div>

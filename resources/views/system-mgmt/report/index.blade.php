@@ -66,14 +66,14 @@
               </tr>
             @endforeach
             </tbody>
-            <tfoot>
+            <!-- <tfoot>
               <tr role="row">
                   <th width = "20%" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending">Employee Name</th>
                   <th width = "20%" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Birthday: activate to sort column ascending">Birthday</th>
                   <th width = "40%" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Address: activate to sort column ascending">Address</th>
                   <th width = "20%" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Birthday: activate to sort column ascending">Hired Day</th>
               </tr>
-            </tfoot>
+            </tfoot> -->
           </table>
         </div>
       </div>

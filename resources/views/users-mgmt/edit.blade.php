@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Update user</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('user-management.update', ['id' => $user->id]) }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('user-management.update', ['id' => $user->id]) }}" enctype="multipart/form-data">
                         <input type="hidden" name="_method" value="PATCH">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
@@ -68,6 +68,14 @@
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="avatar" class="col-md-4 control-label" >Picture</label>
+                            <div class="col-md-6">
+                                 <img src="../../{{$user->picture }}" width="50px" height="50px"/>   
+                                <input type="file" id="picture" name="picture" />
                             </div>
                         </div>
 

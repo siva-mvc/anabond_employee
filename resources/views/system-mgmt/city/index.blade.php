@@ -59,13 +59,13 @@
               </tr>
             @endforeach
             </tbody>
-            <tfoot>
+            <!-- <tfoot>
               <tr>
                 <th width="20%" rowspan="1" colspan="1">City Name</th>
                 <th width="20%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="state: activate to sort column ascending">State Name</th>
                 <th rowspan="1" colspan="2">Action</th>
               </tr>
-            </tfoot>
+            </tfoot> -->
           </table>
         </div>
       </div>

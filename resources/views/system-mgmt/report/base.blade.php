@@ -6,10 +6,10 @@
       <h1>
         Report
       </h1>
-      <ol class="breadcrumb">
+      <!-- <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> System Mangement</a></li>
         <li class="active">Report</li>
-      </ol>
+      </ol> -->
     </section>
     @yield('action-content')
     <!-- /.content -->

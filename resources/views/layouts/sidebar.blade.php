@@ -7,7 +7,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{ asset("/bower_components/AdminLTE/dist/img/user2-160x160.jpg") }}" class="img-circle" alt="User Image">
+          <img src="{{ url('/')}}/{{ Auth::user()->picture }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>{{ Auth::user()->name}}</p>
@@ -40,8 +40,10 @@
             </span>
           </a>
           <ul class="treeview-menu">
+            <li><a href="{{ url('system-management/designation') }}">Designation</a></li>
             <li><a href="{{ url('system-management/department') }}">Department</a></li>
-            <li><a href="{{ url('system-management/division') }}">Division</a></li>
+            <li><a href="{{ url('system-management/factor') }}">Performance Factor</a></li>
+            <li><a href="{{ url('system-management/team') }}">Team</a></li>
             <li><a href="{{ url('system-management/country') }}">Country</a></li>
             <li><a href="{{ url('system-management/state') }}">State</a></li>
             <li><a href="{{ url('system-management/city') }}">City</a></li>

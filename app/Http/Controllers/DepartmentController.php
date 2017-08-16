@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\department;
+use App\Department;
+use App\Employee;
 
 class DepartmentController extends Controller
 {
@@ -25,7 +26,10 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = Department::paginate(5);
+        $departments = DB::table('department')
+        ->leftJoin('employees', 'department.employee_id', '=', 'employees.id')
+        ->select('department.id', 'department.name', 'employees.firstname as employee_name', 'employees.id as employee_id')
+        ->paginate(5);
 
         return view('system-mgmt/department/index', ['departments' => $departments]);
     }
@@ -37,7 +41,8 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        return view('system-mgmt/department/create');
+        $employees = Employee::all();
+        return view('system-mgmt/department/create', ['employees' => $employees]);
     }
 
     /**
@@ -50,7 +55,8 @@ class DepartmentController extends Controller
     {
         $this->validateInput($request);
          Department::create([
-            'name' => $request['name']
+            'name' => $request['name'],
+            'employee_id' => $request['employee_id']
         ]);
 
         return redirect()->intended('system-management/department');
@@ -81,7 +87,8 @@ class DepartmentController extends Controller
             return redirect()->intended('/system-management/department');
         }
 
-        return view('system-mgmt/department/edit', ['department' => $department]);
+        $employees = Employee::all();
+        return view('system-mgmt/department/edit', ['department' => $department, 'employees' => $employees]);
     }
 
     /**
@@ -94,9 +101,13 @@ class DepartmentController extends Controller
     public function update(Request $request, $id)
     {
         $department = Department::findOrFail($id);
-        $this->validateInput($request);
+
+        if ($department->name != $request['name']) {
+            $this->validateInput($request);  
+        }
         $input = [
-            'name' => $request['name']
+            'name' => $request['name'],
+            'employee_id' => $request['employee_id']
         ];
         Department::where('id', $id)
             ->update($input);

@@ -96,10 +96,10 @@ class ReportController extends Controller
         ->leftJoin('department', 'employees.department_id', '=', 'department.id')
         ->leftJoin('state', 'employees.state_id', '=', 'state.id')
         ->leftJoin('country', 'employees.country_id', '=', 'country.id')
-        ->leftJoin('division', 'employees.division_id', '=', 'division.id')
+        ->leftJoin('designation', 'employees.designation_id', '=', 'designation.id')
         ->select('employees.firstname', 'employees.middlename', 'employees.lastname', 
         'employees.age','employees.birthdate', 'employees.address', 'employees.zip', 'employees.date_hired',
-        'department.name as department_name', 'division.name as division_name')
+        'department.name as department_name', 'designation.name as designation_name')
         ->where('date_hired', '>=', $constraints['from'])
         ->where('date_hired', '<=', $constraints['to'])
         ->get()

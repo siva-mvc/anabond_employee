@@ -9,6 +9,20 @@
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('employee-management.store') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
+
+                        <div class="form-group{{ $errors->has('employee_reg_id') ? ' has-error' : '' }}">
+                            <label for="employee_reg_id" class="col-md-4 control-label">Employee Id</label>
+
+                            <div class="col-md-6">
+                                <input id="employee_reg_id" type="text" class="form-control" name="employee_reg_id" value="{{ old('employee_reg_id') }}" required autofocus>
+
+                                @if ($errors->has('employee_reg_id'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('employee_reg_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
                             <label for="firstname" class="col-md-4 control-label">First Name</label>
 
@@ -48,6 +62,27 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Designation</label>
+                            <div class="col-md-6">
+                                <select class="form-control" name="designation_id">
+                                    @foreach ($designations as $designation)
+                                        <option value="{{$designation->id}}">{{$designation->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Department</label>
+                            <div class="col-md-6">
+                                <select class="form-control" name="department_id">
+                                    @foreach ($departments as $department)
+                                        <option value="{{$department->id}}">{{$department->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        
                         <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
                             <label for="address" class="col-md-4 control-label">Address</label>
 
@@ -140,29 +175,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Department</label>
-                            <div class="col-md-6">
-                                <select class="form-control" name="department_id">
-                                    @foreach ($departments as $department)
-                                        <option value="{{$department->id}}">{{$department->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Division</label>
-                            <div class="col-md-6">
-                                <select class="form-control" name="division_id">
-                                    @foreach ($divisions as $division)
-                                        <option value="{{$division->id}}">{{$division->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label for="avatar" class="col-md-4 control-label" >Picture</label>
                             <div class="col-md-6">
-                                <input type="file" id="picture" name="picture" required >
+                                <input type="file" id="picture" name="picture" />
                             </div>
                         </div>
                         <div class="form-group">

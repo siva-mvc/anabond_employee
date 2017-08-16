@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Add new user</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('user-management.store') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('user-management.store') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
@@ -82,6 +82,12 @@
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="avatar" class="col-md-4 control-label" >Picture</label>
+                            <div class="col-md-6">
+                                <input type="file" id="picture" name="picture" required >
                             </div>
                         </div>
 

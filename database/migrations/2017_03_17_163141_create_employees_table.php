@@ -29,7 +29,7 @@ class CreateEmployeesTable extends Migration
             $table->integer('age');
             $table->date('birthdate');
             $table->date('date_hired');
-            $table->integer('department_id');
+            $table->integer('department_id');s
             $table->integer('division_id');
             $table->integer('company_id');
             $table->foreign('department_id')->references('id')->on('department');

@@ -11,7 +11,7 @@
                         <input type="hidden" name="_method" value="PATCH">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">department Name</label>
+                            <label for="name" class="col-md-4 control-label">Department Name</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control" name="name" value="{{ $department->name }}" required autofocus>
@@ -21,6 +21,16 @@
                                         <strong>{{ $errors->first('name') }}</strong>
                                     </span>
                                 @endif
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="col-md-4 control-label">Head of the Department</label>
+                            <div class="col-md-6">
+                                <select class="form-control" name="employee_id">
+                                    @foreach ($employees as $employee)
+                                        <option value="{{$employee->id}}" {{$employee->id == $department->employee_id ? 'selected' : ''}}>{{$employee->firstname}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">

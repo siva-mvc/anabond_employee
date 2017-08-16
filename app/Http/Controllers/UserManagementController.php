@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Response;
 use App\User;
 
 class UserManagementController extends Controller
@@ -56,12 +57,15 @@ class UserManagementController extends Controller
     public function store(Request $request)
     {
         $this->validateInput($request);
+
+        $path = $request->file('picture')->store('avatars');
          User::create([
             'username' => $request['username'],
             'email' => $request['email'],
             'password' => bcrypt($request['password']),
             'firstname' => $request['firstname'],
-            'lastname' => $request['lastname']
+            'lastname' => $request['lastname'],
+            'picture' => $path
         ]);
 
         return redirect()->intended('/user-management');
@@ -119,7 +123,13 @@ class UserManagementController extends Controller
             $constraints['password'] = 'required|min:6|confirmed';
             $input['password'] =  bcrypt($request['password']);
         }
+        if ($request->file('picture')) {
+            $path = $request->file('picture')->store('avatars');
+            $input['picture'] = $path;
+        }
+
         $this->validate($request, $constraints);
+
         User::where('id', $id)
             ->update($input);
         
@@ -169,6 +179,14 @@ class UserManagementController extends Controller
         }
         return $query->paginate(5);
     }
+
+    public function load($name) {
+        $path = storage_path().'/app/avatars/'.$name;
+        if (file_exists($path)) {
+            return Response::download($path);
+        }
+    }
+    
     private function validateInput($request) {
         $this->validate($request, [
         'username' => 'required|max:20',

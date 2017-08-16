@@ -10,7 +10,7 @@ use App\City;
 use App\State;
 use App\Country;
 use App\Department;
-use App\Division;
+use App\Designation;
 
 class EmployeeManagementController extends Controller
 {
@@ -36,8 +36,8 @@ class EmployeeManagementController extends Controller
         ->leftJoin('department', 'employees.department_id', '=', 'department.id')
         ->leftJoin('state', 'employees.state_id', '=', 'state.id')
         ->leftJoin('country', 'employees.country_id', '=', 'country.id')
-        ->leftJoin('division', 'employees.division_id', '=', 'division.id')
-        ->select('employees.*', 'department.name as department_name', 'department.id as department_id', 'division.name as division_name', 'division.id as division_id')
+        ->leftJoin('designation', 'employees.designation_id', '=', 'designation.id')
+        ->select('employees.*', 'department.name as department_name', 'department.id as department_id', 'designation.name as designation_name', 'designation.id as designation_id')
         ->paginate(5);
 
         return view('employees-mgmt/index', ['employees' => $employees]);
@@ -54,9 +54,9 @@ class EmployeeManagementController extends Controller
         $states = State::all();
         $countries = Country::all();
         $departments = Department::all();
-        $divisions = Division::all();
+        $designations = Designation::all();
         return view('employees-mgmt/create', ['cities' => $cities, 'states' => $states, 'countries' => $countries,
-        'departments' => $departments, 'divisions' => $divisions]);
+        'departments' => $departments, 'designations' => $designations]);
     }
 
     /**
@@ -70,8 +70,8 @@ class EmployeeManagementController extends Controller
         $this->validateInput($request);
         // Upload image
         $path = $request->file('picture')->store('avatars');
-        $keys = ['lastname', 'firstname', 'middlename', 'address', 'city_id', 'state_id', 'country_id', 'zip',
-        'age', 'birthdate', 'date_hired', 'department_id', 'department_id', 'division_id'];
+        $keys = ['employee_reg_id','lastname', 'firstname', 'middlename', 'address', 'city_id', 'state_id', 'country_id', 'zip',
+        'age', 'birthdate', 'date_hired', 'department_id', 'department_id', 'designation_id'];
         $input = $this->createQueryInput($keys, $request);
         $input['picture'] = $path;
         // Not implement yet
@@ -109,9 +109,9 @@ class EmployeeManagementController extends Controller
         $states = State::all();
         $countries = Country::all();
         $departments = Department::all();
-        $divisions = Division::all();
+        $designations = Designation::all();
         return view('employees-mgmt/edit', ['employee' => $employee, 'cities' => $cities, 'states' => $states, 'countries' => $countries,
-        'departments' => $departments, 'divisions' => $divisions]);
+        'departments' => $departments, 'designations' => $designations]);
     }
 
     /**
@@ -126,8 +126,8 @@ class EmployeeManagementController extends Controller
         $employee = Employee::findOrFail($id);
         $this->validateInput($request);
         // Upload image
-        $keys = ['lastname', 'firstname', 'middlename', 'address', 'city_id', 'state_id', 'country_id', 'zip',
-        'age', 'birthdate', 'date_hired', 'department_id', 'department_id', 'division_id'];
+        $keys = ['employee_reg_id','lastname', 'firstname', 'middlename', 'address', 'city_id', 'state_id', 'country_id', 'zip',
+        'age', 'birthdate', 'date_hired', 'department_id', 'department_id', 'designation_id'];
         $input = $this->createQueryInput($keys, $request);
         if ($request->file('picture')) {
             $path = $request->file('picture')->store('avatars');
@@ -174,8 +174,8 @@ class EmployeeManagementController extends Controller
         ->leftJoin('department', 'employees.department_id', '=', 'department.id')
         ->leftJoin('state', 'employees.state_id', '=', 'state.id')
         ->leftJoin('country', 'employees.country_id', '=', 'country.id')
-        ->leftJoin('division', 'employees.division_id', '=', 'division.id')
-        ->select('employees.firstname as employee_name', 'employees.*','department.name as department_name', 'department.id as department_id', 'division.name as division_name', 'division.id as division_id');
+        ->leftJoin('designation', 'employees.designation_id', '=', 'designation.id')
+        ->select('employees.firstname as employee_name', 'employees.*','department.name as department_name', 'department.id as department_id', 'designation.name as designation_name', 'designation.id as designation_id');
         $fields = array_keys($constraints);
         $index = 0;
         foreach ($constraints as $constraint) {
@@ -203,6 +203,7 @@ class EmployeeManagementController extends Controller
 
     private function validateInput($request) {
         $this->validate($request, [
+            'employee_reg_id' => 'required|max:60',
             'lastname' => 'required|max:60',
             'firstname' => 'required|max:60',
             'middlename' => 'required|max:60',
@@ -215,7 +216,7 @@ class EmployeeManagementController extends Controller
             'birthdate' => 'required',
             'date_hired' => 'required',
             'department_id' => 'required',
-            'division_id' => 'required'
+            'designation_id' => 'required'
         ]);
     }
 

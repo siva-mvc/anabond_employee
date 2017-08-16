@@ -34,7 +34,7 @@
                 <th width="15%">Birthdate</th>
                 <th width="15%">Hired Date</th>
                 <th width="10%">Department</th>
-                <th width="10%">Division</th>             
+                <th width="10%">Designation</th>             
               </tr>
             </thead>
             <tbody>
@@ -46,7 +46,7 @@
                   <td>{{ $employee['birthdate'] }}</td>
                   <td>{{ $employee['date_hired'] }}</td>
                   <td>{{ $employee['department_name'] }}</td>
-                  <td>{{ $employee['division_name'] }}</td>
+                  <td>{{ $employee['designation_name'] }}</td>
               </tr>
             @endforeach
             </tbody>

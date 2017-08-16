@@ -68,7 +68,7 @@
               </tr>
             @endforeach
             </tbody>
-            <tfoot>
+            <!-- <tfoot>
               <tr>
                 <th width="10%" rowspan="1" colspan="1">User Name</th>
                 <th width="20%" rowspan="1" colspan="1">Email</th>
@@ -76,7 +76,7 @@
                 <th class="hidden-xs" width="20%" rowspan="1" colspan="1">Last Name</th>
                 <th rowspan="1" colspan="2">Action</th>
               </tr>
-            </tfoot>
+            </tfoot> -->
           </table>
         </div>
       </div>

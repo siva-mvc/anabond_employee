@@ -4,12 +4,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Country Mangement
+        Country Management
       </h1>
-      <ol class="breadcrumb">
+      <!-- <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> System Mangement</a></li>
         <li class="active">Country</li>
-      </ol>
+      </ol> -->
     </section>
     @yield('action-content')
     <!-- /.content -->

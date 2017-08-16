@@ -30,8 +30,14 @@ Route::post('employee-management/search', 'EmployeeManagementController@search')
 Route::resource('system-management/department', 'DepartmentController');
 Route::post('system-management/department/search', 'DepartmentController@search')->name('department.search');
 
-Route::resource('system-management/division', 'DivisionController');
-Route::post('system-management/division/search', 'DivisionController@search')->name('division.search');
+Route::resource('system-management/designation', 'DesignationController');
+Route::post('system-management/designation/search', 'DesignationController@search')->name('designation.search');
+
+Route::resource('system-management/team', 'TeamController');
+Route::post('system-management/team/search', 'TeamController@search')->name('team.search');
+
+Route::resource('system-management/factor', 'PerformanceFactorController');
+Route::post('system-management/factor/search', 'PerformanceFactorController@search')->name('factor.search');
 
 Route::resource('system-management/country', 'CountryController');
 Route::post('system-management/country/search', 'CountryController@search')->name('country.search');
@@ -46,5 +52,9 @@ Route::get('system-management/report', 'ReportController@index');
 Route::post('system-management/report/search', 'ReportController@search')->name('report.search');
 Route::post('system-management/report/excel', 'ReportController@exportExcel')->name('report.excel');
 Route::post('system-management/report/pdf', 'ReportController@exportPDF')->name('report.pdf');
+
+
+
+Route:: get('employee-factor/configure/{employee_id}', 'EmployeeFactorController@update_employee_performance')->name('employee_factor.update_employee_performance');
 
 Route::get('avatars/{name}', 'EmployeeManagementController@load');

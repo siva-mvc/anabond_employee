@@ -13,10 +13,10 @@
                 {{ csrf_field() }}
                 <input type="hidden" value="{{$searchingVals['from']}}" name="from" />
                 <input type="hidden" value="{{$searchingVals['to']}}" name="to" />
-                <button type="submit" class="btn btn-primary">
+                <!-- <button type="submit" class="btn btn-primary">
                   Export to Excel
                 </button>
-            </form>
+ -->            </form>
         </div>
         <div class="col-sm-4">
             <form class="form-horizontal" role="form" method="POST" action="{{ route('report.pdf') }}">

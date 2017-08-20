@@ -14,7 +14,7 @@
                             <label for="employee_reg_id" class="col-md-4 control-label">Employee Id</label>
 
                             <div class="col-md-6">
-                                <input id="employee_reg_id" type="text" class="form-control" name="employee_reg_id" value="{{ old('employee_reg_id') }}" required autofocus>
+                                <input id="employee_reg_id" type="text" class="form-control" name="employee_reg_id" value="{{ old('employee_reg_id') }}" autofocus>
 
                                 @if ($errors->has('employee_reg_id'))
                                     <span class="help-block">
@@ -27,7 +27,7 @@
                             <label for="firstname" class="col-md-4 control-label">First Name</label>
 
                             <div class="col-md-6">
-                                <input id="firstname" type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" required autofocus>
+                                <input id="firstname" type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" autofocus>
 
                                 @if ($errors->has('firstname'))
                                     <span class="help-block">
@@ -40,7 +40,7 @@
                             <label for="lastname" class="col-md-4 control-label">Last Name</label>
 
                             <div class="col-md-6">
-                                <input id="lastname" type="text" class="form-control" name="lastname" value="{{ old('lastname') }}" required>
+                                <input id="lastname" type="text" class="form-control" name="lastname" value="{{ old('lastname') }}">
 
                                 @if ($errors->has('lastname'))
                                     <span class="help-block">
@@ -53,7 +53,7 @@
                             <label for="middlename" class="col-md-4 control-label">Middle Name</label>
 
                             <div class="col-md-6">
-                                <input id="middlename" type="text" class="form-control" name="middlename" value="{{ old('middlename') }}" required>
+                                <input id="middlename" type="text" class="form-control" name="middlename" value="{{ old('middlename') }}">
 
                                 @if ($errors->has('middlename'))
                                     <span class="help-block">
@@ -87,7 +87,7 @@
                             <label for="address" class="col-md-4 control-label">Address</label>
 
                             <div class="col-md-6">
-                                <input id="address" type="text" class="form-control" name="address" value="{{ old('address') }}" required>
+                                <input id="address" type="text" class="form-control" name="address" value="{{ old('address') }}">
 
                                 @if ($errors->has('address'))
                                     <span class="help-block">
@@ -130,7 +130,7 @@
                             <label for="zip" class="col-md-4 control-label">Zip</label>
 
                             <div class="col-md-6">
-                                <input id="zip" type="text" class="form-control" name="zip" value="{{ old('zip') }}" required>
+                                <input id="zip" type="text" class="form-control" name="zip" value="{{ old('zip') }}">
 
                                 @if ($errors->has('zip'))
                                     <span class="help-block">
@@ -143,7 +143,7 @@
                             <label for="zip" class="col-md-4 control-label">Age</label>
 
                             <div class="col-md-6">
-                                <input id="age" type="text" class="form-control" name="age" value="{{ old('age') }}" required>
+                                <input id="age" type="text" class="form-control" name="age" value="{{ old('age') }}">
 
                                 @if ($errors->has('age'))
                                     <span class="help-block">
@@ -159,7 +159,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" value="{{ old('birthdate') }}" name="birthdate" class="form-control pull-right" id="birthDate" required>
+                                    <input type="text" value="{{ old('birthdate') }}" name="birthdate" class="form-control pull-right" id="birthDate">
                                 </div>
                             </div>
                         </div>
@@ -170,7 +170,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" value="{{ old('date_hired') }}" name="date_hired" class="form-control pull-right" id="hiredDate" required>
+                                    <input type="text" value="{{ old('date_hired') }}" name="date_hired" class="form-control pull-right" id="hiredDate">
                                 </div>
                             </div>
                         </div>

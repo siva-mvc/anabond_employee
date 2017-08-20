@@ -47,7 +47,13 @@
             <tbody>
             @foreach ($employees as $employee)
                 <tr role="row" class="odd">
-                  <td><img src="../{{$employee->picture }}" width="50px" height="50px"/></td>
+                  <td>
+                  @if(trim($employee->picture))
+                   <img src="../{{$employee->picture }}" width="50px" height="50px"/>
+                  @else  
+                   <img src="{{ asset("/bower_components/AdminLTE/dist/img/user2-160x160.jpg") }}"  width="50px" height="50px">
+                  @endif 
+                  </td>
                   <td class="sorting_1">{{ $employee->firstname }} {{$employee->middlename}} {{$employee->lastname}}</td>
                   <td class="hidden-xs">{{ $employee->address }}</td>
                   <td class="hidden-xs">{{ $employee->age }}</td>

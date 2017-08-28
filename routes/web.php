@@ -54,6 +54,14 @@ Route::post('system-management/report/excel', 'ReportController@exportExcel')->n
 Route::post('system-management/report/pdf', 'ReportController@exportPDF')->name('report.pdf');
 
 
+Route::get('employee-factors-management', 'EmployeeFactorController@employee_factors_management')->name('employee_factor.factors_management');
+
+Route::get('employee-factor-achivement', 'EmployeeFactorController@employee_factor_achivement')->name('employee_factor.factor_achivement');
+
+Route::get('employee-factor-achivement-month', 'EmployeeFactorController@employee_factor_achivement_month')->name('employee_factor.factor_achivement_month');
+
+Route::get('employee-factor-achivement-year', 'EmployeeFactorController@employee_factor_achivement_year')->name('employee_factor.factor_achivement_year');
+
 
 Route:: get('employee-factor/configure/{employee_id}', 'EmployeeFactorController@update_employee_performance')->name('employee_factor.update_employee_performance');
 

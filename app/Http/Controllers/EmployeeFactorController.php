@@ -33,5 +33,26 @@ class EmployeeFactorController extends Controller
 
       return view('performance-factor/index', ['employee_factors' => $employee_factors, 'factors' => $factors]);
     }
+    
+    public function employee_factors_management()
+    {
+        return view('performance-factor/employee_factors_management');
+    }
+
+    public function employee_factor_achivement()
+    {
+        return view('performance-factor/employee_factor_achivement');
+    }
+
+    public function employee_factor_achivement_month()
+    {
+        return view('performance-factor/employee_factor_achivement_month');
+    }
+
+    public function employee_factor_achivement_year()
+    {
+        return view('performance-factor/employee_factor_achivement_year');
+    }
+  
 
 }

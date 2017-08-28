@@ -164,7 +164,7 @@
                             </div>
                         </div>
                           <div class="form-group">
-                            <label class="col-md-4 control-label">Hired Date</label>
+                            <label class="col-md-4 control-label">Date of Joining</label>
                             <div class="col-md-6">
                                 <div class="input-group date">
                                     <div class="input-group-addon">

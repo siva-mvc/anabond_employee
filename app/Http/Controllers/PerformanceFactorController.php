@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\PerformanceFactor;
+use App\Department;
 
 class PerformanceFactorController extends Controller
 {
@@ -37,8 +38,9 @@ class PerformanceFactorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('system-mgmt/factor/create');
+    {   
+        $departments = Department::all();
+        return view('system-mgmt/factor/create', ['departments' => $departments]);
     }
 
     /**
@@ -52,6 +54,7 @@ class PerformanceFactorController extends Controller
         $this->validateInput($request);
          PerformanceFactor::create([
             'name' => $request['name'],
+            'department_id' => $request['department_id'],
             'description' => $request['description']
         ]);
 
@@ -77,13 +80,14 @@ class PerformanceFactorController extends Controller
      */
     public function edit($id)
     {
+        $departments = Department::all();
         $factor = PerformanceFactor::find($id);
         // Redirect to factor list if updating factor wasn't existed
         if ($factor == null || count($factor) == 0) {
             return redirect()->intended('/system-management/factor');
         }
 
-        return view('system-mgmt/factor/edit', ['factor' => $factor]);
+        return view('system-mgmt/factor/edit', ['factor' => $factor, 'departments' =>$departments]);
     }
 
     /**
@@ -99,6 +103,7 @@ class PerformanceFactorController extends Controller
         $this->validateInput($request);
         $input = [
             'name' => $request['name'],
+            'department_id' => $request['department_id'],
             'description' => $request['description']
         ];
         PerformanceFactor::where('id', $id)

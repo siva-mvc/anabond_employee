@@ -29,7 +29,5 @@ class UpdateEmployeeTableDept extends Migration
         Schema::table('employees', function($table) {
             $table->dropColumn('department_head_id');
         });
-
-        
     }
 }

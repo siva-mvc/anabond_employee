@@ -23,6 +23,16 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Department</label>
+                            <div class="col-md-6">
+                                <select class="form-control" name="department_id">
+                                    @foreach ($departments as $department)
+                                        <option value="{{$department->id}}" {{$department->id == $factor->department_id ? 'selected' : ''}}>{{$department->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
                             <label for="description" class="col-md-4 control-label">Description</label>
 

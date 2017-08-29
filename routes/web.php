@@ -53,8 +53,11 @@ Route::post('system-management/report/search', 'ReportController@search')->name(
 Route::post('system-management/report/excel', 'ReportController@exportExcel')->name('report.excel');
 Route::post('system-management/report/pdf', 'ReportController@exportPDF')->name('report.pdf');
 
+//Configure factore
+Route::get('employee-factors-management/{employee_id}', 'EmployeeFactorController@employee_factors_management')->name('employee_factor.factors_management');
 
-Route::get('employee-factors-management', 'EmployeeFactorController@employee_factors_management')->name('employee_factor.factors_management');
+Route::post('employee-factors-management/{employee_id}', 'EmployeeFactorController@save_employee_factors_management')->name('employee_factor.factors_save_management');
+// End
 
 Route::get('employee-factor-achivement', 'EmployeeFactorController@employee_factor_achivement')->name('employee_factor.factor_achivement');
 

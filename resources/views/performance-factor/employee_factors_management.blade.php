@@ -1,110 +1,71 @@
 @extends('performance-factor.base')
 @section('action-content')
 <section class="content">
-      <div class="box">
-          <!-- /.box-header -->
-          <div class="box-body">
-              
-              <!-- Ela Code Starts Here-->
+    <div class="box">
+        <!-- /.box-header -->
+        <div class="box-body">
+            <!-- Ela Code Starts Here-->
             <div class="box-body-inner">
-              <div class="box-body-head">
-           <h4><strong>Employee Details :</strong></h4>
-          <ul class="emp-detail-list row">  
-            <li class="col-sm-3">
-              Name : <strong>Enose Elisha</strong>
-            </li>
-            <li class="col-sm-3">
-              Employee ID : <strong>ENSA</strong>
-            </li>
-            <li class="col-sm-3">
-              Designation : <strong>UI Developer</strong>
-            </li>
-            <li class="col-sm-3">
-              Department : <strong>HR</strong>
-            </li>
-            <li class="col-sm-3">
-              Birth Date : <strong>1993/08/30</strong>
-            </li>
-            <li class="col-sm-3">
-              Date of Joining: <strong>2014/08/30</strong>
-            </li>
-          </ul>
-          <h4 class="btn btn-success">Month: <strong>January</strong></h4>
-        </div>
-                <h4>Department: <strong>HR Department</strong></h4>
-                <form class="emp-factor-form">
+                 @if(Session::has('message'))
+                <div class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</div>
+                @endif
+                <div class="box-body-head">
+                    <h4><strong>Employee Details :</strong></h4>
+                    <ul class="emp-detail-list row">
+                        <li class="col-sm-3">
+                            Name : <strong>{{ $employee->firstname }} {{ $employee->lastname }}</strong>
+                        </li>
+                        <li class="col-sm-3">
+                            Employee ID : <strong>{{ $employee->employee_reg_id }}</strong>
+                        </li>
+                        <li class="col-sm-3">
+                            Designation : <strong>{{ $employee->designation_name }}</strong>
+                        </li>
+                        <li class="col-sm-3">
+                            Date of Joining: <strong>{{ $employee->date_hired }}</strong>
+                        </li>
+                    </ul>
+                    <h4 class="btn btn-success">Month: <strong>{{ Carbon\Carbon::parse($employee->created_at)->format('F') }}</strong></h4>
+                </div>
+                <h4>Department: <strong>{{ $employee->department_name }} </strong></h4>
+                <form class="emp-factor-form" role="form" method="POST" action="{{ route('employee_factor.factors_management', ['employee_id' => $employee->id]) }}">
+                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="table-responsive">
+                    (* Total maximum target should be equal to 50)
                         <table class="table table-hover">
-                             <thead>
-                                  <tr class="thead-bg">
-                                      <th style="width:8%">Select</th>
-                                      <th>Factors</th>
-                                      <th>Maximum Score</th>
-                                 </tr>
+                            <thead>
+                                <tr class="thead-bg">
+                                    <th style="width:8%">Select</th>
+                                    <th>Factors</th>
+                                    <th>Target</th>
+                                </tr>
                             </thead>
                             <tbody>
-                                 <tr>
-                                     <td>
-                                       <label>
-                                         <input type="checkbox" id="option1">
-                                       </label>
-                                     </td>
-                                     <td>
-                                         <label for="option1">Factor 1</label>
-                                     </td>
-                                     <td><input type="text" class="form-control mw100"></td>
+                                @foreach ($factors as $factor)
+                                <tr>
+                                    <td>
+                                        <label>
+                                        <input type="checkbox" name="factors[]" value="{{ $factor->id }}" id="option{{ $factor->id }}">
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label for="option{{ $factor->id }}">{{ $factor->name }}</label>
+                                    </td>
+                                    <td><input type="text" name="targets[{{$factor->id}}]" class="form-control mw100"></td>
                                 </tr>
-                
-                <tr>
-                                     <td>
-                                       <label>
-                                         <input type="checkbox" id="option2">
-                                       </label>
-                                     </td>
-                                     <td>
-                                         <label for="option2">Factor 2</label>
-                                     </td>
-                                     <td><input type="text" class="form-control mw100"></td>
-                                </tr>
-                
-                <tr>
-                                     <td>
-                                       <label>
-                                         <input type="checkbox" id="option3">
-                                       </label>
-                                     </td>
-                                     <td>
-                                         <label for="option3">Factor 3</label>
-                                     </td>
-                                     <td><input type="text" class="form-control mw100"></td>
-                                </tr>
-                
-                <tr>
-                                     <td>
-                                       <label>
-                                         <input type="checkbox" id="option4">
-                                       </label>
-                                     </td>
-                                     <td>
-                                         <label for="option4">Factor 4</label>
-                                     </td>
-                                     <td><input type="text" class="form-control mw100"></td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
-          
-          <div class="text-right">
-            <button class="btn btn-danger btn-100">Cancel</button>
-            <button class="btn btn-success btn-100">Save</button>
-          </div>
+                    <div class="text-right">
+                        <button class="btn btn-danger btn-100">Cancel</button>
+                        <button class="btn btn-success btn-100">Complete</button>
+                    </div>
                 </form>
             </div>
-                
-              <!--/Ela Code Starts Here-->
-              
-          </div>
-          <!-- /.box-body -->
+            <!--/Ela Code Starts Here-->
         </div>
-    </section>
+        <!-- /.box-body -->
+    </div>
+</section>
 @endsection

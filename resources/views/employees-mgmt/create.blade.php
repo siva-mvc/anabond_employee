@@ -153,7 +153,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Birthdate</label>
+                            <label class="col-md-4 control-label">Birth date</label>
                             <div class="col-md-6">
                                 <div class="input-group date">
                                     <div class="input-group-addon">
@@ -181,7 +181,13 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
+                            <div class="col-md-1 col-md-offset-4">
+                                <button type="reset" class="btn btn-warning">
+                                    Cancel
+                                </button>
+                            </div>
+
+                            <div class="col-md-1 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
                                     Create
                                 </button>

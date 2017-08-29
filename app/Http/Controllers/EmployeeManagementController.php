@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use Response;
 use App\Employee;
@@ -78,7 +79,8 @@ class EmployeeManagementController extends Controller
         
         $input['company_id'] = 0;
         $emp = Employee::create($input);
-        return redirect()->intended('/employee-management');
+        return Redirect::route('employee_factor.factors_management', $emp->id)->with('message', 'State saved correctly!!!');
+        //return redirect()->intended('/employee-management', []);
     }
 
     /**

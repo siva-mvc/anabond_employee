@@ -35,9 +35,9 @@
               <tr role="row">
                 <th width="10%" aria-controls="example2" rowspan="1" colspan="1" aria-label="Picture: activate to sort column descending" aria-sort="ascending">Picture</th>
                 <th width="10%" class="sorting_asc" aria-controls="example2" rowspan="1" colspan="1" aria-label="Name: activate to sort column descending" aria-sort="ascending">Employee Name</th>
-                <!-- <th width="10%" class="sorting hidden-xs" aria-controls="example2" rowspan="1" colspan="1" aria-label="Address: activate to sort column ascending">Address</th -->>
-                <th width="10%" class="sorting hidden-xs" aria-controls="example2" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">Age</th>
-                <th width="10%" class="sorting hidden-xs" aria-controls="example2" rowspan="1" colspan="1" aria-label="Birthdate: activate to sort column ascending">Birthdate</th>
+                <!-- <th width="10%" class="sorting hidden-xs" aria-controls="example2" rowspan="1" colspan="1" aria-label="Address: activate to sort column ascending">Address</th -->
+               <!--  <th width="10%" class="sorting hidden-xs" aria-controls="example2" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">Age</th>
+                <th width="10%" class="sorting hidden-xs" aria-controls="example2" rowspan="1" colspan="1" aria-label="Birthdate: activate to sort column ascending">Birthdate</th> -->
                 <th width="10%" class="sorting hidden-xs" aria-controls="example2" rowspan="1" colspan="1" aria-label="HiredDate: activate to sort column ascending">Date of Joining</th>
                 <th width="10%" class="sorting hidden-xs" aria-controls="example2" rowspan="1" colspan="1" aria-label="Department: activate to sort column ascending">Department</th>
                 <th width="10%" class="sorting hidden-xs" aria-controls="example2" rowspan="1" colspan="1" aria-label="Designation: activate to sort column ascending">Designation</th>
@@ -56,8 +56,8 @@
                   </td>
                   <td class="sorting_1">{{ $employee->firstname }} {{$employee->middlename}} {{$employee->lastname}}</td>
                   <!-- <td class="hidden-xs">{{ $employee->address }}</td> -->
-                  <td class="hidden-xs">{{ $employee->age }}</td>
-                  <td class="hidden-xs">{{ $employee->birthdate }}</td>
+                  <!-- <td class="hidden-xs">{{ $employee->age }}</td>
+                  <td class="hidden-xs">{{ $employee->birthdate }}</td> -->
                   <td class="hidden-xs">{{ $employee->date_hired }}</td>
                   <td class="hidden-xs">{{ $employee->department_name }}</td>
                   <td class="hidden-xs">{{ $employee->designation_name }}</td>
@@ -72,6 +72,7 @@
                           Delete
                         </button>
                     </form>
+                    <a href="{{ route('employee_factor.factors_management', ['employee_id' => $employee->id]) }}">Config</a>
                   </td>
               </tr>
             @endforeach

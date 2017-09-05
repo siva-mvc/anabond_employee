@@ -51,19 +51,6 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group{{ $errors->has('middlename') ? ' has-error' : '' }}">
-                            <label for="middlename" class="col-md-4 control-label">Middle Name</label>
-
-                            <div class="col-md-6">
-                                <input id="middlename" type="text" class="form-control" name="middlename" value="{{ $employee->middlename }}">
-
-                                @if ($errors->has('middlename'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('middlename') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
                          <div class="form-group">
                             <label class="col-md-4 control-label">Designation</label>
                             <div class="col-md-6">
@@ -84,74 +71,15 @@
                                 </select>
                             </div>
                         </div>
-                       
-                        <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
-                            <label for="address" class="col-md-4 control-label">Address</label>
 
-                            <div class="col-md-6">
-                                <input id="address" type="text" class="form-control" name="address" value="{{ $employee->address }}">
-
-                                @if ($errors->has('address'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('address') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
                         <div class="form-group">
-                            <label class="col-md-4 control-label">City</label>
+                            <label class="col-md-4 control-label">Tame</label>
                             <div class="col-md-6">
-                                <select class="form-control" name="city_id">
-                                    @foreach ($cities as $city)
-                                        <option {{$employee->city_id == $city->id ? 'selected' : ''}} value="{{$city->id}}">{{$city->name}}</option>
+                                <select class="form-control" name="department_id">
+                                    @foreach ($teams as $team)
+                                        <option {{$employee->team_id == $team->id ? 'selected' : ''}} value="{{$team->id}}">{{$team->name}}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                        </div>
-                              <div class="form-group">
-                            <label class="col-md-4 control-label">State</label>
-                            <div class="col-md-6">
-                                <select class="form-control" name="state_id">
-                                    @foreach ($states as $state)
-                                        <option {{$employee->state_id == $state->id ? 'selected' : ''}} value="{{$state->id}}">{{$state->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Country</label>
-                            <div class="col-md-6">
-                                <select class="form-control" name="country_id">
-                                    @foreach ($countries as $country)
-                                        <option {{$employee->country_id == $country->id ? 'selected' : ''}} value="{{$country->id}}">{{$country->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group{{ $errors->has('zip') ? ' has-error' : '' }}">
-                            <label for="zip" class="col-md-4 control-label">Zip</label>
-
-                            <div class="col-md-6">
-                                <input id="zip" type="text" class="form-control" name="zip" value="{{ $employee->zip }}">
-
-                                @if ($errors->has('zip'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('zip') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group{{ $errors->has('age') ? ' has-error' : '' }}">
-                            <label for="zip" class="col-md-4 control-label">Age</label>
-
-                            <div class="col-md-6">
-                                <input id="age" type="text" class="form-control" name="age" value="{{ $employee->age }}">
-
-                                @if ($errors->has('age'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('age') }}</strong>
-                                    </span>
-                                @endif
                             </div>
                         </div>
                         <div class="form-group">

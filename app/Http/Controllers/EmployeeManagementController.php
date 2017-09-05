@@ -12,6 +12,7 @@ use App\State;
 use App\Country;
 use App\Department;
 use App\Designation;
+use App\Team;
 
 class EmployeeManagementController extends Controller
 {
@@ -37,6 +38,7 @@ class EmployeeManagementController extends Controller
         ->leftJoin('department', 'employees.department_id', '=', 'department.id')
         ->leftJoin('state', 'employees.state_id', '=', 'state.id')
         ->leftJoin('country', 'employees.country_id', '=', 'country.id')
+        ->leftJoin('team', 'employees.team_id', '=', 'team.id')
         ->leftJoin('designation', 'employees.designation_id', '=', 'designation.id')
         ->select('employees.*', 'department.name as department_name', 'department.id as department_id', 'designation.name as designation_name', 'designation.id as designation_id')
         ->orderBy('employees.firstname', 'ASC')
@@ -51,12 +53,13 @@ class EmployeeManagementController extends Controller
      */
     public function create()
     {
-        $cities = City::all()->sortBy("name");
-        $states = State::all()->sortBy("name");
-        $countries = Country::all()->sortBy("name");
+        // $cities = City::all()->sortBy("name");
+        // $states = State::all()->sortBy("name");
+        // $countries = Country::all()->sortBy("name");
+        $teams = Team::all()->sortBy("name");
         $departments = Department::all()->sortBy("name");
         $designations = Designation::all()->sortBy("name");
-        return view('employees-mgmt/create', ['cities' => $cities, 'states' => $states, 'countries' => $countries,
+        return view('employees-mgmt/create', ['teams' => $teams,
         'departments' => $departments, 'designations' => $designations]);
     }
 
@@ -69,8 +72,7 @@ class EmployeeManagementController extends Controller
     public function store(Request $request)
     {
         $this->validateInput($request);
-        $keys = ['employee_reg_id','lastname', 'firstname', 'middlename', 'address', 'city_id', 'state_id', 'country_id', 'zip',
-        'age', 'birthdate', 'date_hired', 'department_id', 'department_id', 'designation_id'];
+        $keys = ['employee_reg_id','lastname', 'firstname', 'birthdate', 'date_hired', 'team_id', 'department_id', 'designation_id'];
         $input = $this->createQueryInput($keys, $request);
         if ($request->file('picture')) {
             $path = $request->file('picture')->store('avatars');
@@ -107,12 +109,12 @@ class EmployeeManagementController extends Controller
         if ($employee == null || count($employee) == 0) {
             return redirect()->intended('/employee-management');
         }
-        $cities = City::all()->sortBy("name");
-        $states = State::all()->sortBy("name");
-        $countries = Country::all()->sortBy("name");
+        // $cities = City::all()->sortBy("name");
+        // $states = State::all()->sortBy("name");
+        $teams = Team::all()->sortBy("name");
         $departments = Department::all()->sortBy("name");
         $designations = Designation::all()->sortBy("name");
-        return view('employees-mgmt/edit', ['employee' => $employee, 'cities' => $cities, 'states' => $states, 'countries' => $countries,
+        return view('employees-mgmt/edit', ['employee' => $employee,'teams' => $teams,
         'departments' => $departments, 'designations' => $designations]);
     }
 
@@ -134,8 +136,7 @@ class EmployeeManagementController extends Controller
         
         
         // Upload image
-        $keys = ['employee_reg_id','lastname', 'firstname', 'middlename', 'address', 'city_id', 'state_id', 'country_id', 'zip',
-        'age', 'birthdate', 'date_hired', 'department_id', 'department_id', 'designation_id'];
+        $keys = ['employee_reg_id','lastname', 'firstname', 'team_id', 'birthdate', 'date_hired', 'department_id', 'department_id', 'designation_id'];
         $input = $this->createQueryInput($keys, $request);
         if ($request->file('picture')) {
             $path = $request->file('picture')->store('avatars');
@@ -178,10 +179,11 @@ class EmployeeManagementController extends Controller
 
     private function doSearchingQuery($constraints) {
         $query = DB::table('employees')
-        ->leftJoin('city', 'employees.city_id', '=', 'city.id')
+        //->leftJoin('city', 'employees.city_id', '=', 'city.id')
         ->leftJoin('department', 'employees.department_id', '=', 'department.id')
-        ->leftJoin('state', 'employees.state_id', '=', 'state.id')
-        ->leftJoin('country', 'employees.country_id', '=', 'country.id')
+        ->leftJoin('team', 'employees.team_id', '=', 'team.id')
+        // ->leftJoin('state', 'employees.state_id', '=', 'state.id')
+        // ->leftJoin('country', 'employees.country_id', '=', 'country.id')
         ->leftJoin('designation', 'employees.designation_id', '=', 'designation.id')
         ->select('employees.firstname as employee_name', 'employees.*','department.name as department_name', 'department.id as department_id', 'designation.name as designation_name', 'designation.id as designation_id');
         $fields = array_keys($constraints);
@@ -214,8 +216,8 @@ class EmployeeManagementController extends Controller
             'employee_reg_id' => 'required|max:60|unique:employees',
             'lastname' => 'required|max:60',
             'firstname' => 'required|max:60',
-            'zip' => 'numeric',
-            'age' => 'numeric',
+            // 'zip' => 'numeric',
+            // 'age' => 'numeric',
             'department_id' => 'required',
             'designation_id' => 'required'
         ]);
@@ -225,8 +227,8 @@ class EmployeeManagementController extends Controller
             'employee_reg_id' => 'required|max:60',
             'lastname' => 'required|max:60',
             'firstname' => 'required|max:60',
-            'zip' => 'numeric',
-            'age' => 'numeric',
+            // 'zip' => 'numeric',
+            // 'age' => 'numeric',
             'department_id' => 'required',
             'designation_id' => 'required'
         ]);

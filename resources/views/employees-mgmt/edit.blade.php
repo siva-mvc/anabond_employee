@@ -75,7 +75,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Tame</label>
                             <div class="col-md-6">
-                                <select class="form-control" name="department_id">
+                                <select class="form-control" name="team_id">
                                     @foreach ($teams as $team)
                                         <option {{$employee->team_id == $team->id ? 'selected' : ''}} value="{{$team->id}}">{{$team->name}}</option>
                                     @endforeach

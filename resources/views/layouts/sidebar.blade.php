@@ -41,7 +41,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ url('employee-factors-management') }}">Employee Factors Management</a></li>
+            <!-- <li><a href="{{ url('employee-factors-management') }}">Employee Factors Management</a></li> -->
             <li><a href="{{ url('employee-factor-achivement') }}">Employee Factor Achivement</a></li>
             <li><a href="{{ url('employee-factor-achivement-month') }}">Employee Achivements By Month</a></li>
             <li><a href="{{ url('employee-factor-achivement-year') }}">Employee Achivements</a></li>

@@ -107,7 +107,7 @@
                         <div class="form-group">
                             <label for="avatar" class="col-md-4 control-label" >Picture</label>
                             <div class="col-md-6">
-                                <img src="../../{{$employee->picture }}" width="50px" height="50px"/>
+                                <img src="../../{{ $employee->picture }}" width="50px" height="50px"/>
                                 <input type="file" id="picture" name="picture" />
                             </div>
                         </div>

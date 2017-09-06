@@ -110,6 +110,11 @@ class EmployeeFactorController extends Controller
         return view('performance-factor/employee_factor_achivement');
     }
 
+    public function employee_factors_update_credite()
+    { 
+        return view('performance-factor/employee_factors_update_credite');
+    }
+
     public function employee_factor_achivement_month()
     {
         return view('performance-factor/employee_factor_achivement_month');

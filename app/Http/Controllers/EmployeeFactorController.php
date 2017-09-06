@@ -81,22 +81,28 @@ class EmployeeFactorController extends Controller
     public function save_employee_factors_management(Request $request, $employee_id)
     {
         $data = $request->all();
-        $factors = $data['factors'];
-        $targets = $data['targets'];
-        if (array_sum($targets) == 50){
-            EmployeeFactor::where('employee_id', $employee_id)->delete();
+        if(isset($data['factors'])){
+            $factors = $data['factors'];
+            $targets = $data['targets'];
+            if (array_sum($targets) == 50){
+                EmployeeFactor::where('employee_id', $employee_id)->delete();
 
-            foreach ($factors as $key=>$f) {
-                $model_meta = array('employee_id' =>$employee_id, 'performance_factor_id' =>$f,
-                 'target' => $targets[$f], 'order_by' => $key);
-                EmployeeFactor::create($model_meta);  
-            }    
-            return redirect()->intended('/employee-management');
+                foreach ($factors as $key=>$f) {
+                    $model_meta = array('employee_id' =>$employee_id, 'performance_factor_id' =>$f,
+                     'target' => $targets[$f], 'order_by' => $key);
+                    EmployeeFactor::create($model_meta);  
+                }    
+                return redirect()->intended('/employee-management');
+            }else{
+                Session::flash('message', 'Sum of targets should be equal to 50'); 
+                Session::flash('alert-class', 'alert-danger');
+                return Redirect::back()->withInput();        
+            }
         }else{
-            Session::flash('message', 'Sum of targets should be equal to 50'); 
-            Session::flash('alert-class', 'alert-danger');
-            return Redirect::back()->withInput();        
-        }
+             Session::flash('message', 'Invalid factor'); 
+                Session::flash('alert-class', 'alert-danger');
+                return Redirect::back()->withInput();
+        }    
     }
 
     public function employee_factor_achivement()

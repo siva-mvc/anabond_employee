@@ -72,7 +72,7 @@
                           Delete
                         </button>
                     </form>
-                    <a href="{{ route('employee_factor.factors_management', ['employee_id' => $employee->id]) }}">Config</a>
+                    <a class="btn  btn-primary btn-margin" href="{{ route('employee_factor.factors_management', ['employee_id' => $employee->id]) }}">Config</a>
                   </td>
               </tr>
             @endforeach

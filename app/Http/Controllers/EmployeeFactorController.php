@@ -11,6 +11,7 @@ use Session;
 use App\Employee;
 use App\EmployeeFactor;
 use App\PerformanceFactor;
+use App\Team;
 
 class EmployeeFactorController extends Controller
 {
@@ -40,10 +41,8 @@ class EmployeeFactorController extends Controller
     public function employee_factors_management($employee_id)
     {
         $employee = DB::table('employees')
-        ->leftJoin('city', 'employees.city_id', '=', 'city.id')
-        ->leftJoin('department', 'employees.department_id', '=', 'department.id')
-        ->leftJoin('state', 'employees.state_id', '=', 'state.id')
-        ->leftJoin('country', 'employees.country_id', '=', 'country.id')
+         ->leftJoin('department', 'employees.department_id', '=', 'department.id')
+         ->leftJoin('team', 'employees.team_id', '=', 'team.id')
         ->leftJoin('designation', 'employees.designation_id', '=', 'designation.id')
         ->select('employees.*', 'department.name as department_name', 'department.id as department_id', 'designation.name as designation_name', 'designation.id as designation_id')
         ->where('employees.id', '=' , $employee_id)
@@ -53,9 +52,29 @@ class EmployeeFactorController extends Controller
             return redirect()->intended('/employee-management');
         }
         
-        $factors = PerformanceFactor::where('department_id', $employee[0]->department_id)->get();
+        $raw_factors = PerformanceFactor::where('department_id', $employee[0]->department_id)->get();
+
         $emp_factors = EmployeeFactor::where('employee_id', $employee_id)->get();
 
+        $emp_factor_id_with_score = array();
+
+        foreach ($emp_factors as $f) {
+            $emp_factor_id_with_score[$f['performance_factor_id']] = $f['target']; 
+        }
+
+        $factors = array();
+
+        foreach ($raw_factors as $fact) {
+            if(array_key_exists($fact['id'], $emp_factor_id_with_score)){
+                $fact["is_selected"] = True;
+                $fact["target"] = $emp_factor_id_with_score[$fact['id']];
+                array_push($factors, $fact);
+            }else{
+                $fact["is_selected"] = False;
+                $fact["target"] = 0;
+                array_push($factors, $fact);
+            }
+        }
         return view('performance-factor/employee_factors_management',['employee' => $employee[0], 'factors' => $factors, 'emp_factors'=>$emp_factors]);
     }
 
@@ -65,8 +84,11 @@ class EmployeeFactorController extends Controller
         $factors = $data['factors'];
         $targets = $data['targets'];
         if (array_sum($targets) == 50){
+            EmployeeFactor::where('employee_id', $employee_id)->delete();
+
             foreach ($factors as $key=>$f) {
-                $model_meta = array('employee_id' =>$employee_id, 'performance_factor_id' =>$f, 'target' => $targets[$f], 'order_by' => $key);
+                $model_meta = array('employee_id' =>$employee_id, 'performance_factor_id' =>$f,
+                 'target' => $targets[$f], 'order_by' => $key);
                 EmployeeFactor::create($model_meta);  
             }    
             return redirect()->intended('/employee-management');

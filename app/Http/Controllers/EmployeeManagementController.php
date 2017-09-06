@@ -81,7 +81,7 @@ class EmployeeManagementController extends Controller
         
         $input['company_id'] = 0;
         $emp = Employee::create($input);
-        return Redirect::route('employee_factor.factors_management', $emp->id)->with('message', 'State saved correctly!!!');
+        return Redirect::route('employee_factor.factors_management', $emp->id)->with('message', 'Employee created successfully');
         //return redirect()->intended('/employee-management', []);
     }
 
@@ -146,7 +146,8 @@ class EmployeeManagementController extends Controller
         Employee::where('id', $id)
             ->update($input);
 
-        return redirect()->intended('/employee-management');
+        return Redirect::route('employee_factor.factors_management', $id)->with('message', 'Employee updated successfully');    
+        //return redirect()->intended('/employee-management');
     }
 
     /**

@@ -25,7 +25,7 @@
                             Date of Joining: <strong>{{ $employee->date_hired }}</strong>
                         </li>
                     </ul>
-                    <h4 class="btn btn-success">Month: <strong>{{ Carbon\Carbon::parse($employee->created_at)->format('F') }}</strong></h4>
+                    <!-- <h4 class="btn btn-success">Month: <strong>{{ Carbon\Carbon::parse($employee->created_at)->format('F') }}</strong></h4> -->
                 </div>
                 <h4>Department: <strong>{{ $employee->department_name }} </strong></h4>
                 <form class="emp-factor-form" role="form" method="POST" action="{{ route('employee_factor.factors_management', ['employee_id' => $employee->id]) }}">
@@ -45,13 +45,13 @@
                                 <tr>
                                     <td>
                                         <label>
-                                        <input type="checkbox" name="factors[]" value="{{ $factor->id }}" id="option{{ $factor->id }}">
+                                        <input type="checkbox" name="factors[]" value="{{ $factor->id }}" @if($factor->is_selected) checked @endif id="option{{ $factor->id }}">
                                         </label>
                                     </td>
                                     <td>
                                         <label for="option{{ $factor->id }}">{{ $factor->name }}</label>
                                     </td>
-                                    <td><input type="text" name="targets[{{$factor->id}}]" class="form-control mw100"></td>
+                                    <td><input type="text" name="targets[{{$factor->id}}]" value="{{ $factor->target }}" class="form-control mw100"></td>
                                 </tr>
                                 @endforeach
                             </tbody>

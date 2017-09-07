@@ -31,7 +31,16 @@
                 <form class="emp-factor-form" role="form" method="POST" action="{{ route('employee_factor.factors_management', ['employee_id' => $employee->id]) }}">
                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="table-responsive">
-                    (* Total maximum target should be equal to 50)
+                    <div class="form-group">
+                    <label class="col-md-3 control-label">Select Year</label>
+                         <div class="col-md-6">
+                         <select class="form-control" name="year">
+                            <option value="2017">2017-2018</option> 
+                            <option value="2018">2018-2019</option>     
+                        </select>
+                        </div>
+                    </div>
+                    <br>
                         <table class="table table-hover">
                             <thead>
                                 <tr class="thead-bg">
@@ -57,6 +66,7 @@
                             </tbody>
                         </table>
                     </div>
+                    (* Total maximum target should be equal to 50)
                     <div class="text-right">
                         <button class="btn btn-danger btn-100">Cancel</button>
                         <button class="btn btn-success btn-100">Complete</button>

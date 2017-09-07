@@ -11,6 +11,8 @@ $(document).ready(function() {
     var target_bix_id = $(this).data("targetid")
     if(! this.checked){
       $('#'+target_bix_id).attr("disabled", "disabled");
+    }else{
+      $('#'+target_bix_id).removeAttr("disabled");
     }
   });
 

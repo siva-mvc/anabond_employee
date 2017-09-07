@@ -53,8 +53,8 @@ class EmployeeFactorController extends Controller
         }
         
         $raw_factors = PerformanceFactor::where('department_id', $employee[0]->department_id)->get();
-
-        $emp_factors = EmployeeFactor::where('employee_id', $employee_id)->get();
+        $where = array('employee_id' => $employee_id, 'year' =>2017);
+        $emp_factors = EmployeeFactor::where($where)->get();
 
         $emp_factor_id_with_score = array();
 
@@ -85,11 +85,12 @@ class EmployeeFactorController extends Controller
             $factors = $data['factors'];
             $targets = $data['targets'];
             if (array_sum($targets) == 50){
-                EmployeeFactor::where('employee_id', $employee_id)->delete();
+                $where = array('employee_id' => $employee_id, 'year'=> $data['year']);
+                EmployeeFactor::where($where)->delete();
 
                 foreach ($factors as $key=>$f) {
                     $model_meta = array('employee_id' =>$employee_id, 'performance_factor_id' =>$f,
-                     'target' => $targets[$f], 'order_by' => $key);
+                     'target' => $targets[$f], 'year' =>$data['year'], 'order_by' => $key);
                     EmployeeFactor::create($model_meta);  
                 }    
                 return redirect()->intended('/employee-management');

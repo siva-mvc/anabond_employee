@@ -65,14 +65,16 @@
                     <form class="row" method="POST" action="{{ route('employee-management.destroy', ['id' => $employee->id]) }}" onsubmit = "return confirm('Are you sure?')">
                         <input type="hidden" name="_method" value="DELETE">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <a href="{{ route('employee-management.edit', ['id' => $employee->id]) }}" class="btn btn-warning btn-margin">
-                        Update
+                        
+                        <a class="btn btn-success btn-margin" title="configure factor" href="{{ route('employee_factor.factors_management', ['employee_id' => $employee->id]) }}"><i class="fa fa-cog"></i></a>
+
+                        <a href="{{ route('employee-management.edit', ['id' => $employee->id]) }}" title="Edit" class="btn btn-success btn-margin">
+                        <i class="fa fa-pencil"></i>
                         </a>
-                         <button type="submit" class="btn btn-danger btn-margin">
-                          Delete
+                         <button class="btn btn-danger btn-margin" title="Delete"  type="submit">
+                          <i class="fa fa-trash"></i>
                         </button>
                     </form>
-                    <a class="btn  btn-primary btn-margin" href="{{ route('employee_factor.factors_management', ['employee_id' => $employee->id]) }}">Config</a>
                   </td>
               </tr>
             @endforeach

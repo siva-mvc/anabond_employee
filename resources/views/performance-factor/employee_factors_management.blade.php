@@ -45,13 +45,13 @@
                                 <tr>
                                     <td>
                                         <label>
-                                        <input type="checkbox" name="factors[]" value="{{ $factor->id }}" @if($factor->is_selected) checked @endif id="option{{ $factor->id }}">
+                                        <input type="checkbox" data-targetid="factorTargerId{{ $factor->id }}" class="factor_checkbox" name="factors[]" value="{{ $factor->id }}" @if($factor->is_selected) checked @endif id="option{{ $factor->id }}">
                                         </label>
                                     </td>
                                     <td>
                                         <label for="option{{ $factor->id }}">{{ $factor->name }}</label>
                                     </td>
-                                    <td><input type="text" name="targets[{{$factor->id}}]" value="{{ $factor->target }}" class="form-control mw100"></td>
+                                    <td><input type="text" id="factorTargerId{{ $factor->id }}" name="targets[{{$factor->id}}]" value="{{ $factor->target }}" class="form-control mw100"></td>
                                 </tr>
                                 @endforeach
                             </tbody>

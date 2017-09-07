@@ -7,29 +7,6 @@
               
               <!-- Ela Code Starts Here-->
             <div class="box-body-inner">
-        <div class="box-body-head">
-           <h4><strong>Employee Details :</strong></h4>
-          <ul class="emp-detail-list row">  
-            <li class="col-sm-3">
-              Name : <strong>Enose Elisha</strong>
-            </li>
-            <li class="col-sm-3">
-              Employee ID : <strong>ENSA</strong>
-            </li>
-            <li class="col-sm-3">
-              Designation : <strong>UI Developer</strong>
-            </li>
-            <li class="col-sm-3">
-              Department : <strong>HR</strong>
-            </li>
-            <li class="col-sm-3">
-              Birth Date : <strong>1993/08/30</strong>
-            </li>
-            <li class="col-sm-3">
-              Hired Date : <strong>2014/08/30</strong>
-            </li>
-          </ul>
-        </div>
                  <p class="text-right"> <strong>T - TARGET</strong>, <strong>A - ACHIEVED</strong></p>
                     <div class="table-responsive">
                         <table class="table table-hover emp-data-table table-bordered">

@@ -16,4 +16,8 @@ $(document).ready(function() {
     }
   });
 
+  $(".onchenageTrigger").change(function(){
+    var url = $(this).find(':selected').data('url')
+    window.location.href = url; 
+  });
 });

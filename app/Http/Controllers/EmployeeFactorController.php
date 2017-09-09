@@ -38,8 +38,9 @@ class EmployeeFactorController extends Controller
       return view('performance-factor/index', ['employee_factors' => $employee_factors, 'factors' => $factors]);
     }
     
-    public function employee_factors_management($employee_id)
+    public function employee_factors_management(Request $request, $employee_id, $year)
     {
+        //$year = (isset($request['year'])) ? $request['year'] : date("Y");
         $employee = DB::table('employees')
          ->leftJoin('department', 'employees.department_id', '=', 'department.id')
          ->leftJoin('team', 'employees.team_id', '=', 'team.id')
@@ -53,7 +54,7 @@ class EmployeeFactorController extends Controller
         }
         
         $raw_factors = PerformanceFactor::where('department_id', $employee[0]->department_id)->get();
-        $where = array('employee_id' => $employee_id, 'year' =>2017);
+        $where = array('employee_id' => $employee_id, 'year' => $year);
         $emp_factors = EmployeeFactor::where($where)->get();
 
         $emp_factor_id_with_score = array();
@@ -75,7 +76,7 @@ class EmployeeFactorController extends Controller
                 array_push($factors, $fact);
             }
         }
-        return view('performance-factor/employee_factors_management',['employee' => $employee[0], 'factors' => $factors, 'emp_factors'=>$emp_factors]);
+        return view('performance-factor/employee_factors_management',['year' =>$year, 'employee' => $employee[0], 'factors' => $factors, 'emp_factors'=>$emp_factors]);
     }
 
     public function save_employee_factors_management(Request $request, $employee_id)

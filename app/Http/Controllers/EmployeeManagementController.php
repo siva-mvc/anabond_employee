@@ -43,7 +43,9 @@ class EmployeeManagementController extends Controller
         ->select('employees.*', 'department.name as department_name', 'department.id as department_id', 'designation.name as designation_name', 'designation.id as designation_id')
         ->orderBy('employees.firstname', 'ASC')
         ->paginate(5);
-        return view('employees-mgmt/index', ['employees' => $employees]);
+
+        $year = (isset($request['year'])) ? $request['year'] : date("Y");
+        return view('employees-mgmt/index', ['employees' => $employees, 'year' => $year]);
     }
 
     /**
@@ -53,9 +55,6 @@ class EmployeeManagementController extends Controller
      */
     public function create()
     {
-        // $cities = City::all()->sortBy("name");
-        // $states = State::all()->sortBy("name");
-        // $countries = Country::all()->sortBy("name");
         $teams = Team::all()->sortBy("name");
         $departments = Department::all()->sortBy("name");
         $designations = Designation::all()->sortBy("name");
@@ -81,7 +80,9 @@ class EmployeeManagementController extends Controller
         
         $input['company_id'] = 0;
         $emp = Employee::create($input);
-        return Redirect::route('employee_factor.factors_management', $emp->id)->with('message', 'Employee created successfully');
+        $year = (isset($request['year'])) ? $request['year'] : date("Y");
+
+        return Redirect::route('employee_factor.factors_management', array($emp->id, $year))->with('message', 'Employee created successfully');
         //return redirect()->intended('/employee-management', []);
     }
 
@@ -146,8 +147,12 @@ class EmployeeManagementController extends Controller
         Employee::where('id', $id)
             ->update($input);
 
-        return Redirect::route('employee_factor.factors_management', $id)->with('message', 'Employee updated successfully');    
+        $year = (isset($request['year'])) ? $request['year'] : date("Y");
+            
+        return Redirect::route('employee_factor.factors_management', array($id,  $year))->with('message', 'Employee updated successfully');    
         //return redirect()->intended('/employee-management');
+
+
     }
 
     /**

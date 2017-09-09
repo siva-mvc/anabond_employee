@@ -26,11 +26,12 @@
                          <div class="form-group">
                             <label class="col-md-4 control-label">Head of the Department</label>
                             <div class="col-md-6">
-                                <select class="form-control" name="employee_id">
-                                    @foreach ($employees as $employee)
-                                        <option value="{{$employee->id}}" {{$employee->id == $department->employee_id ? 'selected' : ''}}>{{$employee->firstname}}</option>
-                                    @endforeach
-                                </select>
+                            <input id="head_of_dept" type="email" class="form-control" name="head_of_dept" value="{{ $department->head_of_dept   }}" required autofocus>
+                             @if ($errors->has('head_of_dept'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('head_of_dept') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group">

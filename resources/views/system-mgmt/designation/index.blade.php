@@ -34,7 +34,7 @@
             <thead>
               <tr role="row">
                 <th width="20%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Designation: activate to sort column ascending">designation Name</th>
-                 <th width="20%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="country: activate to sort column ascending">Team Name</th>
+                 
                 <th tabindex="0" aria-controls="example2" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending">Action</th>
               </tr>
             </thead>
@@ -42,7 +42,6 @@
             @foreach ($designations as $designation)
                 <tr role="row" class="odd">
                   <td>{{ $designation->name }}</td>
-                  <td>{{ $designation->team_name }}</td>
                   <td>
                     <form class="row" method="POST" action="{{ route('designation.destroy', ['id' => $designation->id]) }}" onsubmit = "return confirm('Are you sure?')">
                         <input type="hidden" name="_method" value="DELETE">

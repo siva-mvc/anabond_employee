@@ -12,6 +12,7 @@ use App\Employee;
 use App\EmployeeFactor;
 use App\PerformanceFactor;
 use App\Team;
+use App\Department;
 
 class EmployeeFactorController extends Controller
 {
@@ -107,15 +108,47 @@ class EmployeeFactorController extends Controller
         }    
     }
 
+    
+    public function employee_factors_update_credit(Request $request, $dept_id, $year)
+    { 
+        $department = Department::find($dept_id);
+
+        $available_factors = PerformanceFactor::where('department_id', $dept_id)->get();
+
+        if ($department == null || count($department) == 0) {
+            $available_factors = PerformanceFactor:: all();
+        }
+
+        $employee_with_target = DB::table('employee_factor')
+         ->leftJoin('employees', 'employee_factor.employee_id', '=', 'employees.id')
+         ->leftJoin('performance_factor', 'employee_factor.performance_factor_id', '=', 'performance_factor.id')
+        ->select('employee_factor.*', 'employees.firstname as employee_fname', 'employees.lastname as employee_lname', 'performance_factor.name as factor_name')
+        ->where('employee_factor.year', '=' , $year)
+        ->get();  
+
+        $cons_requet = array();
+        foreach ($available_factors as $fact) {
+            $list_of_targets = array();
+            foreach ($employee_with_target as $key => $val) {
+                if($fact['id'] == $val->performance_factor_id){
+                    array_push($list_of_targets, $val);
+                }
+            }
+            array_push($cons_requet, array("factor"=>$fact, "user_factor" =>$list_of_targets));
+        }  
+
+        $month_array = array(4,5,6,7,8,9,10,11,12,1,2,3);
+
+        return view('performance-factor/employee_factors_update_credit', ['months' =>$month_array, "lists" => $cons_requet]);
+    }
+
+
     public function employee_factor_achivement()
     { 
         return view('performance-factor/employee_factor_achivement');
     }
 
-    public function employee_factors_update_credite()
-    { 
-        return view('performance-factor/employee_factors_update_credite');
-    }
+    
 
     public function employee_factor_achivement_month()
     {

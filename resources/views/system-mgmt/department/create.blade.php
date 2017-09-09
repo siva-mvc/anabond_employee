@@ -26,11 +26,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Head of the Department</label>
                             <div class="col-md-6">
-                                <select class="form-control" name="employee_id">
-                                    @foreach ($employees as $employee)
-                                        <option value="{{$employee->id}}">{{$employee->firstname}}</option>
-                                    @endforeach
-                                </select>
+                                <input id="head_of_dept" type="email" class="form-control" name="head_of_dept" value="{{ old('head_of_dept') }}" required autofocus>
                             </div>
                         </div>
                         <div class="form-group">

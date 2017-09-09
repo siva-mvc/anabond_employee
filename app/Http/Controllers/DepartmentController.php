@@ -27,8 +27,7 @@ class DepartmentController extends Controller
     public function index()
     {
         $departments = DB::table('department')
-        ->leftJoin('employees', 'department.employee_id', '=', 'employees.id')
-        ->select('department.id', 'department.name', 'employees.firstname as employee_name', 'employees.id as employee_id')
+        ->select('department.id', 'department.name')
         ->paginate(5);
 
         return view('system-mgmt/department/index', ['departments' => $departments]);
@@ -56,7 +55,7 @@ class DepartmentController extends Controller
         $this->validateInput($request);
          Department::create([
             'name' => $request['name'],
-            'employee_id' => $request['employee_id']
+            'head_of_dept' => $request['head_of_dept']
         ]);
 
         return redirect()->intended('system-management/department');
@@ -107,7 +106,7 @@ class DepartmentController extends Controller
         }
         $input = [
             'name' => $request['name'],
-            'employee_id' => $request['employee_id']
+            'head_of_dept' => $request['head_of_dept']
         ];
         Department::where('id', $id)
             ->update($input);

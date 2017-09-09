@@ -66,7 +66,7 @@ Route::get('employee-factor-achivement-month', 'EmployeeFactorController@employe
 Route::get('employee-factor-achivement-year', 'EmployeeFactorController@employee_factor_achivement_year')->name('employee_factor.factor_achivement_year');
 
 
-Route::get('employee-factors-update-credite', 'EmployeeFactorController@employee_factors_update_credite')->name('employee_factor.factor_achivement_credite');
+Route::get('employee-factors-update-credit/{dept_id}/{year}', 'EmployeeFactorController@employee_factors_update_credit')->name('employee_factor.factor_achivement_credit');
 
 
 

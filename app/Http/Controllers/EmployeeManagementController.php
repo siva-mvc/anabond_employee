@@ -34,10 +34,7 @@ class EmployeeManagementController extends Controller
     public function index()
     {
         $employees = DB::table('employees')
-        // ->leftJoin('city', 'employees.city_id', '=', 'city.id')
         ->leftJoin('department', 'employees.department_id', '=', 'department.id')
-        // ->leftJoin('state', 'employees.state_id', '=', 'state.id')
-        // ->leftJoin('country', 'employees.country_id', '=', 'country.id')
         ->leftJoin('team', 'employees.team_id', '=', 'team.id')
         ->leftJoin('designation', 'employees.designation_id', '=', 'designation.id')
         ->select('employees.*', 'department.name as department_name', 'department.id as department_id', 'designation.name as designation_name', 'designation.id as designation_id')
@@ -149,9 +146,7 @@ class EmployeeManagementController extends Controller
 
         $year = (isset($request['year'])) ? $request['year'] : date("Y");
             
-        return Redirect::route('employee_factor.factors_management', array($id,  $year))->with('message', 'Employee updated successfully');    
-        //return redirect()->intended('/employee-management');
-
+        return Redirect::route('employee_factor.factors_management', array($id,  $year))->with('message', 'Employee updated successfully');   
 
     }
 
@@ -185,11 +180,8 @@ class EmployeeManagementController extends Controller
 
     private function doSearchingQuery($constraints) {
         $query = DB::table('employees')
-        //->leftJoin('city', 'employees.city_id', '=', 'city.id')
         ->leftJoin('department', 'employees.department_id', '=', 'department.id')
         ->leftJoin('team', 'employees.team_id', '=', 'team.id')
-        // ->leftJoin('state', 'employees.state_id', '=', 'state.id')
-        // ->leftJoin('country', 'employees.country_id', '=', 'country.id')
         ->leftJoin('designation', 'employees.designation_id', '=', 'designation.id')
         ->select('employees.firstname as employee_name', 'employees.*','department.name as department_name', 'department.id as department_id', 'designation.name as designation_name', 'designation.id as designation_id');
         $fields = array_keys($constraints);

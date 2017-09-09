@@ -27,8 +27,7 @@ class DesignationController extends Controller
     public function index()
     {
         $designations = DB::table('designation')
-        ->leftJoin('team', 'designation.team_id', '=', 'team.id')
-        ->select('designation.id', 'designation.name', 'team.name as team_name', 'team.id as country_id')
+        ->select('designation.id', 'designation.name')
         ->paginate(5);
 
         return view('system-mgmt/designation/index', ['designations' => $designations]);
@@ -53,11 +52,10 @@ class DesignationController extends Controller
      */
     public function store(Request $request)
     {
-        Team::findOrFail($request['team_id']);
         $this->validateInput($request);
          Designation::create([
             'name' => $request['name'],
-            'team_id' => $request['team_id']
+            'team_id' => 0
         ]);
 
         return redirect()->intended('system-management/designation');
@@ -108,7 +106,7 @@ class DesignationController extends Controller
         
         $input = [
             'name' => $request['name'],
-            'team_id' => $request['team_id']
+            'team_id' => 0
         ];
         Designation::where('id', $id)
             ->update($input);

@@ -23,17 +23,6 @@
                                 @endif
                             </div>
                         </div>
-                         <div class="form-group">
-                            <label class="col-md-4 control-label">Team</label>
-                            <div class="col-md-6">
-                                <select class="form-control" name="team_id">
-                                    @foreach ($teams as $team)
-                                        <option value="{{$team->id}}" {{$team->id == $designation->team_id ? 'selected' : ''}}>{{$team->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">

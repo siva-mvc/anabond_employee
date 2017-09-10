@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use Response;
 use Session;
 use App\Employee;
@@ -15,6 +16,7 @@ use App\PerformanceFactor;
 use App\Team;
 use App\Department;
 use App\EmployeeFactorAchivement;
+use App\PerformanceSheet;
 
 class EmployeeFactorController extends Controller
 {
@@ -113,7 +115,7 @@ class EmployeeFactorController extends Controller
     
     public function employee_factors_update_credit(Request $request, $dept_id, $year)
     { 
-        $month_array = array(4,5,6,7,8,9,10,11,12,1,2,3, 12, 21, 30,15);
+        $month_array = array(4,5,6,7,8,9,10,11,12,1,2,3, 13, 21, 30,15);
 
         $department = Department::find($dept_id);
 
@@ -136,7 +138,7 @@ class EmployeeFactorController extends Controller
         }
         
         $achiveds = EmployeeFactorAchivement::where($whr)->get();
-        $month_array = array(4,5,6,7,8,9,10,11,12,1,2,3, 12, 21, 30,15);
+        $month_array = array(4,5,6,7,8,9,10,11,12,1,2,3, 13, 21, 30,15);
         $cons_requet = array();
         foreach ($available_factors as $fact) {
             $list_of_targets = array();
@@ -224,6 +226,66 @@ class EmployeeFactorController extends Controller
     }
 
 
+    public function employee_perfromance_sheet(Request $request, $emp_id, $year){
+        
+        $sheet = array('employee_id' => $emp_id, 'year'=>$year, 'total_score' => 0,'experience' =>0, 'future_prospect' => 0,'raw_total' =>0);
+
+        $sht = PerformanceSheet:: where(array('employee_id'=>$emp_id, 'year' => $year))->get();
+
+        $employee = Employee::findOrFail($emp_id);
+        $requet_content = array();
+        $whr = array('year'=>$year, 'employee_id'=>$emp_id);
+        $lists = DB::table('employee_target_achivement')
+            ->select('employee_target_achivement.*')
+            ->whereIn('employee_target_achivement.month', array(13, 21, 30,15))
+            ->where($whr)
+            ->get();  
+
+        $re_order = array();    
+
+        foreach ($lists as $l => $value) {
+            $re_order[$value->factor_name][$value->month] = $value;
+        }  
+
+        $targets = array();
+        foreach ($re_order as $key => $value) {
+            $sum = 0;
+            foreach ($value as $k) {
+               $sum = $sum +$k->achived;
+            }
+
+           $targets[$key] = round($sum/4);
+        }
+        $total = array_sum($targets);
+
+        if (count($sht) > 0) {
+            $sheet = $sht[0];
+        }else{
+            $sheet['total_score'] = $total;
+            $sheet['raw_total'] = ($sheet['raw_total'] == 0) ? $total: $sheet['raw_total'];
+        }
+        return view('performance-factor/employee_perfromance_sheet', 
+            ['sheets' =>$re_order, 'targets'=> $targets,'employee' => $employee,
+             'total' => $total, 'year'=>$year, 'sheet' => $sheet]);
+    }
+
+
+   public function perfromance_sheet_save(Request $request, $emp_id, $year){
+        $user = Auth::user();
+        $issued_by = $user['email'];
+        $data = $request->all();
+        if($data['total'] >0){
+            $delete = PerformanceSheet:: where(array('employee_id'=>$emp_id, 'year' => $year))->delete();
+
+            $psheet  = array('employee_id' => $emp_id, 'year'=>$year, 'total_score' => $data['total'],'experience' => $data['experience'], 'future_prospect' => $data['future_prospect'],'raw_total' =>$data['raw_total'], 'created_by'=>$issued_by);
+
+                $create = PerformanceSheet::create($psheet);
+                return Redirect::route('employee_factor.perfromance_sheet', array($emp_id, $year))->with('message', 'Credit updated successfull');
+        }else{
+            return Redirect::route('employee_factor.perfromance_sheet', array($emp_id, $year))->with('message', 'Unable to process your request!');
+        }
+    
+   }
     
 
     public function employee_factor_achivement()

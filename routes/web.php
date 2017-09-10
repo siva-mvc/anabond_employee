@@ -58,6 +58,11 @@ Route::get('employee-factors-management/{employee_id}/{year}', 'EmployeeFactorCo
 
 Route::post('employee-factors-management/{employee_id}/{year}', 'EmployeeFactorController@save_employee_factors_management')->name('employee_factor.factors_save_management');
 
+
+Route::get('employee-perfromance-sheet/{emp_id}/{year}', 'EmployeeFactorController@employee_perfromance_sheet')->name('employee_factor.perfromance_sheet');
+
+Route::post('employee-perfromance-sheet/{emp_id}/{year}', 'EmployeeFactorController@perfromance_sheet_save')->name('employee_factor.perfromance_sheet_save');
+
 // End
 
 Route::get('employee-factor-achivement', 'EmployeeFactorController@employee_factor_achivement')->name('employee_factor.factor_achivement');

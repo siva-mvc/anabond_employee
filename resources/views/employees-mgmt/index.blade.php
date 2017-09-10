@@ -71,6 +71,12 @@
                         <a href="{{ route('employee-management.edit', ['id' => $employee->id]) }}" title="Edit" class="btn btn-success btn-margin">
                         <i class="fa fa-pencil"></i>
                         </a>
+
+                        <a href="{{ route('employee_factor.perfromance_sheet', ['employee_id' => $employee->id, 'year'=>2017]) }}" title="perfromance sheet" class="btn btn-success btn-margin">
+                        <i class="fa-list-alt"></i>
+                        </a>
+
+                        
                          <button class="btn btn-danger btn-margin" title="Delete"  type="submit">
                           <i class="fa fa-trash"></i>
                         </button>

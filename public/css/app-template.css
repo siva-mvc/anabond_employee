@@ -46,3 +46,15 @@
 .total-bg{background-color:#f9f8f8 !important;}
 .ftitle{text-align:left !important; font-weight:bold;text-transform:uppercase;}
 .mw80{min-width:60px;}
+
+.c_success {
+  background-color: #dff0d8;
+}
+.c_error{
+  background-color: #f2dede;
+}
+.c_warning {
+  background-color: #fcf8e3;
+}
+.c_info {
+  background-color: #d9edf7;

@@ -175,7 +175,8 @@ class EmployeeManagementController extends Controller
             ];
         $employees = $this->doSearchingQuery($constraints);
         $constraints['department_name'] = $request['department_name'];
-        return view('employees-mgmt/index', ['employees' => $employees, 'searchingVals' => $constraints]);
+        $year = (isset($request['year'])) ? $request['year'] : date("Y");
+        return view('employees-mgmt/index', ['employees' => $employees, 'searchingVals' => $constraints,'year' => $year]);
     }
 
     private function doSearchingQuery($constraints) {

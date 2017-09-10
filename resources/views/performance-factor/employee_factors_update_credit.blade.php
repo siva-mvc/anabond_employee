@@ -87,7 +87,7 @@
                      <td>{{ $u->target }}</td>
                      <td><input type="text" data-qids="qid_{{ $u->id }}_q1" data-target="{{ $u->target }}"  name="achived[{{$u->id}}][5]" value="{{ $u->achiveds[5] }}" class="form-control mw80 validate_credit"></td>
                      <td class="total-bg">{{ $u->target }}</td>
-                     <td class="total-bg"><input type="text" data-sum="qid_{{ $u->id }}_q1" name="achived[{{$u->id}}][12]" value="{{ $u->achiveds[12] }}" class="form-control mw80 validate_credit_sum"></td>
+                     <td class="total-bg"><input type="text" data-sum="qid_{{ $u->id }}_q1" name="achived[{{$u->id}}][13]" value="{{ $u->achiveds[13] }}" class="form-control mw80 validate_credit_sum"></td>
                      <td>{{ $u->target }}</td>
                      <td><input type="text" data-qids="qid_{{ $u->id }}_q2" name="achived[{{$u->id}}][6]" data-target="{{ $u->target }}"  value="{{ $u->achiveds[6] }}" class="form-control mw80 validate_credit"></td>
                      <td>{{ $u->target }}</td>

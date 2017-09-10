@@ -111,9 +111,9 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-1 col-md-offset-4">
-                                <button type="reset" class="btn btn-warning">
+                                <a href="{{ url('employee-management') }}" class="btn btn-warning">
                                     Cancel
-                                </button>
+                                </a>
                             </div>
 
                             <div class="col-md-1 col-md-offset-4">

@@ -34,5 +34,36 @@ $(document).ready(function() {
     }
   });
 
+$('.future_max_5').on('change',function(){
+    var score = parseInt($('.total_bt').val());
+    var exp_max_5 = parseInt($('.exp_max_5').val());
+    var sc = parseInt($(this).val());
+    if(parseInt($(this).val())>5){
+      $(this).css('border-color', 'red');
+      sc = 5;
+    }else{
+      $(this).css('border-color', 'yellow');
+    } 
+    var total_score = score+exp_max_5+sc;
+    var x = (total_score >=50) ? 50: total_score; 
+    $('.total_score').val(x);
+  });
+
+
+$('.exp_max_5').on('change',function(){
+    var score = parseInt($('.total_bt').val());
+    var exp_max_5 = parseInt($('.future_max_5').val());
+    var sc = parseInt($(this).val());
+    if(parseInt($(this).val())>5){
+      $(this).css('border-color', 'red');
+      sc = 5;
+    }else{
+      $(this).css('border-color', 'yellow');
+    } 
+    var total_score = score+exp_max_5+sc;
+    var x = (total_score >=50) ? 50: total_score; 
+    $('.total_score').val(x);
+  });
+
 
 });

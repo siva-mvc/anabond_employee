@@ -31,7 +31,7 @@
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="/"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
+        <!-- <li class="active"><a href="/"><i class="fa fa-link"></i> <span>Dashboard</span></a></li> -->
         <li><a href="{{ url('employee-management') }}"><i class="fa fa-link"></i> <span>Employee Management</span></a></li>
         <li><a href="{{ url('employee-factors-update-credit') }}/0/2017"><i class="fa fa-link"></i> <span>Employee Factors Credit</span></a></li>
         

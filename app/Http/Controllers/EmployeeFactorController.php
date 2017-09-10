@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Response;
 use Session;
 use App\Employee;
@@ -13,6 +14,7 @@ use App\EmployeeFactor;
 use App\PerformanceFactor;
 use App\Team;
 use App\Department;
+use App\EmployeeFactorAchivement;
 
 class EmployeeFactorController extends Controller
 {
@@ -111,6 +113,8 @@ class EmployeeFactorController extends Controller
     
     public function employee_factors_update_credit(Request $request, $dept_id, $year)
     { 
+        $month_array = array(4,5,6,7,8,9,10,11,12,1,2,3, 12, 21, 30,15);
+
         $department = Department::find($dept_id);
 
         $available_factors = PerformanceFactor::where('department_id', $dept_id)->get();
@@ -126,22 +130,101 @@ class EmployeeFactorController extends Controller
         ->where('employee_factor.year', '=' , $year)
         ->get();  
 
+        $whr = array('year' => $year, "department_id" => $dept_id);
+        if($dept_id == 0){
+            $whr = array('year' => $year);    
+        }
+        
+        $achiveds = EmployeeFactorAchivement::where($whr)->get();
+        $month_array = array(4,5,6,7,8,9,10,11,12,1,2,3, 12, 21, 30,15);
         $cons_requet = array();
         foreach ($available_factors as $fact) {
             $list_of_targets = array();
             foreach ($employee_with_target as $key => $val) {
                 if($fact['id'] == $val->performance_factor_id){
+                    $root_id = $val->id;
+                    $months_wise_achived = array();
+                    foreach ($month_array as $m) {
+                        // filter from array
+                        $curr_fact = array_filter(iterator_to_array($achiveds), function($obj) use($root_id, $m) {
+                        if($obj->month == $m && $obj->employee_factor_id == $root_id ){return true;} else{ return false;}}); 
+                        if(sizeof(array_keys($curr_fact)) > 0){
+                            $d_key = array_keys($curr_fact)[0];
+                                $months_wise_achived[$m] = $curr_fact[$d_key]['achived']; 
+                        }else{
+                            $months_wise_achived[$m] = "";
+                        }        
+                    }
+                        $val->achiveds = $months_wise_achived;
+                        
                     array_push($list_of_targets, $val);
                 }
             }
             array_push($cons_requet, array("factor"=>$fact, "user_factor" =>$list_of_targets));
         }  
-
-        $month_array = array(4,5,6,7,8,9,10,11,12,1,2,3);
-
-        return view('performance-factor/employee_factors_update_credit', ['months' =>$month_array, "lists" => $cons_requet]);
+        return view('performance-factor/employee_factors_update_credit', 
+            ['months' =>$month_array, "lists" => $cons_requet, "dept_id"=>$dept_id, "year"=>$year]);
     }
 
+
+
+    
+    public function employee_factors_update_achived_credit(Request $request, $dept_id, $year)
+    { 
+        $data = $request->all();
+        $fs = $data['achived'];
+        $user = Auth::user();
+        $issued_by = $user['email'];
+
+        $used_fators = DB::table('employee_factor')
+             ->leftJoin('employees', 'employee_factor.employee_id', '=', 'employees.id')
+             ->leftJoin('performance_factor', 'employee_factor.performance_factor_id', '=', 'performance_factor.id')
+            ->select('employee_factor.*', 'employees.firstname as employee_fname', 'employees.lastname as employee_lname','employees.department_id as department_id', 'performance_factor.name as factor_name')
+            ->whereIn('employee_factor.id', array_keys($fs))
+            ->get();  
+
+        $builk_achived = array();
+        if(isset($fs)) {
+            foreach ($fs as $k => $v) {
+                $curr_fact = array_filter(iterator_to_array($used_fators), function($obj) use($k) {
+                if($obj->id == $k){return true;} else{ return false;}}); 
+                $d_key = array_keys($curr_fact)[0];
+                
+                $fac = $curr_fact[$d_key];
+                $new_achived_by_user = array(
+                    'employee_id' => $fac->employee_id,
+                    'employee_factor_id' =>$k,
+                    'department_id' => $fac->department_id,
+                    'factor_name' => $fac->factor_name,
+                    'target'=> $fac->target,
+                    'year' => $fac->year,
+                    'issued_by' =>$issued_by
+                    );
+
+                foreach ($v as $m => $c) {
+                    $achived_by_month = array_merge($new_achived_by_user, array('month'=>$m, 'achived' =>$c));
+                    array_push($builk_achived, $achived_by_month);
+
+                }
+            }
+            $whr = array('department_id' => $dept_id, 'year'=>$year);
+            if($dept_id == 0){
+                $whr = array('year'=>$year);
+            }
+            EmployeeFactorAchivement::where($whr)->delete();
+            EmployeeFactorAchivement::insert($builk_achived);
+            Session::flash('message', 'Credit updated successfull'); 
+            Session::flash('alert-class', 'alert-success');
+            return Redirect::route('employee_factor.factor_achivement_credit', array($dept_id, $year))->with('message', 'Credit updated successfull');
+           }else{
+            Session::flash('message', 'Credit updated successfull'); 
+            Session::flash('alert-class', 'alert-danger');
+            return Redirect::route('employee_factor.factor_achivement_credit', array($dept_id, $year))->withInput();
+           }     
+    }
+
+
+    
 
     public function employee_factor_achivement()
     { 

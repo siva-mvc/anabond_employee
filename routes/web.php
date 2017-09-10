@@ -57,6 +57,7 @@ Route::post('system-management/report/pdf', 'ReportController@exportPDF')->name(
 Route::get('employee-factors-management/{employee_id}/{year}', 'EmployeeFactorController@employee_factors_management')->name('employee_factor.factors_management');
 
 Route::post('employee-factors-management/{employee_id}/{year}', 'EmployeeFactorController@save_employee_factors_management')->name('employee_factor.factors_save_management');
+
 // End
 
 Route::get('employee-factor-achivement', 'EmployeeFactorController@employee_factor_achivement')->name('employee_factor.factor_achivement');
@@ -67,6 +68,8 @@ Route::get('employee-factor-achivement-year', 'EmployeeFactorController@employee
 
 
 Route::get('employee-factors-update-credit/{dept_id}/{year}', 'EmployeeFactorController@employee_factors_update_credit')->name('employee_factor.factor_achivement_credit');
+
+Route::post('employee-factors-update-credit/{dept_id}/{year}', 'EmployeeFactorController@employee_factors_update_achived_credit')->name('employee_factor.factor_achivement_credit_save');
 
 
 

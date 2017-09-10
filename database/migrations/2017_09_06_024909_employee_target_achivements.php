@@ -24,6 +24,7 @@ class EmployeeTargetAchivement extends Migration
             $table->integer('achived');
             $table->integer('year');
             $table->integer('month');
+            $table->string('issued_by');
             $table->date('issued_date');
             $table->timestamps();
             $table->softDeletes();

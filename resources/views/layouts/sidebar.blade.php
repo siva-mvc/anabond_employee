@@ -58,10 +58,10 @@
             <li><a href="{{ url('system-management/designation') }}">Designation</a></li>
             <li><a href="{{ url('system-management/department') }}">Department</a></li>
             <li><a href="{{ url('system-management/factor') }}">Performance Factor</a></li>
-            <li><a href="{{ url('system-management/team') }}">Team</a></li>
+            <li><a href="{{ url('system-management/team') }}">Team</a></li><!-- 
             <li><a href="{{ url('system-management/country') }}">Country</a></li>
             <li><a href="{{ url('system-management/state') }}">State</a></li>
-            <li><a href="{{ url('system-management/city') }}">City</a></li>
+            <li><a href="{{ url('system-management/city') }}">City</a></li> -->
             <li><a href="{{ url('system-management/report') }}">Report</a></li>
           </ul>
         </li>

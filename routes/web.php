@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('dashboard');
+    return Redirect::to('/employee-management');
 })->middleware('auth');
 
 Auth::routes();

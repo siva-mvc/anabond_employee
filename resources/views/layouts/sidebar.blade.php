@@ -36,17 +36,17 @@
         <li><a href="{{ url('employee-factors-update-credit') }}/0/2017"><i class="fa fa-link"></i> <span>Employee Factors Credit</span></a></li>
         
         <!-- <li><a href="{{ url('employee-factor-achivement') }}"><i class="fa fa-link"></i> <span>Employee Factor Achivement</span></a></li> -->
-        <li class="treeview">
+        <!-- <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Factor Management</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <!-- <li><a href="{{ url('employee-factor-achivement-month') }}">Employee Achivements By Month</a></li> -->
+            <li><a href="{{ url('employee-factor-achivement-month') }}">Employee Achivements By Month</a></li>
             <li><a href="{{ url('employee-factor-achivement-year') }}">Employee Achivements</a></li>
           </ul>
-        </li>
+        </li> -->
 
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>System Management</span>

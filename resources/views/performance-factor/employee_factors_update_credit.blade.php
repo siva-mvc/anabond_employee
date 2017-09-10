@@ -81,37 +81,37 @@
                 <tr>
                      <td>{{ $u->employee_fname }} {{ $u->employee_lname }} </td>
                      <td>{{ $u->target }}</td>
-                     <td><input type="text" name="achived[{{$u->id}}][3]" value="{{ $u->achiveds[3] }}" class="form-control mw80"></td>
+                     <td><input type="text" data-qids="qid_{{ $u->id }}_q1"  data-target="{{ $u->target }}" name="achived[{{$u->id}}][3]" value="{{ $u->achiveds[3] }}" class="form-control mw80 validate_credit"></td>
                      <td>{{ $u->target }}</td>
-                     <td><input type="text" name="achived[{{$u->id}}][4]" value="{{ $u->achiveds[4] }}" class="form-control mw80"></td>
+                     <td><input type="text" data-qids="qid_{{ $u->id }}_q1" data-target="{{ $u->target }}"  name="achived[{{$u->id}}][4]" value="{{ $u->achiveds[4] }}" class="form-control mw80 validate_credit"></td>
                      <td>{{ $u->target }}</td>
-                     <td><input type="text" name="achived[{{$u->id}}][5]" value="{{ $u->achiveds[5] }}" class="form-control mw80"></td>
+                     <td><input type="text" data-qids="qid_{{ $u->id }}_q1" data-target="{{ $u->target }}"  name="achived[{{$u->id}}][5]" value="{{ $u->achiveds[5] }}" class="form-control mw80 validate_credit"></td>
                      <td class="total-bg">{{ $u->target }}</td>
-                     <td class="total-bg"><input type="text" name="achived[{{$u->id}}][12]" value="{{ $u->achiveds[12] }}" class="form-control mw80"></td>
+                     <td class="total-bg"><input type="text" data-sum="qid_{{ $u->id }}_q1" name="achived[{{$u->id}}][12]" value="{{ $u->achiveds[12] }}" class="form-control mw80 validate_credit_sum"></td>
                      <td>{{ $u->target }}</td>
-                     <td><input type="text" name="achived[{{$u->id}}][6]" value="{{ $u->achiveds[6] }}" class="form-control mw80"></td>
+                     <td><input type="text" data-qids="qid_{{ $u->id }}_q2" name="achived[{{$u->id}}][6]" data-target="{{ $u->target }}"  value="{{ $u->achiveds[6] }}" class="form-control mw80 validate_credit"></td>
                      <td>{{ $u->target }}</td>
-                     <td><input type="text" name="achived[{{$u->id}}][7]" value="{{ $u->achiveds[7] }}" class="form-control mw80"></td>
+                     <td><input type="text" data-qids="qid_{{ $u->id }}_q2" name="achived[{{$u->id}}][7]" data-target="{{ $u->target }}"  value="{{ $u->achiveds[7] }}" class="form-control mw80 validate_credit"></td>
                      <td>{{ $u->target }}</td>
-                     <td><input type="text" name="achived[{{$u->id}}][8]" value="{{ $u->achiveds[8] }}" class="form-control mw80"></td>
+                     <td><input type="text" data-qids="qid_{{ $u->id }}_q2" name="achived[{{$u->id}}][8]" data-target="{{ $u->target }}"  value="{{ $u->achiveds[8] }}" class="form-control mw80 validate_credit"></td>
                      <td class="total-bg">{{ $u->target }}</td>
-                     <td class="total-bg"><input type="text" name="achived[{{$u->id}}][21]" value="{{ $u->achiveds[21] }}" class="form-control mw80"></td>
+                     <td class="total-bg"><input type="text" data-sum="qid_{{ $u->id }}_q2"  name="achived[{{$u->id}}][21]" value="{{ $u->achiveds[21] }}" class="form-control mw80 validate_credit_sum"></td>
                    <td>{{ $u->target }}</td>
-                     <td><input type="text" name="achived[{{$u->id}}][9]" value="{{ $u->achiveds[9] }}" class="form-control mw80"></td>
+                     <td><input type="text" data-qids="qid_{{ $u->id }}_q3" name="achived[{{$u->id}}][9]" data-target="{{ $u->target }}"  value="{{ $u->achiveds[9] }}" class="form-control mw80 validate_credit"></td>
                      <td>{{ $u->target }}</td>
-                     <td><input type="text" name="achived[{{$u->id}}][10]" value="{{ $u->achiveds[10] }}" class="form-control mw80"></td>
+                     <td><input type="text" data-qids="qid_{{ $u->id }}_q3" name="achived[{{$u->id}}][10]" data-target="{{ $u->target }}"  value="{{ $u->achiveds[10] }}" class="form-control mw80 validate_credit"></td>
                      <td>{{ $u->target }}</td>
-                     <td><input type="text" name="achived[{{$u->id}}][11]" value="{{ $u->achiveds[11] }}" class="form-control mw80"></td>
+                     <td><input type="text" data-qids="qid_{{ $u->id }}_q3" name="achived[{{$u->id}}][11]" data-target="{{ $u->target }}"  value="{{ $u->achiveds[11] }}" class="form-control mw80 validate_credit"></td>
                      <td class="total-bg">{{ $u->target }}</td>
-                     <td class="total-bg"><input type="text" name="achived[{{$u->id}}][30]" value="{{ $u->achiveds[30] }}" class="form-control mw80"></td>
+                     <td class="total-bg"><input type="text" data-sum="qid_{{ $u->id }}_q3" name="achived[{{$u->id}}][30]" value="{{ $u->achiveds[30] }}" class="form-control mw80 validate_credit_sum"></td>
                    <td>{{ $u->target }}</td>
-                     <td><input type="text"  name="achived[{{$u->id}}][12]" value="{{ $u->achiveds[12] }}" class="form-control mw80"></td>
+                     <td><input type="text" data-qids="qid_{{ $u->id }}_q4" name="achived[{{$u->id}}][12]"  data-target="{{ $u->target }}"  value="{{ $u->achiveds[12] }}" class="form-control mw80 validate_credit"></td>
                      <td>{{ $u->target }}</td>
-                     <td><input type="text" name="achived[{{$u->id}}][1]" value="{{ $u->achiveds[1] }}" class="form-control mw80"></td>
+                     <td><input type="text" data-qids="qid_{{ $u->id }}_q4" name="achived[{{$u->id}}][1]" data-target="{{ $u->target }}"  value="{{ $u->achiveds[1] }}" class="form-control mw80 validate_credit"></td>
                      <td>{{ $u->target }}</td>
-                     <td><input type="text" name="achived[{{$u->id}}][2]" value="{{ $u->achiveds[2] }}" class="form-control mw80"></td>
+                     <td><input type="text" data-qids="qid_{{ $u->id }}_q4" name="achived[{{$u->id}}][2]" data-target="{{ $u->target }}"  value="{{ $u->achiveds[2] }}" class="form-control mw80 validate_credit"></td>
                      <td class="total-bg">{{ $u->target }}</td>
-                     <td class="total-bg"><input type="text" name="achived[{{$u->id}}][15]" value="{{ $u->achiveds[15] }}" class="form-control mw80"></td>
+                     <td class="total-bg"><input type="text" data-sum="qid_{{ $u->id }}_q4" name="achived[{{$u->id}}][15]" value="{{ $u->achiveds[15] }}" class="form-control mw80 validate_credit_sum"></td>
                  </tr>
                  @endforeach
                 @endforeach

@@ -69,6 +69,7 @@ $('.exp_max_5').on('change',function(){
     var sc = parseFloat($(this).val());
     if(parseFloat($(this).val())>5){
       $(this).css('border-color', 'red');
+      $(this).val(5.00);
       sc = 5;
     }else{
       $(this).css('border-color', 'yellow');

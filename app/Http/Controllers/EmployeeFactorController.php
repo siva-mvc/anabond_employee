@@ -239,13 +239,38 @@ class EmployeeFactorController extends Controller
             ->select('employee_target_achivement.*')
             ->whereIn('employee_target_achivement.month', array(13, 21, 30,15))
             ->where($whr)
-            ->get();  
+            ->get();
+
+        $target_list = DB::table('employee_target_achivement')
+        ->select('employee_target_achivement.*')
+        ->whereNotIn('employee_target_achivement.month', array(13, 21, 30,15))
+        ->whereNotNull('achived')
+        ->where($whr)
+        ->get();  
 
         $re_order = array();    
 
         foreach ($lists as $l => $value) {
             $re_order[$value->factor_name][$value->month] = $value;
         }  
+        //new code
+        $re_order_target = array();
+        foreach ($lists as $l => $value) {
+            $re_order_target[$value->factor_name][$value->month] = $value;
+        }
+
+        $new_targets = array();
+          foreach ($re_order_target as $key => $value) {
+            $sum = 0;
+            $d = sizeof($value);
+            foreach ($value as $k) {
+               $sum = $sum +$k->achived;
+            }
+
+           $new_targets[$key] = round($sum/$d);
+        }
+        $total = array_sum($new_targets);   
+        // Chenage
 
         $targets = array();
         foreach ($re_order as $key => $value) {
@@ -256,7 +281,9 @@ class EmployeeFactorController extends Controller
 
            $targets[$key] = round($sum/4);
         }
-        $total = array_sum($targets);
+        //$total = array_sum($targets);
+
+        //Fixed
 
         if (count($sht) > 0) {
             $sheet = $sht[0];
@@ -265,7 +292,7 @@ class EmployeeFactorController extends Controller
             $sheet['raw_total'] = ($sheet['raw_total'] == 0) ? $total: $sheet['raw_total'];
         }
         return view('performance-factor/employee_perfromance_sheet', 
-            ['sheets' =>$re_order, 'targets'=> $targets,'employee' => $employee,
+            ['sheets' =>$re_order, 'targets'=> $new_targets,'employee' => $employee,
              'total' => $total, 'year'=>$year, 'sheet' => $sheet]);
     }
 

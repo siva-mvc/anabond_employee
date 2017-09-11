@@ -24,22 +24,35 @@ $(document).ready(function() {
 
   $('.validate_credit').on('change',function(){
     var max = $(this).data('target');
-    if($(this).val()>parseInt(max)){
+    if($(this).val()>parseFloat(max)){
       $(this).css('border-color', 'red');
-      $(this).val(parseInt(max));
-    }else if($(this).val()==parseInt(max)){
+      $(this).val(parseFloat(max));
+    }else if($(this).val()==parseFloat(max)){
       $(this).css('border-color', 'green');
     }else{
       $(this).css('border-color', 'yellow');
     }
+    //Adding to sum of values
+    var data_attr = $(this).data('qids');
+    var total = 0;
+    var i = 0;
+     $("[data-qids = '"+data_attr+"']").each(function() {
+        if($.isNumeric($(this).val())){
+          i+=1;
+          total+=parseFloat($(this).val());
+        }
+     });
+     $("[data-sum = '"+data_attr+"']").val((total/i).toFixed(2));
+
   });
 
 $('.future_max_5').on('change',function(){
-    var score = parseInt($('.total_bt').val());
-    var exp_max_5 = parseInt($('.exp_max_5').val());
-    var sc = parseInt($(this).val());
-    if(parseInt($(this).val())>5){
+    var score = parseFloat($('.total_bt').val());
+    var exp_max_5 = parseFloat($('.exp_max_5').val());
+    var sc = parseFloat($(this).val());
+    if(parseFloat($(this).val())>5){
       $(this).css('border-color', 'red');
+      $(this).val(5.00);
       sc = 5;
     }else{
       $(this).css('border-color', 'yellow');
@@ -51,10 +64,10 @@ $('.future_max_5').on('change',function(){
 
 
 $('.exp_max_5').on('change',function(){
-    var score = parseInt($('.total_bt').val());
-    var exp_max_5 = parseInt($('.future_max_5').val());
-    var sc = parseInt($(this).val());
-    if(parseInt($(this).val())>5){
+    var score = parseFloat($('.total_bt').val());
+    var exp_max_5 = parseFloat($('.future_max_5').val());
+    var sc = parseFloat($(this).val());
+    if(parseFloat($(this).val())>5){
       $(this).css('border-color', 'red');
       sc = 5;
     }else{

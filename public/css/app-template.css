@@ -43,7 +43,7 @@
 .profile-info{position:relative;padding-left:150px;}
 .profile-img{position:absolute;width:100px;text-align:center;left:0;z-index:10;}
 .profile-img >img{display:block;max-width:100%;height:auto;border-radius:50%;}
-.total-bg{background-color:#f9f8f8 !important;}
+.total-bg{background-color:#b3ffb3 !important;}
 .ftitle{text-align:left !important; font-weight:bold;text-transform:uppercase;}
 .mw80{min-width:60px;}
 

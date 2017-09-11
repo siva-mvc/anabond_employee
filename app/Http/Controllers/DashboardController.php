@@ -23,7 +23,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return Redirect::route('employee_factor.factors_management');
-        //return view('dashboard');
+        //return Redirect::route('employee_factor.factors_management');
+        return view('dashboard');
     }
 }

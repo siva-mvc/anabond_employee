@@ -85,22 +85,22 @@
                               <td>Experience</td>
                               <td colspan="8"></td>
                               <td><div class="input-group ingroup150">
-                                    <input type="number" class="form-control exp_max_5" value="{{ $sheet['experience'] }}" name="experience">
-                                    <span class="input-group-addon">5</span>
+                                    <input type="text" class="form-control exp_max_5" value="{{ $sheet['experience'] }}" name="experience">
+                                    <span class="input-group-addon">5.00</span>
                                   </div></td>
                             </tr>
                             <tr>
                               <td>Future prospects</td>
                               <td colspan="8"></td>
                               <td><div class="input-group ingroup150">
-                                    <input type="number" class="form-control future_max_5" value="{{ $sheet['future_prospect'] }}" name="future_prospect">
-                                    <span class="input-group-addon">5</span>
+                                    <input type="text" class="form-control future_max_5" value="{{ $sheet['future_prospect'] }}" name="future_prospect">
+                                    <span class="input-group-addon">5.00</span>
                                   </div></td>
                             </tr>
                             <tr>
-                              <td colspan="9">Performance score out of 50 is </td>
+                              <td colspan="9">Performance score </td>
                               <td><div class="input-group ingroup150">
-                                    <input type="number" class="form-control total_score" value="{{ $sheet['total_score'] }}" name="total">
+                                    <input type="text" class="form-control total_score" value="{{ $sheet['total_score'] }}" name="total">
                                     <span class="input-group-addon">50</span>
                                   </div></td>
                             </tr>

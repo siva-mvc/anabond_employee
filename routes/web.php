@@ -17,7 +17,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/dashboard', 'DashboardController@index');
+//Route::get('/dashboard', 'DashboardController@index');
+Route::get('/dashboard', function(){
+	return Redirect::to('/employee-management');
+})->middleware('auth');;
 // Route::get('/system-management/{option}', 'SystemMgmtController@index');
 Route::get('/profile', 'ProfileController@index');
 

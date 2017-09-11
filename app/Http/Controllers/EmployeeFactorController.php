@@ -291,6 +291,9 @@ class EmployeeFactorController extends Controller
             $sheet['total_score'] = $total;
             $sheet['raw_total'] = ($sheet['raw_total'] == 0) ? $total: $sheet['raw_total'];
         }
+
+
+        
         return view('performance-factor/employee_perfromance_sheet', 
             ['sheets' =>$re_order, 'targets'=> $new_targets,'employee' => $employee,
              'total' => $total, 'year'=>$year, 'sheet' => $sheet]);

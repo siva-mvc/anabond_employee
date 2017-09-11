@@ -100,7 +100,7 @@
                             <tr>
                               <td colspan="9">Performance score </td>
                               <td><div class="input-group ingroup150">
-                                    <input type="text" class="form-control total_score" value="{{ $sheet['total_score'] }}" name="total">
+                                    <input type="text" readonly class="form-control total_score" value="{{ $sheet['total_score'] }}" name="total">
                                     <span class="input-group-addon">50</span>
                                   </div></td>
                             </tr>

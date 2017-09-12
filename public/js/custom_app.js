@@ -42,7 +42,10 @@ $(document).ready(function() {
           total+=parseFloat($(this).val());
         }
      });
-     $("[data-sum = '"+data_attr+"']").val((total/i).toFixed(2));
+
+     var x = (total/i).toFixed(2);
+    var clean = (isNaN(x))? '' : x;
+     $("[data-sum = '"+data_attr+"']").val(clean);
 
   });
 
@@ -59,7 +62,8 @@ $('.future_max_5').on('change',function(){
     } 
     var total_score = score+exp_max_5+sc;
     var x = (total_score >=50) ? 50: total_score; 
-    $('.total_score').val(x);
+    var clean = (isNaN(x))? '' : x;
+    $('.total_score').val(clean);
   });
 
 
@@ -76,7 +80,10 @@ $('.exp_max_5').on('change',function(){
     } 
     var total_score = score+exp_max_5+sc;
     var x = (total_score >=50) ? 50: total_score; 
-    $('.total_score').val(x);
+
+    var clean = (isNaN(x))? '' : x;
+    
+    $('.total_score').val(clean);
   });
 
 

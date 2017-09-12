@@ -100,7 +100,7 @@ class PerformanceFactorController extends Controller
     public function update(Request $request, $id)
     {
         $factor = PerformanceFactor::findOrFail($id);
-        if($factor['name'] == $request['name']){
+        if($factor['name'] =! $request['name']){
             $this->validateInput($request);
         }
         $input = [

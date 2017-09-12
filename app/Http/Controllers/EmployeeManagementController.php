@@ -13,6 +13,9 @@ use App\Country;
 use App\Department;
 use App\Designation;
 use App\Team;
+use App\EmployeeFactor;
+use App\EmployeeFactorAchivement;
+use App\PerformanceSheet;
 
 class EmployeeManagementController extends Controller
 {
@@ -158,8 +161,11 @@ class EmployeeManagementController extends Controller
      */
     public function destroy($id)
     {
-         Employee::where('id', $id)->delete();
-         return redirect()->intended('/employee-management');
+        Employee::where('id', $id)->delete();
+        EmployeeFactor::where('employee_id', $id)->delete();
+        EmployeeFactorAchivement::where('employee_id', $id)->delete();
+        PerformanceSheet::where('employee_id', $id)->delete();
+        return redirect()->intended('/employee-management');
     }
 
     /**

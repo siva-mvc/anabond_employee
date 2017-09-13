@@ -325,7 +325,7 @@ class EmployeeFactorController extends Controller
         }
 
         $pdf = PDF::loadView('performance-factor/employee_perfromance_sheet-pdf',['sheets' => $export_data]);
-        //return $pdf->download('report_for_'.$year.'pdf');
+        return $pdf->download('report_for_'.$year.'.pdf');
         return view('performance-factor/employee_perfromance_sheet-pdf', ['sheets' => $export_data]);
     }
     

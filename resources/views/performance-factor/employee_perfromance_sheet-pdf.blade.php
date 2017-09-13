@@ -1,4 +1,28 @@
-@extends('performance-factor.base') @section('action-content')
+ <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      td, th {
+        border: solid 2px;
+        padding: 10px 5px;
+      }
+      tr {
+        text-align: center;
+      }
+      .container {
+        width: 100%;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
 <section class="content">
     <div class="box">
         <!-- /.box-header -->
@@ -103,4 +127,6 @@
         <!-- /.box-body -->
     </div>
 </section>
-@endsection
+
+  </body>
+</html>

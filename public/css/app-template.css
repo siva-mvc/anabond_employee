@@ -58,3 +58,5 @@
 }
 .c_info {
   background-color: #d9edf7;
+}
+div.breakNow{ page-break-inside:avoid; page-break-after:always; }

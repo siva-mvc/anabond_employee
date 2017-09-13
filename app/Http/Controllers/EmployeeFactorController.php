@@ -17,6 +17,7 @@ use App\Team;
 use App\Department;
 use App\EmployeeFactorAchivement;
 use App\PerformanceSheet;
+use PDF;
 
 class EmployeeFactorController extends Controller
 {
@@ -92,8 +93,7 @@ class EmployeeFactorController extends Controller
             $targets = $data['targets'];
             if (array_sum($targets) == 50){
                 $where = array('employee_id' => $employee_id, 'year'=> $data['year']);
-                EmployeeFactor::where($where)->delete();
-
+                EmployeeFactor::where($where)->delete();    
                 foreach ($factors as $key=>$f) {
                     $model_meta = array('employee_id' =>$employee_id, 'performance_factor_id' =>$f,
                      'target' => $targets[$f], 'year' =>$data['year'], 'order_by' => $key);
@@ -226,6 +226,10 @@ class EmployeeFactorController extends Controller
     }
 
 
+
+
+
+
     public function employee_perfromance_sheet(Request $request, $emp_id, $year){
         
         $sheet = array('employee_id' => $emp_id, 'year'=>$year, 'total_score' => 0,'experience' =>0, 'future_prospect' => 0,'raw_total' =>0);
@@ -270,21 +274,7 @@ class EmployeeFactorController extends Controller
            $new_targets[$key] = round($sum/$d);
         }
         $total = array_sum($new_targets);   
-        // Chenage
-
-        $targets = array();
-        foreach ($re_order as $key => $value) {
-            $sum = 0;
-            foreach ($value as $k) {
-               $sum = $sum +$k->achived;
-            }
-
-           $targets[$key] = round($sum/4);
-        }
-        //$total = array_sum($targets);
-
-        //Fixed
-
+        
         if (count($sht) > 0) {
             $sheet = $sht[0];
         }else{
@@ -317,23 +307,98 @@ class EmployeeFactorController extends Controller
     
    }
     
+    public function exportPDF(Request $request) {
+        $year = (isset($request['year'])) ? $request['year'] : date("Y");
+        if(isset($request['dept_id'])){
+            $user_list = Employee::where('department_id', $request['dept_id']);
+        }else{
+            $user_list = Employee::All();   
+        }
+        
+        $export_data = array(); 
 
-    public function employee_factor_achivement()
-    { 
-        return view('performance-factor/employee_factor_achivement');
+        foreach ($user_list as $key => $emp) {
+            $sheet = $this->getExportingData($emp['id'], $year);
+            if($sheet){
+                array_push($export_data, $sheet);
+            }
+        }
+
+        $pdf = PDF::loadView('performance-factor/employee_perfromance_sheet-pdf',['sheets' => $export_data]);
+        //return $pdf->download('report_for_'.$year.'pdf');
+        return view('performance-factor/employee_perfromance_sheet-pdf', ['sheets' => $export_data]);
     }
+    
+    private function getExportingData($emp_id, $year) {
+        $employee = Employee::findOrFail($emp_id);
+
+        $sheet = PerformanceSheet:: where(array('employee_id'=>$emp_id, 'year' => $year))->get();
+        if(count($sheet)>0){
+        
+            $requet_content = array();
+            $whr = array('year'=>$year, 'employee_id'=>$emp_id);
+            $lists = DB::table('employee_target_achivement')
+                ->select('employee_target_achivement.*')
+                ->whereIn('employee_target_achivement.month', array(13, 21, 30,15))
+                ->where($whr)
+                ->get();
+
+            $target_list = DB::table('employee_target_achivement')
+            ->select('employee_target_achivement.*')
+            ->whereNotIn('employee_target_achivement.month', array(13, 21, 30,15))
+            ->whereNotNull('achived')
+            ->where($whr)
+            ->get();  
+
+            $re_order = array();    
+
+            foreach ($lists as $l => $value) {
+                $re_order[$value->factor_name][$value->month] = $value;
+            }  
+            //new code
+            $re_order_target = array();
+            foreach ($lists as $l => $value) {
+                $re_order_target[$value->factor_name][$value->month] = $value;
+            }
+
+            $new_targets = array();
+              foreach ($re_order_target as $key => $value) {
+                $sum = 0;
+                $d = sizeof($value);
+                foreach ($value as $k) {
+                   $sum = $sum +$k->achived;
+                }
+
+               $new_targets[$key] = round($sum/$d);
+            }
+                $total = array_sum($new_targets);  
+            return $result = array('sheets' =>$re_order, 'targets'=> $new_targets,'employee' => $employee,
+             'total' => $total,'sheet' => $sheet); 
+            }else{
+                return false;
+            }
+
+       
+    }
+
+
+
+    // public function employee_factor_achivement()
+    // { 
+    //     return view('performance-factor/employee_factor_achivement');
+    // }
 
     
 
-    public function employee_factor_achivement_month()
-    {
-        return view('performance-factor/employee_factor_achivement_month');
-    }
+    // public function employee_factor_achivement_month()
+    // {
+    //     return view('performance-factor/employee_factor_achivement_month');
+    // }
 
-    public function employee_factor_achivement_year()
-    {
-        return view('performance-factor/employee_factor_achivement_year');
-    }
+    // public function employee_factor_achivement_year()
+    // {
+    //     return view('performance-factor/employee_factor_achivement_year');
+    // }
   
 
 }

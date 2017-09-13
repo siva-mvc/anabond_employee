@@ -68,18 +68,19 @@ Route::post('employee-perfromance-sheet/{emp_id}/{year}', 'EmployeeFactorControl
 
 // End
 
-Route::get('employee-factor-achivement', 'EmployeeFactorController@employee_factor_achivement')->name('employee_factor.factor_achivement');
+// Route::get('employee-factor-achivement', 'EmployeeFactorController@employee_factor_achivement')->name('employee_factor.factor_achivement');
 
-Route::get('employee-factor-achivement-month', 'EmployeeFactorController@employee_factor_achivement_month')->name('employee_factor.factor_achivement_month');
+// Route::get('employee-factor-achivement-month', 'EmployeeFactorController@employee_factor_achivement_month')->name('employee_factor.factor_achivement_month');
 
-Route::get('employee-factor-achivement-year', 'EmployeeFactorController@employee_factor_achivement_year')->name('employee_factor.factor_achivement_year');
+// Route::get('employee-factor-achivement-year', 'EmployeeFactorController@employee_factor_achivement_year')->name('employee_factor.factor_achivement_year');
+
+
+Route::get('employee-perfromance-sheet-pdf', 'EmployeeFactorController@exportPDF')->name('sheet.pdf');
 
 
 Route::get('employee-factors-update-credit/{dept_id}/{year}', 'EmployeeFactorController@employee_factors_update_credit')->name('employee_factor.factor_achivement_credit');
 
 Route::post('employee-factors-update-credit/{dept_id}/{year}', 'EmployeeFactorController@employee_factors_update_achived_credit')->name('employee_factor.factor_achivement_credit_save');
-
-
 
 
 Route:: get('employee-factor/configure/{employee_id}', 'EmployeeFactorController@update_employee_performance')->name('employee_factor.update_employee_performance');

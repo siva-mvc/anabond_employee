@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\PerformanceFactor;
 use App\Department;
+use App\EmployeeFactor;
 
 class PerformanceFactorController extends Controller
 {
@@ -51,7 +52,11 @@ class PerformanceFactorController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateInput($request);
+         $check  = PerformanceFactor::where(array('department_id' =>$request['department_id'], 'name' => $request['name']))->get();
+        if(count($check)>0){
+            $this->validateInput($request);
+        }
+        
          PerformanceFactor::create([
             'name' => $request['name'],
             'department_id' => $request['department_id'],
@@ -100,9 +105,11 @@ class PerformanceFactorController extends Controller
     public function update(Request $request, $id)
     {
         $factor = PerformanceFactor::findOrFail($id);
-        if($factor['name'] =! $request['name']){
-            $this->validateInput($request);
+        $check  = PerformanceFactor::where(array('department_id' =>$request['department_id'], 'name' => $request['name']))->get();
+        if(count($check) >=1 && $id != $check[0]['id']){
+             $this->validateInput($request);
         }
+       
         $input = [
             'name' => $request['name'],
             'department_id' => $request['department_id'],
@@ -122,8 +129,13 @@ class PerformanceFactorController extends Controller
      */
     public function destroy($id)
     {
-        PerformanceFactor::where('id', $id)->delete();
-         return redirect()->intended('system-management/factor');
+        $check = EmployeeFactor:: where('performance_factor_id',$id)->get();
+        if(count($check)< 1){
+            PerformanceFactor::where('id', $id)->delete(); 
+            return redirect()->intended('system-management/factor');   
+        }else{
+            return redirect()->intended('system-management/factor')->withErrors(array("error"=>'Factor assigned to employee!'));
+        }
     }
 
     /**
@@ -157,6 +169,8 @@ class PerformanceFactorController extends Controller
     private function validateInput($request) {
         $this->validate($request, [
         'name' => 'required|max:60|unique:performance_factor'
+        //'name' => 'required|max:60|unique:performance_factor'
+
     ]);
     }
 }

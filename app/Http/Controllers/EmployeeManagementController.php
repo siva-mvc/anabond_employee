@@ -134,8 +134,11 @@ class EmployeeManagementController extends Controller
         }else{
             $this->validateInputEdit($request);
         }
-        
-        
+        if($employee['department_id'] != $request['department_id']){
+            EmployeeFactor::where('employee_id', $id)->delete();
+            EmployeeFactorAchivement::where('employee_id', $id)->delete();
+            PerformanceSheet::where('employee_id', $id)->delete();
+        }
         // Upload image
         $keys = ['employee_reg_id','lastname', 'firstname', 'team_id', 'birthdate', 'date_hired', 'department_id', 'designation_id'];
         $input = $this->createQueryInput($keys, $request);

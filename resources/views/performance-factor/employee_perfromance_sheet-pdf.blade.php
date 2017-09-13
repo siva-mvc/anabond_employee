@@ -8,11 +8,16 @@
       table {
         border-collapse: collapse;
         width: 100%;
+        border: 1px solid #f4f4f4;
       }
       td, th {
         border: solid 2px;
         padding: 10px 5px;
       }
+      /*.input-group{
+        width: 100%;
+      }*/
+      .input-group .input-group-addon{background-color:#f5f5f5;}
       tr {
         text-align: center;
       }
@@ -20,6 +25,54 @@
         width: 100%;
         text-align: center;
       }
+      .emp-detail-list{
+        list-style-type: none;
+        line-height: 1.5;
+      }
+      .emp-data-table td,.emp-data-table th{vertical-align:middle !important;text-align:center;}
+      .input-group span{
+        /*background-color:#f5f5f5; */
+      border-radius: 0;
+      padding: 6px 10px;
+      border: 1px solid #ccc;
+      width: 45px !important;
+        display: inline-block;
+    }
+      .btn-margin {
+          margin: 2px 10px;
+          font-size: 2vw;
+          padding: 1px;
+          text-align: center;
+ }
+.emp-factor-form label{display:block;margin-bottom:0;}
+.thead-bg >th,.table-hover>tbody>tr:hover{background-color:#fbfbfb;}
+.thead-bg >th{text-transform:uppercase;letter-spacing:0.5px;}
+.table-border{border:1px solid #f4f4f4;}
+.emp-data-table td,.emp-data-table th{vertical-align:middle !important;text-align:center;}
+.emp-data-table td  .ingroup150{margin:0 auto;}
+.mw600{max-width:600px;}
+.mw80{min-width:60px;}
+
+.c_success {
+  background-color: #dff0d8;
+}
+.c_info {
+  background-color: #d9edf7;
+}
+.header{
+    background-color: #00A65A;
+    font-size: 20px;
+    line-height: 50px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 300;
+}
+.header-logo {
+    background-color: #008d4c;
+    color: #fff;
+    padding-left: 50px;
+    
+}
+div.break-page{ page-break-before: always;}
     </style>
   </head>
   <body>
@@ -28,6 +81,10 @@
         <!-- /.box-header -->
         <div class="box-body">
         @foreach ($sheets as $key => $s)
+            <header class="header">
+                <div class="header-logo"> ANABOND</div> 
+
+            </header>
             <div class="box-body-inner">
                 <div class="box-body-head">
                     <h4><strong>Employee Details :</strong></h4>
@@ -52,7 +109,7 @@
                                 <th colspan="2">Q2</th>
                                 <th colspan="2">Q2</th>
                                 <th colspan="2">Q4</th>
-                                <th>Total</th>
+                                <th>Total [50]</th>
                             </tr>
 
                             <tr class="thead-bg">
@@ -65,6 +122,7 @@
                                 <th colspan="1" class="c_success">A</th>
                                 <th colspan="1" class="c_info">T</th>
                                 <th colspan="1" class="c_success">A</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -72,18 +130,23 @@
                             <tr>
                                 <td>{{ $key }}</td>
                                 <td class="c_info">{{ $value[13]->target }}</td>
-                                <td class="c_success">{{ $value[13]->achived }}</td>
+                                <td class="c_success">
+                                    @if($value[13]->achived == "") -- @else {{ $value[13]->achived }}@endif
+                                </td>
                                 <td class="c_info">{{ $value[21]->target }}</td>
-                                <td class="c_success">{{ $value[21]->achived }}</td>
+                                <td class="c_success">
+                                 @if($value[21]->achived == "") -- @else {{ $value[21]->achived }}@endif
+                                </td>
                                 <td class="c_info">{{ $value[30]->target }}</td>
-                                <td class="c_success">{{ $value[30]->achived }}</td>
+                                <td class="c_success"> @if($value[30]->achived == "") -- @else {{ $value[30]->achived }}@endif</td>
                                 <td class="c_info">{{ $value[15]->target }}</td>
-                                <td class="c_success">{{ $value[15]->achived }}</td>
+                                <td class="c_success"> @if($value[15]->achived == "") -- @else {{ $value[15]->achived }}@endif</td>
                                 <td>
-                                    <div class="input-group ingroup150">
-                                        <input disabled type="text" class="form-control" value="{{ $s['targets'][$key] }}">
-                                        <span class="input-group-addon">{{ $value[15]->target }}</span>
-                                    </div>
+                                    <span class="input-group ">
+                                        <table>
+                                            <tr><th class="c_success">{{ $s['targets'][$key] }}</th><th class="c_info">{{ $value[15]->target }}</th></tr>
+                                        </table>
+                                    </span>
                                 </td>
                             </tr>
                             @endforeach
@@ -91,29 +154,32 @@
                                 <td>Experience</td>
                                 <td colspan="8"></td>
                                 <td>
-                                    <div class="input-group ingroup150">
-                                        <input type="text" class="form-control exp_max_5" value="{{ $s['sheet'][0]['experience'] }}" name="experience">
-                                        <span class="input-group-addon">5.00</span>
-                                    </div>
+                                    <span class="input-group ">
+                                        <table>
+                                            <tr><th class="c_success">{{ $s['sheet'][0]['experience'] }}</th><th class="c_info">5.00</th></tr>
+                                        </table>
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Future prospects</td>
                                 <td colspan="8"></td>
                                 <td>
-                                    <div class="input-group ingroup150">
-                                        <input type="text" class="form-control future_max_5" value="{{ $s['sheet'][0]['future_prospect'] }}" name="future_prospect">
-                                        <span class="input-group-addon">5.00</span>
-                                    </div>
+                                    <span class="input-group ">
+                                    <table>
+                                     <tr><th class="c_success">{{ $s['sheet'][0]['future_prospect'] }}</th><th class="c_info">5.00</th></tr>
+                                     </table>
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="9">Performance score </td>
                                 <td>
-                                    <div class="input-group ingroup150">
-                                        <input type="text" readonly class="form-control total_score" value="{{ $s['sheet'][0]['total_score'] }}" name="total">
-                                        <span class="input-group-addon">50</span>
-                                    </div>
+                                    <span class="input-group">
+                                     <table>
+                                         <tr><th class="c_success">{{ $s['sheet'][0]['total_score'] }}</th><th class="c_info">50.00</th></tr>
+                                         </table>
+                                    </span>
                                 </td>
                             </tr>
 
@@ -121,7 +187,8 @@
                     </table>
                 </div>
             </div>
-            <div class="breakNow"></div>
+            <br>
+            <div class="break-page"></div>
         @endforeach    
         </div>
         <!-- /.box-body -->

@@ -69,8 +69,7 @@
 .header-logo {
     background-color: #008d4c;
     color: #fff;
-    padding-left: 50px;
-    
+    padding: 0px 0px 20px 50px;
 }
 div.break-page{ page-break-before: always;}
     </style>

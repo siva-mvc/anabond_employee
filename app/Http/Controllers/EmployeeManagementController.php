@@ -16,6 +16,7 @@ use App\Team;
 use App\EmployeeFactor;
 use App\EmployeeFactorAchivement;
 use App\PerformanceSheet;
+use Session;
 
 class EmployeeManagementController extends Controller
 {
@@ -34,7 +35,7 @@ class EmployeeManagementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $employees = DB::table('employees')
         ->leftJoin('department', 'employees.department_id', '=', 'department.id')
@@ -42,6 +43,7 @@ class EmployeeManagementController extends Controller
         ->leftJoin('designation', 'employees.designation_id', '=', 'designation.id')
         ->select('employees.*', 'department.name as department_name', 'department.id as department_id', 'designation.name as designation_name', 'designation.id as designation_id')
         ->orderBy('employees.firstname', 'ASC')
+        ->whereIn('employees.department_id', Session::get('departments'))
         ->paginate(5);
 
         $year = (isset($request['year'])) ? $request['year'] : date("Y");

@@ -119,6 +119,10 @@ class EmployeeFactorController extends Controller
 
         $department = Department::find($dept_id);
 
+        $total_depts_search = DB::table('department')->whereIn('department.id',Session::get('departments'))->get();
+
+
+
         $available_factors = PerformanceFactor::where('department_id', $dept_id)->get();
 
         if ($department == null || count($department) == 0) {
@@ -138,6 +142,7 @@ class EmployeeFactorController extends Controller
         }
         
         $achiveds = EmployeeFactorAchivement::where($whr)->get();
+        
         $month_array = array(4,5,6,7,8,9,10,11,12,1,2,3, 13, 21, 30,15);
         $cons_requet = array();
         foreach ($available_factors as $fact) {
@@ -165,7 +170,7 @@ class EmployeeFactorController extends Controller
             array_push($cons_requet, array("factor"=>$fact, "user_factor" =>$list_of_targets));
         }  
         return view('performance-factor/employee_factors_update_credit', 
-            ['months' =>$month_array, "lists" => $cons_requet, "dept_id"=>$dept_id, "year"=>$year]);
+            ['months' =>$month_array, "lists" => $cons_requet, "dept_id"=>$dept_id, "year"=>$year, "depts" =>$total_depts_search]);
     }
 
 

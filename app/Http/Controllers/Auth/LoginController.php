@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\DB;
+use App\Department;
+use Session;
+
 class LoginController extends Controller
 {
     /*
@@ -47,5 +51,25 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+    }
+    protected function authenticated($request, $user)
+    {
+        Session::forget('departments');
+        $dept_ids = array();
+        $whr = array();
+        
+        if($user['email'] =! 'admin@gmail.com'){
+            $whr = array("head_of_dept" => $user['email']); 
+        }
+
+        $dept = Department::where($whr)->get();
+        
+        foreach ($dept as $key => $value) {
+            array_push($dept_ids, $value['id']);
+        }
+
+        Session::put("departments", $dept_ids);
+    
+       return redirect('employee-management');
     }
 }

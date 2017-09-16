@@ -56,20 +56,16 @@ class LoginController extends Controller
     {
         Session::forget('departments');
         $dept_ids = array();
-        $whr = array();
-        
-        if($user['email'] =! 'admin@gmail.com'){
-            $whr = array("head_of_dept" => $user['email']); 
+
+        $dept = Department::where('head_of_dept', $user['email'])->get();
+        if($user['email'] == 'admin@gmail.com'){
+            $dept = Department::All();
         }
 
-        $dept = Department::where($whr)->get();
-        
         foreach ($dept as $key => $value) {
             array_push($dept_ids, $value['id']);
         }
-
         Session::put("departments", $dept_ids);
-    
        return redirect('employee-management');
     }
 }

@@ -315,12 +315,11 @@ class EmployeeFactorController extends Controller
     
     public function exportPDF(Request $request) {
         $year = (isset($request['year'])) ? $request['year'] : date("Y");
-        if(isset($request['dept_id'])){
-            $user_list = Employee::where('department_id', $request['dept_id']);
-        }else{
-            $user_list = Employee::All();   
+        $ids = Session::get('departments');
+        if(count($ids)==0){
+            $ids =array();    
         }
-        
+        $user_list = Employee::whereIn('department_id', $ids)->get();
         $export_data = array(); 
 
         foreach ($user_list as $key => $emp) {
@@ -331,14 +330,12 @@ class EmployeeFactorController extends Controller
         }
 
         $pdf = PDF::loadView('performance-factor/employee_perfromance_sheet-pdf',['sheets' => $export_data]);
-        
         return $pdf->download('report_for_'.$year.'.pdf');
         //return view('performance-factor/employee_perfromance_sheet-pdf', ['sheets' => $export_data]);
     }
     
     private function getExportingData($emp_id, $year) {
         $employee = Employee::findOrFail($emp_id);
-
         $sheet = PerformanceSheet:: where(array('employee_id'=>$emp_id, 'year' => $year))->get();
         if(count($sheet)>0){
         

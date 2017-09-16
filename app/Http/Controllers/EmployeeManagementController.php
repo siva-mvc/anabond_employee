@@ -37,13 +37,17 @@ class EmployeeManagementController extends Controller
      */
     public function index(Request $request)
     {
+        $ids = Session::get('departments');
+        if(count($ids)==0){
+            $ids  =array();    
+        }
         $employees = DB::table('employees')
         ->leftJoin('department', 'employees.department_id', '=', 'department.id')
         ->leftJoin('team', 'employees.team_id', '=', 'team.id')
         ->leftJoin('designation', 'employees.designation_id', '=', 'designation.id')
         ->select('employees.*', 'department.name as department_name', 'department.id as department_id', 'designation.name as designation_name', 'designation.id as designation_id')
         ->orderBy('employees.firstname', 'ASC')
-        ->whereIn('employees.department_id', Session::get('departments'))
+        ->whereIn('employees.department_id', $ids)
         ->paginate(5);
 
         $year = (isset($request['year'])) ? $request['year'] : date("Y");

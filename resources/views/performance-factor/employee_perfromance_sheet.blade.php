@@ -64,18 +64,18 @@
                             @foreach ($sheets as $key => $value) 
                               <tr> 
                                 <td>{{ $key }}</td>
-                                <td class="c_info">{{ $value[13]->target }}</td>
-                                <td class="c_success">{{ $value[13]->achived }}</td>
-                                <td class="c_info">{{ $value[21]->target }}</td>
-                                <td class="c_success">{{ $value[21]->achived }}</td>
-                                <td class="c_info">{{ $value[30]->target }}</td>
-                                <td class="c_success">{{ $value[30]->achived }}</td>
-                                <td class="c_info">{{ $value[15]->target }}</td>
-                                <td class="c_success">{{ $value[15]->achived }}</td>
+                                <td class="c_info"> @isset($value[13]->target){{ $value[13]->target }}@endisset</td>
+                                <td class="c_success"> @isset($value[13]->achived) {{ $value[13]->achived }} @endisset</td>
+                                <td class="c_info"> @isset($value[21]->target ) {{ $value[21]->target }} @endisset</td>
+                                <td class="c_success"> @isset($value[21]->achived) {{ $value[21]->achived }} @endisset</td>
+                                <td class="c_info"> @isset($value[30]->target ) {{ $value[30]->target }} @endisset</td>
+                                <td class="c_success"> @isset($value[30]->achived) {{ $value[30]->achived }} @endisset</td>
+                                <td class="c_info"> @isset($value[15]->target ) {{ $value[15]->target }} @endisset</td>
+                                <td class="c_success"> @isset($value[15]->achived) {{ $value[15]->achived }} @endisset</td>
                                 <td>
                                   <div class="input-group ingroup150">
                                     <input disabled type="text" class="form-control" value="{{ $targets[$key] }}">
-                                    <span class="input-group-addon">{{ $value[15]->target }}</span>
+                                    <span class="input-group-addon">@isset($value[15]->target){{ $value[15]->target }}@endisset</span>
                                   </div>
                                 </td> 
                               </tr>

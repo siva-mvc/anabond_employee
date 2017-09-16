@@ -17,6 +17,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
+$s = 'social.';
+Route::get('/social/redirect/{provider}',   ['as' => $s . 'redirect',   'uses' => 'Auth\SocialController@getSocialRedirect']);
+Route::get('/social/handle/{provider}',     ['as' => $s . 'handle',     'uses' => 'Auth\SocialController@getSocialHandle']);
+
+
+
 //Route::get('/dashboard', 'DashboardController@index');
 Route::get('/dashboard', function(){
 	return Redirect::to('/employee-management');
@@ -86,3 +92,6 @@ Route::get('avatars/{name}', 'EmployeeManagementController@load');
 // Route::get('employee-factor-achivement-month', 'EmployeeFactorController@employee_factor_achivement_month')->name('employee_factor.factor_achivement_month');
 
 // Route::get('employee-factor-achivement-year', 'EmployeeFactorController@employee_factor_achivement_year')->name('employee_factor.factor_achivement_year');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

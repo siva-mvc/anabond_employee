@@ -59,4 +59,11 @@
 .c_info {
   background-color: #d9edf7;
 }
+.c_width {
+  max-width: 42px;
+}
+/*.c_ac_width{
+  max-width: 60px;
+  padding: 0px;
+}*/
 div.breakNow{ page-break-inside:avoid; page-break-after:always; }

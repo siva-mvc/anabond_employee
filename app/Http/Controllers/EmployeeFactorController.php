@@ -99,6 +99,9 @@ class EmployeeFactorController extends Controller
                      'target' => $targets[$f], 'year' =>$data['year'], 'order_by' => $key);
                     EmployeeFactor::create($model_meta);  
                 }    
+                $whr = array('employee_id' => $employee_id, 'year'=>$data['year']);
+                EmployeeFactorAchivement::where($whr)->delete();
+                $delete = PerformanceSheet:: where(array('employee_id'=>$employee_id,'year' => $data['year']))->delete();
                 return redirect()->intended('/employee-management');
             }else{
                 Session::flash('message', 'Sum of targets should be equal to 50'); 
@@ -183,7 +186,6 @@ class EmployeeFactorController extends Controller
         $fs = $data['achived'];
         $user = Auth::user();
         $issued_by = $user['email'];
-
         $used_fators = DB::table('employee_factor')
              ->leftJoin('employees', 'employee_factor.employee_id', '=', 'employees.id')
              ->leftJoin('performance_factor', 'employee_factor.performance_factor_id', '=', 'performance_factor.id')
@@ -221,6 +223,9 @@ class EmployeeFactorController extends Controller
             }
             EmployeeFactorAchivement::where($whr)->delete();
             EmployeeFactorAchivement::insert($builk_achived);
+            //
+            $delete = PerformanceSheet:: where(array('year' => $year))->delete();
+            //
             Session::flash('message', 'Credit updated successfull'); 
             Session::flash('alert-class', 'alert-success');
             return Redirect::route('employee_factor.factor_achivement_credit', array($dept_id, $year))->with('message', 'Credit updated successfull');
@@ -248,6 +253,7 @@ class EmployeeFactorController extends Controller
         $lists = DB::table('employee_target_achivement')
             ->select('employee_target_achivement.*')
             ->whereIn('employee_target_achivement.month', array(13, 21, 30,15))
+            ->whereNotNull('achived')
             ->where($whr)
             ->get();
 

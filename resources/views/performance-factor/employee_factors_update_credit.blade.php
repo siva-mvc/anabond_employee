@@ -10,7 +10,7 @@
           <div class="box-body">
            <ul class="emp-detail-list row">
              <li>
-                <div class="form-group">
+                <div>
                   <label class="col-md-2 control-label">Select Department</label>
                        <div class="col-md-2">
                        <select class="form-control onchenageTrigger"  name="dept_id">
@@ -27,7 +27,7 @@
                       </select>
                       </div>
                   </div>
-                   <div class="form-group">
+                   <div>
                    <label class="col-md-2 control-label">Select Year</label>
                        <div class="col-md-2">
                        <select class="form-control onchenageTrigger"  name="year">
@@ -40,8 +40,8 @@
           </ul>
           
           <form method="post" action="{{ route('employee_factor.factor_achivement_credit_save', ['dept_id' => $dept_id, 'year' =>$year]) }}">
-           {{ csrf_field() }}
-          <button class="pull-right btn btn-success" type="submit">submit</button>
+           {{ csrf_field() }} &nbsp;
+          <button class="pull-right btn btn-success btn-sm" type="submit">submit</button>
            <!-- Ela Code Starts Here-->
             <div class="box-body-inner">
                  <p class="text-right"> <strong>T - TARGET</strong>, <strong>A - ACHIEVED</strong></p>

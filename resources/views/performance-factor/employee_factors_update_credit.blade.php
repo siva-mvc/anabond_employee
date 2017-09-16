@@ -2,6 +2,7 @@
 @section('action-content')
 <section class="content">
       <div class="box">
+
         @if(Session::has('message'))
           <div class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</div>
           @endif
@@ -13,9 +14,14 @@
                   <label class="col-md-2 control-label">Select Department</label>
                        <div class="col-md-2">
                        <select class="form-control onchenageTrigger"  name="dept_id">
+                       @if(Auth::user()->email =='admin@gmail.com')
                           <option data-url ="{{ route('employee_factor.factor_achivement_credit', ['dept_id' => '0', 'year'=>2017]) }}"  value="0" @if($dept_id == '0') selected @endif>All Depertment</option>
+                        @endif
                         @foreach ($depts as $dept) 
-                          <option data-url ="{{ route('employee_factor.factor_achivement_credit', ['dept_id' => $dept->id, 'year'=>$year]) }}"  value="{{ $dept->id }}" @if($dept->id == $dept_id) selected @endif>{{ $dept->name }}</option>
+
+                          @if(in_array($dept->id, Session::get('departments')))
+                             <option data-url ="{{ route('employee_factor.factor_achivement_credit', ['dept_id' => $dept->id, 'year'=>$year]) }}"  value="{{ $dept->id }}" @if($dept->id == $dept_id) selected @endif>{{ $dept->name }}</option>
+                          @endif
 
                         @endforeach  
                       </select>

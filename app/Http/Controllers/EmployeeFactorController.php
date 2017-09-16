@@ -115,6 +115,7 @@ class EmployeeFactorController extends Controller
     
     public function employee_factors_update_credit(Request $request, $dept_id, $year)
     { 
+
         $month_array = array(4,5,6,7,8,9,10,11,12,1,2,3, 13, 21, 30,15);
 
         $department = Department::find($dept_id);
@@ -170,7 +171,7 @@ class EmployeeFactorController extends Controller
             array_push($cons_requet, array("factor"=>$fact, "user_factor" =>$list_of_targets));
         }  
         return view('performance-factor/employee_factors_update_credit', 
-            ['months' =>$month_array, "lists" => $cons_requet, "dept_id"=>$dept_id, "year"=>$year, "depts" =>$total_depts_search]);
+            ['months' =>$month_array, "lists" => $cons_requet, "dept_id"=>$dept_id, "year"=>$year, "depts" =>$total_depts_search, "dept_ids"=> Session::get('departments')]);
     }
 
 

@@ -30,24 +30,11 @@
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        <!-- Optionally, you can add icons to the links -->
-        <!-- <li class="active"><a href="/"><i class="fa fa-link"></i> <span>Dashboard</span></a></li> -->
         <li><a href="{{ url('employee-management') }}"><i class="fa fa-link"></i> <span>Employee Management</span></a></li>
-        <li><a href="{{ url('employee-factors-update-credit') }}/0/2017"><i class="fa fa-link"></i> <span>Employee Factors Credit</span></a></li>
-        
-        <!-- <li><a href="{{ url('employee-factor-achivement') }}"><i class="fa fa-link"></i> <span>Employee Factor Achivement</span></a></li> -->
-        <!-- <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Factor Management</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{{ url('employee-factor-achivement-month') }}">Employee Achivements By Month</a></li>
-            <li><a href="{{ url('employee-factor-achivement-year') }}">Employee Achivements</a></li>
-          </ul>
-        </li> -->
 
+        @if(!empty(Session::get('departments'))) 
+        <li><a href="{{ url('employee-factors-update-credit') }}/{{ Session::get('departments')[0] }}/2017"><i class="fa fa-link"></i> <span>Employee Factors Credit</span></a></li>
+         @endif
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>System Management</span>
             <span class="pull-right-container">

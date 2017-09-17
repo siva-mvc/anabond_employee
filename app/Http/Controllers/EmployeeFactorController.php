@@ -283,7 +283,7 @@ class EmployeeFactorController extends Controller
                $sum = $sum +$k->achived;
             }
 
-           $new_targets[$key] = round($sum/$d);
+           $new_targets[$key] = round($sum/$d, 2);
         }
         $total = array_sum($new_targets);   
         
@@ -379,7 +379,7 @@ class EmployeeFactorController extends Controller
                    $sum = $sum +$k->achived;
                 }
 
-               $new_targets[$key] = round($sum/$d);
+               $new_targets[$key] = round($sum/$d, 2);
             }
                 $total = array_sum($new_targets);  
             return $result = array('sheets' =>$re_order, 'targets'=> $new_targets,'employee' => $employee,

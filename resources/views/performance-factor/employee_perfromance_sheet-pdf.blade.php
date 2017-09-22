@@ -100,85 +100,114 @@ div.break-page{ page-break-before: always;}
                     </ul>
                 </div>
                 <div class="table-responsive">
-                        <table class="table table-hover emp-data-table table-bordered">
-                          <thead>
+                    <table class="table table-hover emp-data-table table-bordered">
+                        <thead>
                             <tr class="thead-bg">
-                            <th>Factor</th>
-                              <th colspan="3">Q1</th>
-                              <th colspan="3">Q2</th>
-                              <th colspan="3">Q3</th>
-                              <th colspan="3">Q4</th>
-                              <th>Total</th>
-                            </tr>
-                           
-                            <tr class="thead-bg">
-                            <th></th>
-                              <th colspan="1" class="c_info">T</th>
-                              <th colspan="1" class="c_success">A</th>
-                              <th colspan="1">R</th>
-                              <th colspan="1" class="c_info">T</th>
-                              <th colspan="1" class="c_success">A</th>
-                              <th colspan="1">R</th>
-                              <th colspan="1" class="c_info">T</th>
-                              <th colspan="1" class="c_success">A</th>
-                              <th colspan="1">R</th>
-                              <th colspan="1" class="c_info">T</th>
-                              <th colspan="1" class="c_success">A</th>
-                              <th colspan="1">R</th>
-                            </tr>
-                          </thead>
-                            <tbody>
-                            @foreach ($sheets as $key => $value) 
-                              <tr> 
-                                <td>{{ $key }}&nbsp;@isset($value['actual_target'])[{{ $value['actual_target']}}]@endisset</td>
-                                <td class="c_info"> @isset($value[13]->target){{ $value[13]->target }}@endisset</td>
-                                <td class="c_success"> @isset($value[13]->achived) {{ $value[13]->achived }} @endisset</td>
-                                 <td class="c_success"> @isset($value[13]->rating) {{ $value[13]->rating }} @endisset</td>
-                                <td class="c_info"> @isset($value[21]->target ) {{ $value[21]->target }} @endisset</td>
-                                <td class="c_success"> @isset($value[21]->achived) {{ $value[21]->achived }} @endisset</td>
-                                <td class="c_success"> @isset($value[21]->rating) {{ $value[21]->rating }} @endisset</td>
-                                <td class="c_info"> @isset($value[30]->target ) {{ $value[30]->target }} @endisset</td>
-                                <td class="c_success"> @isset($value[30]->achived) {{ $value[30]->achived }} @endisset</td>
-                                <td class="c_success"> @isset($value[30]->rating) {{ $value[30]->rating }} @endisset</td>
-                                <td class="c_info"> @isset($value[15]->target ) {{ $value[15]->target }} @endisset</td>
-                                <td class="c_success"> @isset($value[15]->achived) {{ $value[15]->achived }} @endisset</td>
-                                <td class="c_success"> @isset($value[15]->rating) {{ $value[15]->rating }} @endisset</td>
-                                <td>
-                                  <div class="input-group ingroup150">
-                                    <input disabled type="text" class="form-control" value="@isset($value['actual_target'])[{{ $value['actual_target']}}]@endisset">
-                                    <span class="input-group-addon">@isset($value['actual_target']) {{ $value['actual_target']}}@endisset</span>
-                                  </div>
-                                </td> 
-                              </tr>
-                            @endforeach    
-                            <input name="raw_total" class="total_bt" type="hidden" value="@isset($sheet['raw_total']){{ $sheet['raw_total'] }}@endisset">
-                            <tr>
-                              <td>Experience</td>
-                              <td colspan="12"></td>
-                              <td><div class="input-group ingroup150">
-                                    <input type="text" class="form-control exp_max_5" value="@isset($sheet['experience']){{ $sheet['experience'] }}@endisset" name="experience">
-                                    <span class="input-group-addon">5.00</span>
-                                  </div></td>
-                            </tr>
-                            <tr>
-                              <td>Future prospects</td>
-                              <td colspan="12"></td>
-                              <td><div class="input-group ingroup150">
-                                    <input type="text" class="form-control future_max_5" value="@isset($sheet['future_prospect']){{ $sheet['future_prospect'] }}@endisset" name="future_prospect">
-                                    <span class="input-group-addon">5.00</span>
-                                  </div></td>
-                            </tr>
-                            <tr>
-                              <td colspan="13">Performance score </td>
-                              <td><div class="input-group ingroup150">
-                                    <input type="text" readonly class="form-control total_score" value="@isset($sheet['total_score']){{ $sheet['total_score'] }}@endisset" name="total">
-                                    <span class="input-group-addon">50</span>
-                                  </div></td>
+                                <th>Factor</th>
+                                <th colspan="3">Q1</th>
+                                <th colspan="3">Q2</th>
+                                <th colspan="3">Q3</th>
+                                <th colspan="3">Q4</th>
+                                <th>Total [50]</th>
                             </tr>
 
-                            </tbody>
-                        </table>
-                    </div>
+                            <tr class="thead-bg">
+                                <th></th>
+                                <th colspan="1" class="c_info">T</th>
+                                <th colspan="1" class="c_success">A</th>
+                                <th colspan="1" class="c_success">R</th>
+                                <th colspan="1" class="c_info">T</th>
+                                <th colspan="1" class="c_success">A</th>
+                                <th colspan="1" class="c_success">R</th>
+                                <th colspan="1" class="c_info">T</th>
+                                <th colspan="1" class="c_success">A</th>
+                                <th colspan="1" class="c_success">R</th>
+                                <th colspan="1" class="c_info">T</th>
+                                <th colspan="1" class="c_success">A</th>
+                                <th colspan="1" class="c_success">R</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($s["sheets"] as $key => $value)
+                            <tr>
+                                <td>{{ $key }} &nbsp;[{{ $value['actual_target']}}]</td>
+                                <td class="c_info">@isset($value[13]->target){{ $value[13]->target }}@endisset</td>
+                                <td class="c_success">
+                                @isset($value[13]->achived)
+                                  @if($value[13]->achived == "") -- @else {{ $value[13]->achived }}@endif
+                                @endisset
+                                </td>
+                                <td class="c_warning">@isset($value[13]->rating){{ $value[13]->rating }}@endisset</td>
+                                <td class="c_info">@isset($value[21]->target){{ $value[21]->target }}@endisset</td>
+                                <td class="c_success">
+                                @isset($value[21]->achived)
+                                 @if($value[21]->achived == "") -- @else {{ $value[21]->achived }}@endif
+                                 @endisset
+                                </td>
+                                 <td class="c_warning">@isset($value[21]->rating){{ $value[21]->rating }}@endisset</td>
+                                <td class="c_info">
+                                @isset($value[30]->target)
+                                {{ $value[30]->target }}
+                                @endisset  
+                                </td>
+                                <td class="c_success"> @isset($value[30]->achived)
+                                @if($value[30]->achived == "") -- @else {{ $value[30]->achived }}@endif
+                                @endisset</td>
+                                 <td class="c_warning">@isset($value[30]->rating){{ $value[30]->rating }}@endisset</td>
+                                <td class="c_info"> @isset($value[15]->target)
+                                {{ $value[15]->target }}
+                                @endisset </td>
+                                <td class="c_success"> @isset($value[15]->achived)
+                                @if($value[15]->achived == "") -- @else {{ $value[15]->achived }}@endif
+                                @endisset</td>
+
+                                 <td class="c_warning">@isset($value[15]->rating){{ $value[15]->rating }}@endisset</td>
+                                <td>
+                                    <span class="input-group ">
+                                        <table>
+                                              <tr><th class="c_success">@isset($s['targets'][$key]){{ $s['targets'][$key] }}@endisset</th><th class="c_info">@isset($value['actual_target']){{ $value['actual_target'] }}@endisset</th></tr>
+                                          </table>
+                                      </span>
+                                  </td>
+                              </tr>
+                              @endforeach
+                              <tr>
+                                  <td>Experience</td>
+                                  <td colspan="12"></td>
+                                  <td>
+                                      <span class="input-group ">
+                                        <table>
+                                            <tr><th class="c_success">{{ $s['sheet'][0]['experience'] }}</th><th class="c_info">5.00</th></tr>
+                                        </table>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Future prospects</td>
+                                <td colspan="12"></td>
+                                <td>
+                                    <span class="input-group ">
+                                    <table>
+                                     <tr><th class="c_success">{{ $s['sheet'][0]['future_prospect'] }}</th><th class="c_info">5.00</th></tr>
+                                     </table>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="13">Performance score </td>
+                                <td>
+                                    <span class="input-group">
+                                     <table>
+                                         <tr><th class="c_success">{{ $s['sheet'][0]['total_score'] }}</th><th class="c_info">50.00</th></tr>
+                                         </table>
+                                    </span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <br>
             <div class="break-page"></div>

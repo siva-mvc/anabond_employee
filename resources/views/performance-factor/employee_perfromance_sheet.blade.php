@@ -26,8 +26,8 @@
                   <label class="col-md-2 control-label">Select Year</label>
                        <div class="col-md-2">
                        <select class="form-control onchenageTrigger"  name="year">
-                          <option data-url ="{{ route('employee_factor.perfromance_sheet', ['employee_id' => $employee->id, 'year'=>2017]) }}"  value="2017" @isset($year)@if($year == '2017') selected @endif@endisset>2017-2018</option> 
-                          <option data-url ="{{ route('employee_factor.perfromance_sheet', ['employee_id' => $employee->id, 'year'=>2018]) }}" value="2018" @isset($year)@if($year == '2018') selected @endif>2018-2019@endisset</option>     
+                          <option data-url ="{{ route('employee_factor.perfromance_sheet', ['employee_id' => $employee->id, 'year'=>2017]) }}"  value="2017" @if($year == '2017') selected @endif>2017-2018</option> 
+                          <option data-url ="{{ route('employee_factor.perfromance_sheet', ['employee_id' => $employee->id, 'year'=>2018]) }}" value="2018" @if($year == '2018') selected @endif>2018-2019</option>     
                       </select>
                       </div>
                   </div>

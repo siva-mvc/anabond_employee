@@ -155,24 +155,30 @@ class EmployeeFactorController extends Controller
                 if($fact['id'] == $val->performance_factor_id){
                     $root_id = $val->id;
                     $months_wise_achived = array();
+                    $months_wise_target = array();
                     foreach ($month_array as $m) {
                         // filter from array
                         $curr_fact = array_filter(iterator_to_array($achiveds), function($obj) use($root_id, $m) {
                         if($obj->month == $m && $obj->employee_factor_id == $root_id ){return true;} else{ return false;}}); 
+
                         if(sizeof(array_keys($curr_fact)) > 0){
                             $d_key = array_keys($curr_fact)[0];
                                 $months_wise_achived[$m] = $curr_fact[$d_key]['achived']; 
+                                $months_wise_target[$m] = $curr_fact[$d_key]['target'];
                         }else{
                             $months_wise_achived[$m] = "";
+                            $months_wise_target[$m] = "";
                         }        
                     }
+                        $val->targets = $months_wise_target;
                         $val->achiveds = $months_wise_achived;
                         
                     array_push($list_of_targets, $val);
                 }
             }
             array_push($cons_requet, array("factor"=>$fact, "user_factor" =>$list_of_targets));
-        }  
+        } 
+
         return view('performance-factor/employee_factors_update_credit', 
             ['months' =>$month_array, "lists" => $cons_requet, "dept_id"=>$dept_id, "year"=>$year, "depts" =>$total_depts_search, "dept_ids"=> Session::get('departments')]);
     }
@@ -184,6 +190,7 @@ class EmployeeFactorController extends Controller
     { 
         $data = $request->all();
         $fs = $data['achived'];
+        $ft = $data['target'];
         $user = Auth::user();
         $issued_by = $user['email'];
         $used_fators = DB::table('employee_factor')
@@ -206,13 +213,13 @@ class EmployeeFactorController extends Controller
                     'employee_factor_id' =>$k,
                     'department_id' => $fac->department_id,
                     'factor_name' => $fac->factor_name,
-                    'target'=> $fac->target,
+                    //'target'=> $fac->target,
                     'year' => $fac->year,
                     'issued_by' =>$issued_by
                     );
 
                 foreach ($v as $m => $c) {
-                    $achived_by_month = array_merge($new_achived_by_user, array('month'=>$m, 'achived' =>$c));
+                    $achived_by_month = array_merge($new_achived_by_user, array('target' =>$ft[$k][$m],'month'=>$m, 'achived' =>$c));
                     array_push($builk_achived, $achived_by_month);
 
                 }
@@ -248,31 +255,36 @@ class EmployeeFactorController extends Controller
         $sht = PerformanceSheet:: where(array('employee_id'=>$emp_id, 'year' => $year))->get();
 
         $employee = Employee::findOrFail($emp_id);
+        
         $requet_content = array();
-        $whr = array('year'=>$year, 'employee_id'=>$emp_id);
+        $whr = array('employee_target_achivement.year'=>$year, 'employee_target_achivement.employee_id'=>$emp_id);
         $lists = DB::table('employee_target_achivement')
-            ->select('employee_target_achivement.*')
+             ->leftJoin('employee_factor', 'employee_target_achivement.employee_factor_id', '=', 'employee_factor.id')
+            ->select('employee_target_achivement.*','employee_factor.target as actual_target')
             ->whereIn('employee_target_achivement.month', array(13, 21, 30,15))
             ->whereNotNull('achived')
             ->where($whr)
             ->get();
 
         $target_list = DB::table('employee_target_achivement')
-        ->select('employee_target_achivement.*')
+        ->leftJoin('employee_factor', 'employee_target_achivement.employee_factor_id', '=', 'employee_factor.id')
+        ->select('employee_target_achivement.*','employee_factor.target as actual_target')
         ->whereNotIn('employee_target_achivement.month', array(13, 21, 30,15))
         ->whereNotNull('achived')
         ->where($whr)
         ->get();  
 
-        $re_order = array();    
-
+        $re_order = array(); 
         foreach ($lists as $l => $value) {
+            $re_order[$value->factor_name]['actual_target'] = $value->actual_target;  
             $re_order[$value->factor_name][$value->month] = $value;
         }  
         //new code
         $re_order_target = array();
         foreach ($lists as $l => $value) {
             $re_order_target[$value->factor_name][$value->month] = $value;
+            $rating_percent = ($value->achived * 100)/ $value->target;
+            $re_order_target[$value->factor_name][$value->month]->rating =  ($rating_percent/100)* $value->actual_target;
         }
 
         $new_targets = array();
@@ -280,7 +292,7 @@ class EmployeeFactorController extends Controller
             $sum = 0;
             $d = sizeof($value);
             foreach ($value as $k) {
-               $sum = $sum +$k->achived;
+               $sum = $sum +$k->rating;
             }
 
            $new_targets[$key] = round($sum/$d, 2);
@@ -293,9 +305,6 @@ class EmployeeFactorController extends Controller
             $sheet['total_score'] = $total;
             $sheet['raw_total'] = ($sheet['raw_total'] == 0) ? $total: $sheet['raw_total'];
         }
-
-
-        
         return view('performance-factor/employee_perfromance_sheet', 
             ['sheets' =>$re_order, 'targets'=> $new_targets,'employee' => $employee,
              'total' => $total, 'year'=>$year, 'sheet' => $sheet]);
@@ -345,30 +354,34 @@ class EmployeeFactorController extends Controller
         $sheet = PerformanceSheet:: where(array('employee_id'=>$emp_id, 'year' => $year))->get();
         if(count($sheet)>0){
         
-            $requet_content = array();
-            $whr = array('year'=>$year, 'employee_id'=>$emp_id);
+            $whr = array('employee_target_achivement.year'=>$year, 'employee_target_achivement.employee_id'=>$emp_id);
             $lists = DB::table('employee_target_achivement')
-                ->select('employee_target_achivement.*')
+                 ->leftJoin('employee_factor', 'employee_target_achivement.employee_factor_id', '=', 'employee_factor.id')
+                ->select('employee_target_achivement.*','employee_factor.target as actual_target')
                 ->whereIn('employee_target_achivement.month', array(13, 21, 30,15))
+                ->whereNotNull('achived')
                 ->where($whr)
                 ->get();
 
             $target_list = DB::table('employee_target_achivement')
-            ->select('employee_target_achivement.*')
+            ->leftJoin('employee_factor', 'employee_target_achivement.employee_factor_id', '=', 'employee_factor.id')
+            ->select('employee_target_achivement.*','employee_factor.target as actual_target')
             ->whereNotIn('employee_target_achivement.month', array(13, 21, 30,15))
             ->whereNotNull('achived')
             ->where($whr)
             ->get();  
 
-            $re_order = array();    
-
+            $re_order = array(); 
             foreach ($lists as $l => $value) {
+                $re_order[$value->factor_name]['actual_target'] = $value->actual_target;  
                 $re_order[$value->factor_name][$value->month] = $value;
             }  
             //new code
             $re_order_target = array();
             foreach ($lists as $l => $value) {
                 $re_order_target[$value->factor_name][$value->month] = $value;
+                $rating_percent = ($value->achived * 100)/ $value->target;
+                $re_order_target[$value->factor_name][$value->month]->rating =  ($rating_percent/100)* $value->actual_target;
             }
 
             $new_targets = array();
@@ -376,12 +389,12 @@ class EmployeeFactorController extends Controller
                 $sum = 0;
                 $d = sizeof($value);
                 foreach ($value as $k) {
-                   $sum = $sum +$k->achived;
+                   $sum = $sum +$k->rating;
                 }
 
                $new_targets[$key] = round($sum/$d, 2);
             }
-                $total = array_sum($new_targets);  
+            $total = array_sum($new_targets);  
             return $result = array('sheets' =>$re_order, 'targets'=> $new_targets,'employee' => $employee,
              'total' => $total,'sheet' => $sheet); 
             }else{
@@ -392,23 +405,5 @@ class EmployeeFactorController extends Controller
     }
 
 
-
-    // public function employee_factor_achivement()
-    // { 
-    //     return view('performance-factor/employee_factor_achivement');
-    // }
-
-    
-
-    // public function employee_factor_achivement_month()
-    // {
-    //     return view('performance-factor/employee_factor_achivement_month');
-    // }
-
-    // public function employee_factor_achivement_year()
-    // {
-    //     return view('performance-factor/employee_factor_achivement_year');
-    // }
-  
 
 }

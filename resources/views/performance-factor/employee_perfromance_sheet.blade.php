@@ -41,10 +41,10 @@
                           <thead>
                             <tr class="thead-bg">
                             <th>Factor</th>
-                              <th colspan="2">Q1</th>
-                              <th colspan="2">Q2</th>
-                              <th colspan="2">Q2</th>
-                              <th colspan="2">Q4</th>
+                              <th colspan="3">Q1</th>
+                              <th colspan="3">Q2</th>
+                              <th colspan="3">Q3</th>
+                              <th colspan="3">Q4</th>
                               <th>Total</th>
                             </tr>
                            
@@ -52,30 +52,38 @@
                             <th></th>
                               <th colspan="1" class="c_info">T</th>
                               <th colspan="1" class="c_success">A</th>
+                              <th colspan="1">R</th>
                               <th colspan="1" class="c_info">T</th>
                               <th colspan="1" class="c_success">A</th>
+                              <th colspan="1">R</th>
                               <th colspan="1" class="c_info">T</th>
                               <th colspan="1" class="c_success">A</th>
+                              <th colspan="1">R</th>
                               <th colspan="1" class="c_info">T</th>
                               <th colspan="1" class="c_success">A</th>
+                              <th colspan="1">R</th>
                             </tr>
                           </thead>
                             <tbody>
                             @foreach ($sheets as $key => $value) 
                               <tr> 
-                                <td>{{ $key }}</td>
+                                <td>{{ $key }}&nbsp;[{{ $value['actual_target']}}]</td>
                                 <td class="c_info"> @isset($value[13]->target){{ $value[13]->target }}@endisset</td>
                                 <td class="c_success"> @isset($value[13]->achived) {{ $value[13]->achived }} @endisset</td>
+                                 <td class="c_success"> @isset($value[13]->rating) {{ $value[13]->rating }} @endisset</td>
                                 <td class="c_info"> @isset($value[21]->target ) {{ $value[21]->target }} @endisset</td>
                                 <td class="c_success"> @isset($value[21]->achived) {{ $value[21]->achived }} @endisset</td>
+                                <td class="c_success"> @isset($value[21]->rating) {{ $value[21]->rating }} @endisset</td>
                                 <td class="c_info"> @isset($value[30]->target ) {{ $value[30]->target }} @endisset</td>
                                 <td class="c_success"> @isset($value[30]->achived) {{ $value[30]->achived }} @endisset</td>
+                                <td class="c_success"> @isset($value[30]->rating) {{ $value[30]->rating }} @endisset</td>
                                 <td class="c_info"> @isset($value[15]->target ) {{ $value[15]->target }} @endisset</td>
                                 <td class="c_success"> @isset($value[15]->achived) {{ $value[15]->achived }} @endisset</td>
+                                <td class="c_success"> @isset($value[15]->rating) {{ $value[15]->rating }} @endisset</td>
                                 <td>
                                   <div class="input-group ingroup150">
                                     <input disabled type="text" class="form-control" value="{{ $targets[$key] }}">
-                                    <span class="input-group-addon">@isset($value[15]->target){{ $value[15]->target }}@endisset</span>
+                                    <span class="input-group-addon">@isset($value['actual_target']) {{ $value['actual_target']}}@endisset</span>
                                   </div>
                                 </td> 
                               </tr>
@@ -83,7 +91,7 @@
                             <input name="raw_total" class="total_bt" type="hidden" value="{{ $sheet['raw_total'] }}">
                             <tr>
                               <td>Experience</td>
-                              <td colspan="8"></td>
+                              <td colspan="12"></td>
                               <td><div class="input-group ingroup150">
                                     <input type="text" class="form-control exp_max_5" value="{{ $sheet['experience'] }}" name="experience">
                                     <span class="input-group-addon">5.00</span>
@@ -91,14 +99,14 @@
                             </tr>
                             <tr>
                               <td>Future prospects</td>
-                              <td colspan="8"></td>
+                              <td colspan="12"></td>
                               <td><div class="input-group ingroup150">
                                     <input type="text" class="form-control future_max_5" value="{{ $sheet['future_prospect'] }}" name="future_prospect">
                                     <span class="input-group-addon">5.00</span>
                                   </div></td>
                             </tr>
                             <tr>
-                              <td colspan="9">Performance score </td>
+                              <td colspan="13">Performance score </td>
                               <td><div class="input-group ingroup150">
                                     <input type="text" readonly class="form-control total_score" value="{{ $sheet['total_score'] }}" name="total">
                                     <span class="input-group-addon">50</span>

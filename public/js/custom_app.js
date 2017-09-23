@@ -34,6 +34,7 @@ $('.validate_target').on('change',function(){
     var this_value = (isNaN($(this).val()))? 0 : $(this).val();
     //Adding to sum of values
     var data_attr = $(this).data('qids');
+    var name = $(this).attr('name');
     var total = 0;
     var i = 0;
      $("[data-qids = '"+data_attr+"']").each(function() {
@@ -46,6 +47,7 @@ $('.validate_target').on('change',function(){
      var x = (total/i).toFixed(2);
     var clean = (isNaN(x))? '' : x;
      $("[data-target-sum = '"+data_attr+"']").val(clean);
+     $("[data-maximum = '"+name+"']").val(0);
 
   });
 

@@ -58,8 +58,7 @@ class SocialController extends Controller
             
            $update_user = array(
                 'username' => $name[0],
-                'firstname' => $name[0],
-                'lastname' => $name[1],
+                'name' => $n$name[0]. " ".$name[1],
                 'picture' => $user->avatar);
 
             User::where('email', $email)->update($update_user);
@@ -71,13 +70,10 @@ class SocialController extends Controller
            $newSocialUser->email = $email;
            $name = explode(' ', $user->name);
 
-           $newSocialUser->firstname = $name[0];
-           $newSocialUser->lastname = $name[1];
+           $newSocialUser->name = $name[0]. " ".$name[1];
            $newSocialUser->picture = "";
            User::create([
-                'username' => $name[0],
-                'firstname' => $name[0],
-                'lastname' => $name[1],
+                'name' => $name[0]. " ".$name[1],
                 'email' => $email,
                 'picture' =>$user->avatar,
                 'password' => bcrypt($email),

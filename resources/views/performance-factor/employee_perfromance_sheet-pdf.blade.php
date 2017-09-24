@@ -89,7 +89,7 @@ div.break-page{ page-break-before: always;}
                     <h4><strong>Employee Details :</strong></h4>
                     <ul class="emp-detail-list row">
                         <li class="col-sm-2">
-                            Name : <strong>{{ $s['employee']->firstname }} {{ $s['employee']->lastname }}</strong>
+                            Name : <strong>{{ $s['employee']->name }}</strong>
                         </li>
                         <li class="col-sm-2">
                             Employee ID : <strong>{{ $s['employee']->employee_reg_id }}</strong>

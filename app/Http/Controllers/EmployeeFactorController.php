@@ -136,7 +136,7 @@ class EmployeeFactorController extends Controller
         $employee_with_target = DB::table('employee_factor')
          ->leftJoin('employees', 'employee_factor.employee_id', '=', 'employees.id')
          ->leftJoin('performance_factor', 'employee_factor.performance_factor_id', '=', 'performance_factor.id')
-        ->select('employee_factor.*', 'employees.firstname as employee_fname', 'employees.lastname as employee_lname', 'performance_factor.name as factor_name')
+        ->select('employee_factor.*', 'employees.name as employee_fname', 'employees.lastname as employee_lname', 'performance_factor.name as factor_name')
         ->where('employee_factor.year', '=' , $year)
         ->get();  
 
@@ -196,7 +196,7 @@ class EmployeeFactorController extends Controller
         $used_fators = DB::table('employee_factor')
              ->leftJoin('employees', 'employee_factor.employee_id', '=', 'employees.id')
              ->leftJoin('performance_factor', 'employee_factor.performance_factor_id', '=', 'performance_factor.id')
-            ->select('employee_factor.*', 'employees.firstname as employee_fname', 'employees.lastname as employee_lname','employees.department_id as department_id', 'performance_factor.name as factor_name')
+            ->select('employee_factor.*', 'employees.name as employee_fname', 'employees.lastname as employee_lname','employees.department_id as department_id', 'performance_factor.name as factor_name')
             ->whereIn('employee_factor.id', array_keys($fs))
             ->get();  
 
@@ -228,8 +228,12 @@ class EmployeeFactorController extends Controller
             if($dept_id == 0){
                 $whr = array('year'=>$year);
             }
-            EmployeeFactorAchivement::where($whr)->delete();
-            EmployeeFactorAchivement::insert($builk_achived);
+            echo "<pre>";
+            print_r($builk_achived);
+            exit;
+
+            //EmployeeFactorAchivement::where($whr)->delete();
+            //EmployeeFactorAchivement::insert($builk_achived);
             //
             $delete = PerformanceSheet:: where(array('year' => $year))->delete();
             //

@@ -46,9 +46,9 @@ class EmployeeManagementController extends Controller
         ->leftJoin('team', 'employees.team_id', '=', 'team.id')
         ->leftJoin('designation', 'employees.designation_id', '=', 'designation.id')
         ->select('employees.*', 'department.name as department_name', 'department.id as department_id', 'designation.name as designation_name', 'designation.id as designation_id')
-        ->orderBy('employees.firstname', 'ASC')
+        ->orderBy('employees.name', 'ASC')
         ->whereIn('employees.department_id', $ids)
-        ->paginate(5);
+        ->paginate(10);
 
         $year = (isset($request['year'])) ? $request['year'] : date("Y");
         return view('employees-mgmt/index', ['employees' => $employees, 'year' => $year]);
@@ -77,7 +77,7 @@ class EmployeeManagementController extends Controller
     public function store(Request $request)
     {
         $this->validateInput($request);
-        $keys = ['employee_reg_id','lastname', 'firstname', 'birthdate', 'date_hired', 'team_id', 'department_id', 'designation_id'];
+        $keys = ['employee_reg_id','name', 'birthdate', 'date_hired', 'team_id', 'department_id', 'designation_id'];
         $input = $this->createQueryInput($keys, $request);
         if ($request->file('picture')) {
             $path = $request->file('picture')->store('avatars');
@@ -146,7 +146,7 @@ class EmployeeManagementController extends Controller
             PerformanceSheet::where('employee_id', $id)->delete();
         }
         // Upload image
-        $keys = ['employee_reg_id','lastname', 'firstname', 'team_id', 'birthdate', 'date_hired', 'department_id', 'designation_id'];
+        $keys = ['employee_reg_id','name', 'team_id', 'birthdate', 'date_hired', 'department_id', 'designation_id'];
         $input = $this->createQueryInput($keys, $request);
         if ($request->file('picture')) {
             $path = $request->file('picture')->store('avatars');
@@ -185,8 +185,7 @@ class EmployeeManagementController extends Controller
      */
     public function search(Request $request) {
         $constraints = [
-            'firstname' => $request['firstname'],
-            'department.name' => $request['department_name']
+            'name' => $request['name']
             ];
         $employees = $this->doSearchingQuery($constraints);
         $constraints['department_name'] = $request['department_name'];
@@ -197,19 +196,18 @@ class EmployeeManagementController extends Controller
     private function doSearchingQuery($constraints) {
         $query = DB::table('employees')
         ->leftJoin('department', 'employees.department_id', '=', 'department.id')
-        ->leftJoin('team', 'employees.team_id', '=', 'team.id')
         ->leftJoin('designation', 'employees.designation_id', '=', 'designation.id')
-        ->select('employees.firstname as employee_name', 'employees.*','department.name as department_name', 'department.id as department_id', 'designation.name as designation_name', 'designation.id as designation_id');
+        ->select('employees.name as employee_name', 'employees.*','department.name as department_name', 'department.id as department_id', 'designation.name as designation_name', 'designation.id as designation_id');
         $fields = array_keys($constraints);
         $index = 0;
         foreach ($constraints as $constraint) {
             if ($constraint != null) {
-                $query = $query->where($fields[$index], 'like', '%'.$constraint.'%');
+                $query = $query->where("employees.".$fields[$index], 'like', '%'.$constraint.'%');
             }
 
             $index++;
         }
-        return $query->paginate(5);
+        return $query->paginate(10);
     }
 
      /**
@@ -228,8 +226,7 @@ class EmployeeManagementController extends Controller
     private function validateInput($request) {
         $this->validate($request, [
             'employee_reg_id' => 'required|max:60|unique:employees',
-            'lastname' => 'required|max:60',
-            'firstname' => 'required|max:60',
+            'name' => 'required|max:60',
             // 'zip' => 'numeric',
             // 'age' => 'numeric',
             'department_id' => 'required',
@@ -239,8 +236,7 @@ class EmployeeManagementController extends Controller
     private function validateInputEdit($request) {
         $this->validate($request, [
             'employee_reg_id' => 'required|max:60',
-            'lastname' => 'required|max:60',
-            'firstname' => 'required|max:60',
+            'name' => 'required|max:60',
             // 'zip' => 'numeric',
             // 'age' => 'numeric',
             'department_id' => 'required',

@@ -13,7 +13,7 @@
                     <h4><strong>Employee Details :</strong></h4>
                     <ul class="emp-detail-list row">
                         <li class="col-sm-3">
-                            Name : <strong>{{ $employee->firstname }} {{ $employee->lastname }}</strong>
+                            Name : <strong>{{ $employee->name }}</strong>
                         </li>
                         <li class="col-sm-3">
                             Employee ID : <strong>{{ $employee->employee_reg_id }}</strong>

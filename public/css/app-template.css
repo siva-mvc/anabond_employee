@@ -37,7 +37,7 @@
 .box-body-head >p + p{margin-top:5px;}
 .emp-detail-list{list-style:none;padding-left:0;margin-top:5px;margin-bottom:5px;}
 .emp-detail-list >li{padding-top:3px;padding-bottom:3px;}
-.emp-data-table td,.emp-data-table th{vertical-align:middle !important;text-align:center;}
+.emp-data-table td,.emp-data-table th{vertical-align:middle !important;text-align:left;}
 .emp-data-table td  .ingroup150{margin:0 auto;}
 .mw600{max-width:600px;}
 .profile-info{position:relative;padding-left:150px;}
@@ -46,8 +46,7 @@
 
 .total-bg{
   background-color:#b3ffb3 !important;
-  font-weight: 900;
-  border: 2px solid #000 !important;
+
 }
 .ftitle{
   text-align:left !important; 
@@ -90,4 +89,24 @@ div.breakNow{ page-break-inside:avoid; page-break-after:always; }
 
 .emp-data-table .form-control{
   padding: 0px 3px;
+}
+
+.form-control-emptable {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 11px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  text-align: right;
 }

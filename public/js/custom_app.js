@@ -28,17 +28,45 @@ $(document).ready(function() {
     window.location.href = url; 
   });
 
+function update_targets(data_attr){
+   var total = 0;
+    var i = 0;
+  $("[data-qids = '"+data_attr+"']").each(function() {
+    var n = $(this).attr('name');
+    var v = $("[data-maximum = '"+n+"']").val();
+      if($.isNumeric($(this).val()) && $.isNumeric(v)){
+        i+=1;
+        total+=parseFloat($(this).val());
+      }
+   });
+  var x = (total/i).toFixed(2);
+  var clean = (isNaN(x))? '' : x;
+   $("[data-target-sum = '"+data_attr+"']").val(clean);
+}
+
+function update_achiveds(){
+
+}
+
+//function update_sums(){}
 
 $('.validate_target').on('change',function(){
 
     var this_value = (isNaN($(this).val()))? 0 : $(this).val();
+    //update value
+    $(this).val(this_value);
+
     //Adding to sum of values
     var data_attr = $(this).data('qids');
     var name = $(this).attr('name');
     var total = 0;
     var i = 0;
+    $("[data-maximum = '"+name+"']").val('');
+
      $("[data-qids = '"+data_attr+"']").each(function() {
-        if($.isNumeric($(this).val())){
+      var n = $(this).attr('name');
+      var v = $("[data-maximum = '"+n+"']").val();
+        if($.isNumeric($(this).val()) && $.isNumeric(v)){
           i+=1;
           total+=parseFloat($(this).val());
         }
@@ -47,15 +75,16 @@ $('.validate_target').on('change',function(){
      var x = (total/i).toFixed(2);
     var clean = (isNaN(x))? '' : x;
      $("[data-target-sum = '"+data_attr+"']").val(clean);
-     $("[data-maximum = '"+name+"']").val(0);
-
   });
 
   $('.validate_credit').on('change',function(){
+
     var max_id = $(this).data('maximum');
     var max = $("input[name='"+max_id+"']").val();
     var clean = (isNaN($(this).val()))? 0 : $(this).val();
-    if($(this).val()<=parseFloat(max)){
+    $(this).val(clean);
+
+    if($.isNumeric($(this).val()) && $(this).val()<=parseFloat(max)){
       $(this).val(parseFloat(clean));
       $(this).css('border-color', 'yellow');
     }else{
@@ -73,9 +102,10 @@ $('.validate_target').on('change',function(){
         }
      });
 
-     var x = (total/i).toFixed(2);
+    var x = (total/i).toFixed(2);
     var clean = (isNaN(x))? '' : x;
      $("[data-sum = '"+data_attr+"']").val(clean);
+     update_targets(data_attr+"_max");
 
   });
 

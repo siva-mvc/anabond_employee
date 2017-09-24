@@ -37,7 +37,7 @@
           <form action="{{ route('employee_factor.perfromance_sheet_save', ['employee_id' => $employee->id, 'year'=>$year]) }}" method="post">
            {{ csrf_field() }}
                     <div class="table-responsive">
-                        <table class="table table-hover emp-data-table table-bordered">
+                        <table class="table table-hover emp-data-table emp-data-table-onesheet table-bordered">
                           <thead>
                             <tr class="thead-bg">
                             <th>Factor</th>
@@ -82,8 +82,8 @@
                                 <td class="c_success"> @isset($value[15]->rating) {{ $value[15]->rating }} @endisset</td>
                                 <td>
                                   <div class="input-group ingroup150">
-                                    <input disabled type="text" class="form-control" value="{{ $targets[$key] }}">
-                                    <span class="input-group-addon">@isset($value['actual_target']) {{ $value['actual_target']}}@endisset</span>
+                                    <input disabled type="text" class="form-control form-control-empsheet" value="{{ $targets[$key] }}">
+                                    <span class="input-group-addon input-group-addon-sheets ">@isset($value['actual_target']) {{ $value['actual_target']}}@endisset</span>
                                   </div>
                                 </td> 
                               </tr>
@@ -93,23 +93,23 @@
                               <td>Experience</td>
                               <td colspan="12"></td>
                               <td><div class="input-group ingroup150">
-                                    <input type="text" class="form-control exp_max_5" value="{{ $sheet['experience'] }}" name="experience">
-                                    <span class="input-group-addon">5.00</span>
+                                    <input type="text" class="form-control form-control-empsheet exp_max_5" value="{{ $sheet['experience'] }}" name="experience">
+                                    <span class="input-group-addon input-group-addon-sheets ">5.00</span>
                                   </div></td>
                             </tr>
                             <tr>
                               <td>Future prospects</td>
                               <td colspan="12"></td>
                               <td><div class="input-group ingroup150">
-                                    <input type="text" class="form-control future_max_5" value="{{ $sheet['future_prospect'] }}" name="future_prospect">
-                                    <span class="input-group-addon">5.00</span>
+                                    <input type="text" class="form-control form-control-empsheet future_max_5" value="{{ $sheet['future_prospect'] }}" name="future_prospect">
+                                    <span class="input-group-addon input-group-addon-sheets ">5.00</span>
                                   </div></td>
                             </tr>
                             <tr>
                               <td colspan="13">Performance score </td>
                               <td><div class="input-group ingroup150">
-                                    <input type="text" readonly class="form-control total_score" value="{{ $sheet['total_score'] }}" name="total">
-                                    <span class="input-group-addon">50</span>
+                                    <input type="text" readonly class="form-control form-control-empsheet total_score" value="{{ $sheet['total_score'] }}" name="total">
+                                    <span class="input-group-addon input-group-addon-sheets ">50.00</span>
                                   </div></td>
                             </tr>
 

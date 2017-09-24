@@ -48,7 +48,7 @@ class EmployeeManagementController extends Controller
         ->select('employees.*', 'department.name as department_name', 'department.id as department_id', 'designation.name as designation_name', 'designation.id as designation_id')
         ->orderBy('employees.firstname', 'ASC')
         ->whereIn('employees.department_id', $ids)
-        ->paginate(5);
+        ->paginate(10);
 
         $year = (isset($request['year'])) ? $request['year'] : date("Y");
         return view('employees-mgmt/index', ['employees' => $employees, 'year' => $year]);
@@ -77,7 +77,7 @@ class EmployeeManagementController extends Controller
     public function store(Request $request)
     {
         $this->validateInput($request);
-        $keys = ['employee_reg_id','lastname', 'firstname', 'birthdate', 'date_hired', 'team_id', 'department_id', 'designation_id'];
+        $keys = ['employee_reg_id','firstname', 'birthdate', 'date_hired', 'team_id', 'department_id', 'designation_id'];
         $input = $this->createQueryInput($keys, $request);
         if ($request->file('picture')) {
             $path = $request->file('picture')->store('avatars');
@@ -146,7 +146,7 @@ class EmployeeManagementController extends Controller
             PerformanceSheet::where('employee_id', $id)->delete();
         }
         // Upload image
-        $keys = ['employee_reg_id','lastname', 'firstname', 'team_id', 'birthdate', 'date_hired', 'department_id', 'designation_id'];
+        $keys = ['employee_reg_id','firstname', 'team_id', 'birthdate', 'date_hired', 'department_id', 'designation_id'];
         $input = $this->createQueryInput($keys, $request);
         if ($request->file('picture')) {
             $path = $request->file('picture')->store('avatars');
@@ -209,7 +209,7 @@ class EmployeeManagementController extends Controller
 
             $index++;
         }
-        return $query->paginate(5);
+        return $query->paginate(10);
     }
 
      /**
@@ -228,7 +228,6 @@ class EmployeeManagementController extends Controller
     private function validateInput($request) {
         $this->validate($request, [
             'employee_reg_id' => 'required|max:60|unique:employees',
-            'lastname' => 'required|max:60',
             'firstname' => 'required|max:60',
             // 'zip' => 'numeric',
             // 'age' => 'numeric',
@@ -239,7 +238,6 @@ class EmployeeManagementController extends Controller
     private function validateInputEdit($request) {
         $this->validate($request, [
             'employee_reg_id' => 'required|max:60',
-            'lastname' => 'required|max:60',
             'firstname' => 'required|max:60',
             // 'zip' => 'numeric',
             // 'age' => 'numeric',

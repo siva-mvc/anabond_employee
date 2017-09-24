@@ -22,7 +22,7 @@
       <form method="POST" action="{{ route('employee-management.search') }}">
          {{ csrf_field() }}
          @component('layouts.search', ['title' => 'Search'])
-          @component('layouts.two-cols-search-row', ['items' => ['First Name', 'Department_Name'], 
+          @component('layouts.two-cols-search-row', ['items' => ['Name'], 
           'oldVals' => [isset($searchingVals) ? $searchingVals['firstname'] : '', isset($searchingVals) ? $searchingVals['department_name'] : '']])
           @endcomponent
         @endcomponent
@@ -51,7 +51,7 @@
                    <img src="{{ asset("/bower_components/AdminLTE/dist/img/user2-160x160.jpg") }}"  width="50px" height="50px">
                   @endif 
                   </td>
-                  <td class="sorting_1">{{ $employee->firstname }} {{$employee->middlename}} {{$employee->lastname}}</td>
+                  <td class="sorting_1">{{ $employee->firstname }}</td>
                   <!-- <td class="hidden-xs">{{ $employee->address }}</td> -->
                   <!-- <td class="hidden-xs">{{ $employee->age }}</td>
                   <td class="hidden-xs">{{ $employee->birthdate }}</td> -->

@@ -228,8 +228,12 @@ class EmployeeFactorController extends Controller
             if($dept_id == 0){
                 $whr = array('year'=>$year);
             }
-            EmployeeFactorAchivement::where($whr)->delete();
-            EmployeeFactorAchivement::insert($builk_achived);
+            echo "<pre>";
+            print_r($builk_achived);
+            exit;
+
+            //EmployeeFactorAchivement::where($whr)->delete();
+            //EmployeeFactorAchivement::insert($builk_achived);
             //
             $delete = PerformanceSheet:: where(array('year' => $year))->delete();
             //

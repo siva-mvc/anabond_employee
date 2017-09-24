@@ -5,10 +5,10 @@
       <div class="box">
   <div class="box-header">
     <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-10">
           <h3 class="box-title">List of employees</h3>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-1">
           <a class="btn btn-primary" href="{{ route('employee-management.create') }}">Add new employee</a>
         </div>
     </div>
@@ -33,12 +33,12 @@
           <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
             <thead>
               <tr role="row">
-                <th width="10%" aria-controls="example2" rowspan="1" colspan="1" aria-label="Picture: activate to sort column descending" aria-sort="ascending">Picture</th>
-                <th width="10%" class="sorting_asc" aria-controls="example2" rowspan="1" colspan="1" aria-label="Name: activate to sort column descending" aria-sort="ascending">Employee Name</th>
-                <th width="10%" class="sorting hidden-xs" aria-controls="example2" rowspan="1" colspan="1" aria-label="HiredDate: activate to sort column ascending">Date of Joining</th>
-                <th width="10%" class="sorting hidden-xs" aria-controls="example2" rowspan="1" colspan="1" aria-label="Department: activate to sort column ascending">Department</th>
-                <th width="10%" class="sorting hidden-xs" aria-controls="example2" rowspan="1" colspan="1" aria-label="Designation: activate to sort column ascending">Designation</th>
-                <th width="10%" aria-controls="example2" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending">Action</th>
+                <th width="3%" aria-controls="example2" rowspan="1" colspan="1" aria-label="Picture: activate to sort column descending" aria-sort="ascending">Picture</th>
+                <th width="12%" aria-controls="example2" rowspan="1" colspan="1" aria-label="Name: activate to sort column descending" aria-sort="ascending">Employee Name</th>
+                <th width="4%"  aria-controls="example2" rowspan="1" colspan="1" aria-label="HiredDate: activate to sort column ascending">Date of Joining</th>
+                <th width="10%" aria-controls="example2" rowspan="1" colspan="1" aria-label="Department: activate to sort column ascending">Department</th>
+                <th width="10%" aria-controls="example2" rowspan="1" colspan="1" aria-label="Designation: activate to sort column ascending">Designation</th>
+                <th width="7%" aria-controls="example2" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -55,10 +55,10 @@
                   <!-- <td class="hidden-xs">{{ $employee->address }}</td> -->
                   <!-- <td class="hidden-xs">{{ $employee->age }}</td>
                   <td class="hidden-xs">{{ $employee->birthdate }}</td> -->
-                  <td class="hidden-xs">{{ $employee->date_hired }}</td>
+                  <td class="hidden-xs" align="center">{{ $employee->date_hired }}</td>
                   <td class="hidden-xs">{{ $employee->department_name }}</td>
                   <td class="hidden-xs">{{ $employee->designation_name }}</td>
-                  <td>
+                  <td align="center">
                     <form class="row" method="POST" action="{{ route('employee-management.destroy', ['id' => $employee->id]) }}" onsubmit = "return confirm('Are you sure?')">
                         <input type="hidden" name="_method" value="DELETE">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">

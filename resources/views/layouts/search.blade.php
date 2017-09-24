@@ -12,9 +12,6 @@
   </div>
   <!-- /.box-body -->
   <div class="box-footer">
-    <button type="submit" class="btn btn-primary">
-      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-      Search
-    </button>
+   
   </div>
 </div>

@@ -31,7 +31,10 @@
             <!-- 
             <li><a href="{{ url('system-management/country') }}">Country</a></li>
             <li><a href="{{ url('system-management/state') }}">State</a></li> -->
-            <li><a href="{{ url('employee-perfromance-sheet-pdf') }}">Generate PDF</a></li> 
+
+
+             <li><a href="{{ url('employee-perfromance-sheet-pdf-list') }}/{{ Session::get('departments')[0] }}">Generate PDF</a></li> 
+         <!--    <li><a href="{{ url('employee-perfromance-sheet-pdf') }}">Generate PDF</a></li>  -->
           </ul>
         </li>
         @if(Auth::user()->email =='admin@gmail.com')

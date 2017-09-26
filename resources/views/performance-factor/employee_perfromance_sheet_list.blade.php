@@ -9,7 +9,7 @@
           <h3 class="box-title">List of departments</h3>
         </div>
         <div class="col-sm-4">
-          <a class="btn btn-primary" href="{{ route('department.create') }}">Add new department</a>
+          <a class="btn btn-primary" href="{{ route('sheet.pdf') }}">Export PDF</a>
         </div>
     </div>
   </div>

@@ -45,7 +45,7 @@
             @foreach ($employees as $employee)
                 <tr role="row" class="odd">
                 <td class="sorting_1">{{ $employee->employee_reg_id }}</td>
-                  </td> -->
+                  </td>
                   <td class="sorting_1">{{ $employee->name }}</td>
                   <td class="hidden-xs" align="center">{{ $employee->date_hired }}</td>
                   <td class="hidden-xs">{{ $employee->department_name }}</td>

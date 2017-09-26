@@ -33,7 +33,7 @@
           <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
             <thead>
               <tr role="row">
-                <th width="3%" aria-controls="example2" rowspan="1" colspan="1" aria-label="Picture: activate to sort column descending" aria-sort="ascending">Picture</th>
+                <th width="3%" aria-controls="example2" rowspan="1" colspan="1" aria-label="Picture: activate to sort column descending" aria-sort="ascending">Employee ID</th>
                 <th width="12%"  aria-controls="example2" rowspan="1" colspan="1" aria-label="Name: activate to sort column descending" aria-sort="ascending">Employee Name</th>
                 <th width="4%"  aria-controls="example2" rowspan="1" colspan="1" aria-label="HiredDate: activate to sort column ascending">Date of Joining</th>
                 <th width="10%"  aria-controls="example2" rowspan="1" colspan="1" aria-label="Department: activate to sort column ascending">Department</th>
@@ -44,17 +44,9 @@
             <tbody>
             @foreach ($employees as $employee)
                 <tr role="row" class="odd">
-                  <td>
-                  @if(trim($employee->picture))
-                   <img src="../{{$employee->picture }}" width="50px" height="50px"/>
-                  @else  
-                   <img src="{{ asset("/bower_components/AdminLTE/dist/img/user2-160x160.jpg") }}"  width="50px" height="50px">
-                  @endif 
-                  </td>
+                <td class="sorting_1">{{ $employee->employee_reg_id }}</td>
+                  </td> -->
                   <td class="sorting_1">{{ $employee->name }}</td>
-                  <!-- <td class="hidden-xs">{{ $employee->address }}</td> -->
-                  <!-- <td class="hidden-xs">{{ $employee->age }}</td>
-                  <td class="hidden-xs">{{ $employee->birthdate }}</td> -->
                   <td class="hidden-xs" align="center">{{ $employee->date_hired }}</td>
                   <td class="hidden-xs">{{ $employee->department_name }}</td>
                   <td class="hidden-xs">{{ $employee->designation_name }}</td>

@@ -286,7 +286,7 @@ class EmployeeFactorController extends Controller
         foreach ($lists as $l => $value) {
             $re_order_target[$value->factor_name][$value->month] = $value;
             $rating_percent = ($value->achived * 100)/ $value->target;
-            $re_order_target[$value->factor_name][$value->month]->rating =  ($rating_percent/100)* $value->actual_target;
+            $re_order_target[$value->factor_name][$value->month]->rating = round(($rating_percent/100)* $value->actual_target, 2);
         }
 
         $new_targets = array();
@@ -330,6 +330,34 @@ class EmployeeFactorController extends Controller
     
    }
     
+    public function exportList(Request $request, $dept_id){
+        $year = (isset($year)) ? $request['year'] : date("Y");
+
+        //$whr = array('performance_sheet.year' => $year);
+        $dept_id = (isset($dept_id)) ? $dept_id : Session::get('departments')[0];
+
+        $total_depts_search = DB::table('department')->whereIn('department.id',Session::get('departments'))->get();
+
+        $whr = array('performance_sheet.year' => $year);
+
+        $whrIn = array($dept_id); 
+        if($dept_id ==0){
+            $whrIn = Session::get('departments');
+        }
+
+
+        $sheets = DB::table('performance_sheet')
+            ->rightJoin('employees', 'performance_sheet.employee_id', '=', 'employees.id')
+            ->rightJoin('department', 'employees.department_id', '=', 'department.id')
+            ->select('performance_sheet.*','employees.name as employee_name','department.name as department_name' )
+            ->where($whr)
+            ->whereIn('employees.department_id', $whrIn)
+            ->get();
+        return view('performance-factor/employee_perfromance_sheet_list', 
+            ['sheets' =>$sheets, 'dept_id'=>$dept_id, 'depts'=>$total_depts_search, 'year'=>$year]); 
+
+    }
+
     public function exportPDF(Request $request) {
         $year = (isset($request['year'])) ? $request['year'] : date("Y");
         $ids = Session::get('departments');
@@ -383,7 +411,7 @@ class EmployeeFactorController extends Controller
             foreach ($lists as $l => $value) {
                 $re_order_target[$value->factor_name][$value->month] = $value;
                 $rating_percent = ($value->achived * 100)/ $value->target;
-                $re_order_target[$value->factor_name][$value->month]->rating =  ($rating_percent/100)* $value->actual_target;
+                $re_order_target[$value->factor_name][$value->month]->rating =  round(($rating_percent/100)* $value->actual_target, 2);
             }
 
             $new_targets = array();

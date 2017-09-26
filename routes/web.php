@@ -70,6 +70,10 @@ Route::post('employee-factors-management/{employee_id}/{year}', 'EmployeeFactorC
 
 Route::get('employee-perfromance-sheet/{emp_id}/{year}', 'EmployeeFactorController@employee_perfromance_sheet')->name('employee_factor.perfromance_sheet');
 
+
+
+Route::get('employee-perfromance-sheet-pdf-list/{dept_id}', 'EmployeeFactorController@exportList')->name('employee_factor.export_list');
+
 Route::post('employee-perfromance-sheet/{emp_id}/{year}', 'EmployeeFactorController@perfromance_sheet_save')->name('employee_factor.perfromance_sheet_save');
 
 

@@ -233,7 +233,7 @@ class EmployeeFactorController extends Controller
             EmployeeFactorAchivement::where($whr)->delete();
             EmployeeFactorAchivement::insert($builk_achived);
             //
-            $delete = PerformanceSheet:: where(array('year' => $year))->delete();
+            //$delete = PerformanceSheet:: where(array('year' => $year))->delete();
             //
             Session::flash('message', 'Credit updated successfull'); 
             Session::flash('alert-class', 'alert-success');
@@ -318,12 +318,16 @@ class EmployeeFactorController extends Controller
         $issued_by = $user['email'];
         $data = $request->all();
         if($data['total'] >0){
-            $delete = PerformanceSheet:: where(array('employee_id'=>$emp_id, 'year' => $year))->delete();
-
+            $whr = array('employee_id'=>$emp_id, 'year' => $year);
+            $ex = PerformanceSheet:: where($whr)->get();
             $psheet  = array('employee_id' => $emp_id, 'year'=>$year, 'total_score' => $data['total'],'experience' => $data['experience'], 'future_prospect' => $data['future_prospect'],'raw_total' =>$data['raw_total'], 'created_by'=>$issued_by);
-
+            if(count($ex)>0){
+                $update = PerformanceSheet:: where($whr)->update($psheet);
+            }else{
+                
                 $create = PerformanceSheet::create($psheet);
-                return Redirect::route('employee_factor.perfromance_sheet', array($emp_id, $year))->with('message', 'Credit updated successfull');
+            }    
+            return Redirect::route('employee_factor.perfromance_sheet', array($emp_id, $year))->with('message', 'Credit updated successfull');
         }else{
             return Redirect::route('employee_factor.perfromance_sheet', array($emp_id, $year))->with('message', 'Unable to process your request!');
         }

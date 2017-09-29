@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Response;
 use App\User;
+use App\Permission;
 
 class UserManagementController extends Controller
 {
@@ -97,6 +98,14 @@ class UserManagementController extends Controller
         }
 
         return view('users-mgmt/edit', ['user' => $user]);
+    }
+
+
+    public function grandPerminsssion($user_id)
+    {
+        $perm = array('user_id' => $user_id, 'perminssion_level'=>'grand_all');
+        $p = Permission::create($perm);
+        return redirect()->intended('/user-management');
     }
 
     /**

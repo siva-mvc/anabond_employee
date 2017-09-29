@@ -48,6 +48,9 @@ Route::post('system-management/team/search', 'TeamController@search')->name('tea
 Route::resource('system-management/factor', 'PerformanceFactorController');
 Route::post('system-management/factor/search', 'PerformanceFactorController@search')->name('factor.search');
 
+
+
+
 Route::resource('system-management/country', 'CountryController');
 Route::post('system-management/country/search', 'CountryController@search')->name('country.search');
 
@@ -64,6 +67,8 @@ Route::post('system-management/report/pdf', 'ReportController@exportPDF')->name(
 
 //Configure factore
 Route::get('employee-factors-management/{employee_id}/{year}', 'EmployeeFactorController@employee_factors_management')->name('employee_factor.factors_management');
+
+Route::get('set-permission/{user_id}', 'UserManagementController@grandPerminsssion')->name('user.set_permission');;
 
 Route::post('employee-factors-management/{employee_id}/{year}', 'EmployeeFactorController@save_employee_factors_management')->name('employee_factor.factors_save_management');
 

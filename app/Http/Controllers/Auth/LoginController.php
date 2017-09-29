@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\DB;
 use App\Department;
 use Session;
+use App\Permission;
 
 class LoginController extends Controller
 {
@@ -57,11 +58,18 @@ class LoginController extends Controller
         Session::forget('departments');
         $dept_ids = array();
 
-        $dept = Department::where('head_of_dept', $user['email'])->get();
-        if($user['email'] == 'admin@gmail.com'){
+        $perm = Permission::where('user_id', $user['id'])->get();
+        if(count($perm)>0){
+            Session::put("is_admin", true);
             $dept = Department::All();
+        }else{
+            $dept = Department::where('head_of_dept', $user['email'])->get();
         }
 
+        if(count($dept)<=0) {
+            return response('Unauthorized.', 401);
+        }
+       
         foreach ($dept as $key => $value) {
             array_push($dept_ids, $value['id']);
         }

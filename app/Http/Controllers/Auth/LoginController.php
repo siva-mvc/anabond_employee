@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Department;
 use Session;
 use App\Permission;
+use Auth;
 
 class LoginController extends Controller
 {

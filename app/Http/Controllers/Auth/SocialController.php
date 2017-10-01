@@ -77,6 +77,7 @@ class SocialController extends Controller
                 'picture' =>$user->avatar,
                 'password' => bcrypt($email),
             ]);
+           return response('Unauthorized.', 401);
         }
 
         if (Auth::attempt(['email' => $email, 'password' => $email])){

@@ -38,6 +38,7 @@ class UserManagementController extends Controller
 
         $users = DB::table('users')
         ->leftJoin('perminssion', 'users.id', '=', 'perminssion.user_id')
+        ->select('users.*', 'perminssion.perminssion_level as perminssion_level')
         ->paginate(10);
         return view('users-mgmt/index', ['users' => $users]);
     }

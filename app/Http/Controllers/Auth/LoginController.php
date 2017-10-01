@@ -67,6 +67,7 @@ class LoginController extends Controller
         }
 
         if(count($dept)<=0) {
+            Auth::logout();
             return response('Unauthorized.', 401);
         }
        

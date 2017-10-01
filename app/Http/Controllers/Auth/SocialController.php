@@ -77,6 +77,7 @@ class SocialController extends Controller
                 'picture' =>$user->avatar,
                 'password' => bcrypt($email),
             ]);
+           Auth::logout();
            return response('Unauthorized.', 401);
         }
 

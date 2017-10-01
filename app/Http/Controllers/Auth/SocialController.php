@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 //use App\Models\Social;
 use App\User;
+use App\Permission;
 //use App\Models\Role;
 use Socialize;
 use Auth;
@@ -59,10 +60,14 @@ class SocialController extends Controller
                 'username' => $user->name,
                 'firstname' => $user->name,
                 'picture' => $user->avatar);
-
             User::where('email', $email)->update($update_user);
+            
+            $perm = Permission::where('user_id', $userCheck['id'])->get();
+            if(count($perm)<=0) {
+                Auth::logout();
+                return response('Unauthorized.', 401);
+            }
             $socialUser = $userCheck;
-
         }else {
 
            $newSocialUser = new User; 

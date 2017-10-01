@@ -112,6 +112,12 @@ class UserManagementController extends Controller
         return redirect()->intended('/user-management');
     }
 
+    public function removePerminsssion($user_id)
+    {
+       $p = Permission::where('user_id', $user_id)->delete();
+        return redirect()->intended('/user-management');
+    }
+
     /**
      * Update the specified resource in storage.
      *

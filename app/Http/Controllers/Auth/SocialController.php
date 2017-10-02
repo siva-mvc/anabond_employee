@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 //use App\Models\Social;
 use App\User;
 use App\Permission;
+use App\Department;
 //use App\Models\Role;
 use Socialize;
 use Session;

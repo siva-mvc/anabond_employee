@@ -128,7 +128,7 @@
 
                       <td class="total-bg c_width c_warning"><input type="text" data-target-sum="qid_{{ $u->id }}_q1_max" name="target[{{$u->id}}][13]" readonly value="@isset($u->targets[13]){{$u->targets[13] }}@endisset" class="form-control form-control-emptable mw80"></td>
 
-                     <td class="total-bg"><input type="text" data-sum="qid_{{ $u->id }}_q1" name="achived[{{$u->id}}][13]" value="{{ $u->achiveds[13] }}" class="form-control form-control-emptable validate_credit_sum" readonly></td>
+                     <td class="total-bg"><input type="text" data-sum="qid_{{ $u->id }}_q1" name="achived[{{$u->id}}][13]" value="{{ $u->achiveds[13] }}" class="form-control form-control-emptable validate_credit_sum mw80" readonly></td>
 
 
                       <td class="c_width c_warning"><input type="text" data-qids="qid_{{ $u->id }}_q2_max" name="target[{{$u->id}}][6]" value="@isset($u->targets[6]){{$u->targets[6] }}@endisset" class="form-control form-control-emptable mw80 validate_target"></td>
@@ -146,7 +146,7 @@
 
                      <td class="total-bg c_width c_warning"><input type="text" data-target-sum="qid_{{ $u->id }}_q2_max" name="target[{{$u->id}}][21]" readonly value="@isset($u->targets[21]){{$u->targets[21] }}@endisset" class="form-control form-control-emptable mw80"></td>
 
-                     <td class="total-bg"><input type="text" data-sum="qid_{{ $u->id }}_q2"  name="achived[{{$u->id}}][21]" value="{{ $u->achiveds[21] }}" class="form-control form-control-emptable validate_credit_sum" readonly></td>
+                     <td class="total-bg"><input type="text" data-sum="qid_{{ $u->id }}_q2"  name="achived[{{$u->id}}][21]" value="{{ $u->achiveds[21] }}" class="form-control form-control-emptable validate_credit_sum mw80" readonly></td>
 
                      <td class="c_width c_warning"><input type="text" data-qids="qid_{{ $u->id }}_q3_max" name="target[{{$u->id}}][9]" value="@isset($u->targets[9]){{$u->targets[9] }}@endisset" class="form-control form-control-emptable mw80 validate_target"></td>
 
@@ -162,7 +162,7 @@
 
                      <td class="total-bg c_width c_warning"><input type="text" data-target-sum="qid_{{ $u->id }}_q3_max" name="target[{{$u->id}}][30]" readonly value="@isset($u->targets[30]){{$u->targets[30] }}@endisset" class="form-control form-control-emptable mw80"></td>
 
-                     <td class="total-bg"><input type="text" data-sum="qid_{{ $u->id }}_q3" name="achived[{{$u->id}}][30]" value="{{ $u->achiveds[30] }}" class="form-control form-control-emptable validate_credit_sum" readonly></td>
+                     <td class="total-bg"><input type="text" data-sum="qid_{{ $u->id }}_q3" name="achived[{{$u->id}}][30]" value="{{ $u->achiveds[30] }}" class="form-control form-control-emptable validate_credit_sum mw80" readonly></td>
 
                     <td class="c_width c_warning"><input type="text" data-qids="qid_{{ $u->id }}_q4_max" name="target[{{$u->id}}][12]" value="@isset($u->targets[12]){{$u->targets[12] }}@endisset" class="form-control form-control-emptable mw80 validate_target"></td>
 
@@ -178,7 +178,7 @@
 
                      <td class="total-bg c_width c_warning"><input type="text" data-target-sum="qid_{{ $u->id }}_q4_max" name="target[{{$u->id}}][15]" readonly value="@isset($u->targets[15]){{$u->targets[15] }}@endisset" class="form-control form-control-emptable mw80 validate_credit"></td>
 
-                     <td class="total-bg"><input type="text" data-sum="qid_{{ $u->id }}_q4" name="achived[{{$u->id}}][15]" value="{{ $u->achiveds[15] }}" class="form-control form-control-emptable validate_credit_sum" readonly></td>
+                     <td class="total-bg"><input type="text" data-sum="qid_{{ $u->id }}_q4" name="achived[{{$u->id}}][15]" value="{{ $u->achiveds[15] }}" class="form-control form-control-emptable validate_credit_sum mw80" readonly></td>
                  </tr>
                  @endforeach
                 @endforeach

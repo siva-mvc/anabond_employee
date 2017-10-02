@@ -17,6 +17,7 @@ use App\Team;
 use App\Department;
 use App\EmployeeFactorAchivement;
 use App\PerformanceSheet;
+use App\PerformanceAudit;
 use PDF;
 
 class EmployeeFactorController extends Controller
@@ -255,6 +256,7 @@ class EmployeeFactorController extends Controller
         $sheet = array('employee_id' => $emp_id, 'year'=>$year, 'total_score' => 0,'experience' =>0, 'future_prospect' => 0,'raw_total' =>0);
 
         $sht = PerformanceSheet:: where(array('employee_id'=>$emp_id, 'year' => $year))->get();
+        $history = PerformanceAudit::where(array('employee_id'=>$emp_id, 'year' => $year))->get();
 
         $employee = Employee::findOrFail($emp_id);
         
@@ -307,26 +309,32 @@ class EmployeeFactorController extends Controller
             $sheet['total_score'] = $total;
             $sheet['raw_total'] = ($sheet['raw_total'] == 0) ? $total: $sheet['raw_total'];
         }
+
+
+
         return view('performance-factor/employee_perfromance_sheet', 
             ['sheets' =>$re_order, 'targets'=> $new_targets,'employee' => $employee,
-             'total' => $total, 'year'=>$year, 'sheet' => $sheet]);
+             'total' => $total, 'year'=>$year, 'sheet' => $sheet, 'history' =>$history]);
     }
 
 
    public function perfromance_sheet_save(Request $request, $emp_id, $year){
         $user = Auth::user();
         $issued_by = $user['email'];
+        $firstname = $user['firstname'];
         $data = $request->all();
         if($data['total'] >0){
             $whr = array('employee_id'=>$emp_id, 'year' => $year);
             $ex = PerformanceSheet:: where($whr)->get();
-            $psheet  = array('employee_id' => $emp_id, 'year'=>$year, 'total_score' => $data['total'],'experience' => $data['experience'], 'future_prospect' => $data['future_prospect'],'raw_total' =>$data['raw_total'], 'created_by'=>$issued_by);
+            $psheet  = array('employee_id' => $emp_id, 'year'=>$year, 'total_score' => $data['total'],'experience' => $data['experience'], 'future_prospect' => $data['future_prospect'],'raw_total' =>$data['raw_total'], 'created_by'=>$firstname);
             if(count($ex)>0){
                 $update = PerformanceSheet:: where($whr)->update($psheet);
             }else{
                 
                 $create = PerformanceSheet::create($psheet);
             }    
+            $save = PerformanceAudit::create(array('employee_id' => $emp_id, 'year'=>$year, 'total_score' => $data['total'],'experience' => $data['experience'], 'future_prospect' => $data['future_prospect'],'raw_total' =>$data['raw_total'], 'created_by'=>$firstname));
+
             return Redirect::route('employee_factor.perfromance_sheet', array($emp_id, $year))->with('message', 'Credit updated successfull');
         }else{
             return Redirect::route('employee_factor.perfromance_sheet', array($emp_id, $year))->with('message', 'Unable to process your request!');

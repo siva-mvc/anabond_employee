@@ -116,7 +116,9 @@
                             </tbody>
                         </table>
                     </div>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">History</button>
                     <button class="pull-right btn btn-success" type="submit">Save</button>
+
             </form>
 
             </div>
@@ -127,4 +129,40 @@
           <!-- /.box-body -->
         </div>
     </section>
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Performance sheet list</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table table-bordered">
+              <tr>
+                <td>Experience</td>
+                <td>Future prospects</td>
+                <td>Performance score</td>
+                <td>Issued by</td>
+                <td>Issued date</td>
+              </tr>
+              @foreach ($history as $key => $v)
+                <tr>
+                <td>{{ $v['experience'] }}</td>
+                <td>{{ $v['future_prospect'] }}</td>
+                <td>{{ $v['total_score'] }}</td>
+                <td>{{ $v['created_by'] }}</td>
+                <td>{{ $v['created_at']}}</td>
+              </tr>
+              @endforeach
+
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+  </div>
 @endsection

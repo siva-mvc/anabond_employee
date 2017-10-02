@@ -46,7 +46,7 @@ class SocialController extends Controller
 
         $user = Socialite::driver( $provider )->user();
         $socialUser = null;
-
+        Session::forget('departments');
         //Check is this email present
         $userCheck = User::where('email', '=', $user->email)->first();
 
@@ -62,33 +62,25 @@ class SocialController extends Controller
                 'username' => $user->name,
                 'firstname' => $user->name,
                 'picture' => $user->avatar);
+
             User::where('email', $email)->update($update_user);
-            
             $perm = Permission::where('user_id', $userCheck['id'])->get();
-            if(count($perm)<=0) {
+            $dept = Department::where('head_of_dept', $userCheck['email'])->get();
+
+            if(count($dept)<=0 && count($perm)<=0){
                 Auth::logout();
                 return response('Unauthorized.', 401);
+            }elseif(count($dept)<=0 && count($perm)>0) {
+                $dept = Department::All();
             }else{
-                Session::forget('departments');
-                $dept_ids = array();
-
-                $perm = Permission::where('user_id', $userCheck['id'])->get();
-                if(count($perm)>0){
-                    $dept = Department::All();
-                }else{
-                    $dept = Department::where('head_of_dept', $user['email'])->get();
-                }
-
-                if(count($dept)<=0) {
-                    Auth::logout();
-                    return response('Unauthorized.', 401);
-                }
-               
-                foreach ($dept as $key => $value) {
-                    array_push($dept_ids, $value['id']);
-                }
-                Session::put("departments", $dept_ids);
+                $dept = Department::where('head_of_dept', $userCheck['email'])->get();   
             }
+
+            $dept_ids = array();
+            foreach ($dept as $key => $value) {
+                array_push($dept_ids, $value['id']);
+            }
+            Session::put("departments", $dept_ids);
             $socialUser = $userCheck;
         }else {
 
@@ -104,8 +96,18 @@ class SocialController extends Controller
                 'picture' =>$user->avatar,
                 'password' => bcrypt($email),
             ]);
-           Auth::logout();
-           return response('Unauthorized.', 401);
+           
+           $dept = Department::where('head_of_dept', $email)->get(); 
+           if(count($dept)>0){
+                $dept_ids = array();
+                foreach ($dept as $key => $value) {
+                    array_push($dept_ids, $value['id']);
+                }
+                Session::put("departments", $dept_ids);
+           }else{
+            Auth::logout();
+            return response('Unauthorized.', 401);
+           }
         }
 
         if (Auth::attempt(['email' => $email, 'password' => $email])){

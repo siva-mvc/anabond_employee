@@ -24,15 +24,22 @@
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="{{ url('/')}}/{{ Auth::user()->picture }}" class="user-image" alt="User Image">
+              @if(substr( Auth::user()->picture, 0, 7 ) === "avatars")
+                <img src="{{ url('/')}}/{{ Auth::user()->picture }}" class="user-image" alt="user">
+              @else
+               <img src="{{ Auth::user()->picture }}" class="user-image" alt="user">
+              @endif 
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">{{ Auth::user()->username }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="{{ url('/')}}/{{ Auth::user()->picture }}" class="img-circle" alt="User Image">
-
+              @if(substr( Auth::user()->picture, 0, 7 ) === "avatars")
+                <img src="{{ url('/')}}/{{ Auth::user()->picture }}" class="img-circle" alt="user">
+              @else
+              <img src="{{ Auth::user()->picture }}" class="img-circle" alt="user">
+              @endif    
                 <p>
                   Hello {{ Auth::user()->username }} 
                 </p>

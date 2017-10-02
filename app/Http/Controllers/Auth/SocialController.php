@@ -11,6 +11,7 @@ use App\User;
 use App\Permission;
 //use App\Models\Role;
 use Socialize;
+use Session;
 use Auth;
 
 class SocialController extends Controller

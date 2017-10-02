@@ -75,7 +75,7 @@
   background-color: #d9edf7;
 }
 .c_width {
-  max-width: 42px;
+  max-width: inherit;
 }
 /*.c_ac_width{
   max-width: 60px;
@@ -84,7 +84,7 @@
 div.breakNow{ page-break-inside:avoid; page-break-after:always; }
 
 .emp-data-table > tbody>tr>td{
-  padding: 2px;
+  padding: 0px;
 }
 
 .emp-data-table .form-control{

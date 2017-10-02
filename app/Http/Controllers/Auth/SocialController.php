@@ -66,6 +66,26 @@ class SocialController extends Controller
             if(count($perm)<=0) {
                 Auth::logout();
                 return response('Unauthorized.', 401);
+            }else{
+                Session::forget('departments');
+                $dept_ids = array();
+
+                $perm = Permission::where('user_id', $userCheck['id'])->get();
+                if(count($perm)>0){
+                    $dept = Department::All();
+                }else{
+                    $dept = Department::where('head_of_dept', $user['email'])->get();
+                }
+
+                if(count($dept)<=0) {
+                    Auth::logout();
+                    return response('Unauthorized.', 401);
+                }
+               
+                foreach ($dept as $key => $value) {
+                    array_push($dept_ids, $value['id']);
+                }
+                Session::put("departments", $dept_ids);
             }
             $socialUser = $userCheck;
         }else {

@@ -153,7 +153,7 @@
                 <td>{{ $v['future_prospect'] }}</td>
                 <td>{{ $v['total_score'] }}</td>
                 <td>{{ $v['created_by'] }}</td>
-                <td>{{ $v['created_at']}}</td>
+                <td>{{ $v['created_at']}} </td>
               </tr>
               @endforeach
 

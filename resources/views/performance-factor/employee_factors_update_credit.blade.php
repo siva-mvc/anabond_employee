@@ -14,7 +14,7 @@
                   <label class="col-md-2 control-label">Select Department</label>
                        <div class="col-md-2">
                        <select class="form-control onchenageTrigger"  name="dept_id">
-                       @if(Auth::user()->email =='admin@gmail.com')
+                       @if(Auth::user()->email =='admin@rekon.anbond.co.in')
                           <option data-url ="{{ route('employee_factor.factor_achivement_credit', ['dept_id' => '0', 'year'=>2017]) }}"  value="0" @if($dept_id == '0') selected @endif>All Depertment</option>
                         @endif
                         @foreach ($depts as $dept) 

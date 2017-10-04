@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     {
          $user = factory(App\User::class)->create([
              'username' => 'admin',
-             'email' => 'admin@gmail.com',
+             'email' => 'admin@rekon.anbond.co.in',
              'password' => bcrypt('admin'),
              'lastname' => 'Mr',
              'firstname' => 'admin'

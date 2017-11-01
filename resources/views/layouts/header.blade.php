@@ -6,8 +6,8 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg">{{ config('app.name', 'EmployeeManagement') }}</span>
-     <!-- <img src="{{ url('/')}}/bower_components/AdminLTE/bootstrap/img/logo.png"> -->
+    <!-- <span class="logo-lg">{{ config('app.name', 'EmployeeManagement') }}</span> -->
+     <img src="{{ url('/')}}/logo.png">
     </a>
 
     <!-- Header Navbar -->

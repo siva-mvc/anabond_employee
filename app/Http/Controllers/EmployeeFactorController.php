@@ -371,10 +371,13 @@ class EmployeeFactorController extends Controller
     }
 
     public function exportPDF(Request $request) {
-        $year = (isset($request['year'])) ? $request['year'] : date("Y");
+        $year = (isset($request['year'])) ? $request['year'] : date("Y"); 
         $ids = Session::get('departments');
         if(count($ids)==0){
             $ids =array();    
+        }
+        if($request['dept_id'] != 0){
+            $ids = array($request['dept_id']); 
         }
         $user_list = Employee::whereIn('department_id', $ids)->get();
         $export_data = array(); 

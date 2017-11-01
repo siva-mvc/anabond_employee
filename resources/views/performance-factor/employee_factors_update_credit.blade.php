@@ -4,7 +4,7 @@
       <div class="box">
 
         @if(Session::has('message'))
-          <div class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</div>
+          <div class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('message') }}</div>
           @endif
           <!-- /.box-header -->
           <div class="box-body">

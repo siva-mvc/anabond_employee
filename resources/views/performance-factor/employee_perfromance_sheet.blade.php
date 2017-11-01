@@ -5,7 +5,7 @@
           <!-- /.box-header -->
           <div class="box-body">
               @if(Session::has('message'))
-          <div class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</div>
+          <div class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('message') }}</div>
           @endif
               <!-- Ela Code Starts Here-->
             <div class="box-body-inner">
@@ -153,7 +153,7 @@
                 <td>{{ $v['future_prospect'] }}</td>
                 <td>{{ $v['total_score'] }}</td>
                 <td>{{ $v['created_by'] }}</td>
-                <td>{{ $v['created_at']}} </td>
+                <td>{{ $v['created_at']->format('d/m/Y')}} </td>
               </tr>
               @endforeach
 

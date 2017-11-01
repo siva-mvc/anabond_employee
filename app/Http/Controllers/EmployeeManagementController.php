@@ -194,10 +194,15 @@ class EmployeeManagementController extends Controller
     }
 
     private function doSearchingQuery($constraints) {
+        $ids = Session::get('departments');
+        if(count($ids)==0){
+            $ids  =array();    
+        }
         $query = DB::table('employees')
         ->leftJoin('department', 'employees.department_id', '=', 'department.id')
         ->leftJoin('designation', 'employees.designation_id', '=', 'designation.id')
-        ->select('employees.name as employee_name', 'employees.*','department.name as department_name', 'department.id as department_id', 'designation.name as designation_name', 'designation.id as designation_id');
+        ->select('employees.name as employee_name', 'employees.*','department.name as department_name', 'department.id as department_id', 'designation.name as designation_name', 'designation.id as designation_id')
+        ->whereIn('employees.department_id', $ids);
         $fields = array_keys($constraints);
         $index = 0;
         foreach ($constraints as $constraint) {

@@ -178,7 +178,7 @@ class UserManagementController extends Controller
             'username' => $request['username'],
             'firstname' => $request['firstname'],
             'lastname' => $request['lastname'],
-            'department' => $request['department']
+            //'department' => $request['department']
             ];
 
        $users = $this->doSearchingQuery($constraints);

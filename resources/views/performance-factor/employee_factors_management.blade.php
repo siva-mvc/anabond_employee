@@ -7,7 +7,7 @@
             <!-- Ela Code Starts Here-->
             <div class="box-body-inner">
                 @if(Session::has('message'))
-                <div class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</div>
+                <div class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('message') }}</div>
                 @endif
                 <div class="box-body-head">
                     <h4><strong>Employee Details :</strong></h4>

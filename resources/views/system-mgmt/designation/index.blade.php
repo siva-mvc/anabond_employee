@@ -9,7 +9,7 @@
           <h3 class="box-title">List of designations</h3>
         </div>
         <div class="col-sm-4">
-          <a class="btn btn-primary" href="{{ route('designation.create') }}">Add new designation</a>
+          <a class="btn btn-primary" href="{{ route('designation.create') }}">Add designation</a>
         </div>
     </div>
   </div>

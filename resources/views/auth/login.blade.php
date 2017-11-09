@@ -4,7 +4,17 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
+        <div>
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Admin</a></li>
+            <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">User</a></li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane" id="home">
+                <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
@@ -38,27 +48,27 @@
                             </div>
                         </div>
 
-                       <!--  <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div> -->
-
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
                                 <button type="submit" class="btn btn-success">
                                     Log in
                                 </button>
-
-                               <!--  <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a> -->
                             </div>
                         </div>
+                        <!-- <div class="row">
+                            <div class="col-md-6 col-md-offset-4">
+                                <a href="{{ route('social.redirect', ['provider' => 'google']) }}" class="btn btn-lg waves-effect waves-light btn-block google">Google+</a>
+                            </div>
+                        </div> -->
+                    </form>
+                </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane active" id="profile">
+                <div class="panel panel-default">
+                <div class="panel-heading">Login</div>
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
                         <div class="row">
                             <div class="col-md-6 col-md-offset-4">
                                 <a href="{{ route('social.redirect', ['provider' => 'google']) }}" class="btn btn-lg waves-effect waves-light btn-block google">Google+</a>
@@ -66,7 +76,13 @@
                         </div>
                     </form>
                 </div>
+                </div>
             </div>
+            <div role="tabpanel" class="tab-pane" id="messages">...</div>
+            <div role="tabpanel" class="tab-pane" id="settings">...</div>
+          </div>
+
+        </div>
         </div>
     </div>
 </div>

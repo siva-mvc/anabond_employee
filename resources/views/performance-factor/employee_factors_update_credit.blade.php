@@ -42,7 +42,7 @@
           <form method="post" action="{{ route('employee_factor.factor_achivement_credit_save', ['dept_id' => $dept_id, 'year' =>$year]) }}">
            {{ csrf_field() }} &nbsp;
            <!-- Ela Code Starts Here-->
-            <button class="pull-right btn btn-success btn-sm" type="update">Update</button>
+            <button class="pull-right btn btn-success btn-sm" type="update">Save</button>
             <div class="box-body-inner">
                  <p class="text-right"> <strong>T - TARGET</strong>, <strong>A - ACHIEVED</strong></p>
                     <div class="table-responsive">

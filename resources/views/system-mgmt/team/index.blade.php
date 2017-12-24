@@ -33,7 +33,7 @@
           <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
             <thead>
               <tr role="row">
-                <th width="20%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="team: activate to sort column ascending">Team Name</th>
+                <th width="80%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="team: activate to sort column ascending">Team Name</th>
                 <th tabindex="0" aria-controls="example2" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending">Action</th>
               </tr>
             </thead>

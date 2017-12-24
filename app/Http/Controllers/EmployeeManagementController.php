@@ -48,7 +48,7 @@ class EmployeeManagementController extends Controller
         ->select('employees.*', 'department.name as department_name', 'department.id as department_id', 'designation.name as designation_name', 'designation.id as designation_id')
         ->orderBy('employees.name', 'ASC')
         ->whereIn('employees.department_id', $ids)
-        ->paginate(10);
+        ->paginate(20);
 
         $year = (isset($request['year'])) ? $request['year'] : date("Y");
         return view('employees-mgmt/index', ['employees' => $employees, 'year' => $year]);
@@ -212,7 +212,7 @@ class EmployeeManagementController extends Controller
 
             $index++;
         }
-        return $query->paginate(10);
+        return $query->paginate(20);
     }
 
      /**

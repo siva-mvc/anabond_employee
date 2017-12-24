@@ -25,7 +25,7 @@ class TeamController extends Controller
      */
     public function index()
     {
-        $teams = Team::paginate(5);
+        $teams = Team::paginate(20);
 
         return view('system-mgmt/team/index', ['teams' => $teams]);
     }
@@ -145,7 +145,7 @@ class TeamController extends Controller
 
             $index++;
         }
-        return $query->paginate(5);
+        return $query->paginate(20);
     }
     private function validateInput($request) {
         $this->validate($request, [

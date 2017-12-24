@@ -33,3 +33,10 @@
 	font-size: 16px;
 	
 }
+
+.tableemp>tbody>tr>td{
+	    padding: 3px;
+    line-height: 1.42857143;
+     vertical-align: middle; 
+border-top: 1px solid #ddd;
+}

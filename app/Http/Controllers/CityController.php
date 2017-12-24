@@ -29,7 +29,7 @@ class CityController extends Controller
          $cities = DB::table('city')
         ->leftJoin('state', 'city.state_id', '=', 'state.id')
         ->select('city.id', 'city.name', 'state.name as state_name', 'state.id as state_id')
-        ->paginate(5);
+        ->paginate(20);
         return view('system-mgmt/city/index', ['cities' => $cities]);
     }
 
@@ -152,7 +152,7 @@ class CityController extends Controller
 
             $index++;
         }
-        return $query->paginate(5);
+        return $query->paginate(20);
     }
     private function validateInput($request) {
         $this->validate($request, [

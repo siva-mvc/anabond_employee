@@ -34,12 +34,12 @@ class UserManagementController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(5);
+        $users = User::paginate(20);
 
         $users = DB::table('users')
         ->leftJoin('perminssion', 'users.id', '=', 'perminssion.user_id')
         ->select('users.*', 'perminssion.perminssion_level as perminssion_level')
-        ->paginate(10);
+        ->paginate(20);
         return view('users-mgmt/index', ['users' => $users]);
     }
 
@@ -196,7 +196,7 @@ class UserManagementController extends Controller
 
             $index++;
         }
-        return $query->paginate(5);
+        return $query->paginate(20);
     }
 
     public function load($name) {

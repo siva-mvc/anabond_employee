@@ -28,7 +28,7 @@ class DesignationController extends Controller
     {
         $designations = DB::table('designation')
         ->select('designation.id', 'designation.name')
-        ->paginate(5);
+        ->paginate(20);
 
         return view('system-mgmt/designation/index', ['designations' => $designations]);
     }
@@ -152,7 +152,7 @@ class DesignationController extends Controller
 
             $index++;
         }
-        return $query->paginate(5);
+        return $query->paginate(20);
     }
     private function validateInput($request) {
         $this->validate($request, [

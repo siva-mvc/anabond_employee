@@ -28,7 +28,7 @@ class PerformanceFactorController extends Controller
      */
     public function index()
     {
-        $factors = PerformanceFactor::paginate(5);
+        $factors = PerformanceFactor::paginate(20);
 
         return view('system-mgmt/factor/index', ['factors' => $factors]);
     }
@@ -164,7 +164,7 @@ class PerformanceFactorController extends Controller
 
             $index++;
         }
-        return $query->paginate(5);
+        return $query->paginate(20);
     }
     private function validateInput($request) {
         $this->validate($request, [

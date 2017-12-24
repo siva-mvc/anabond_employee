@@ -52,10 +52,10 @@
                   </div>
                @else
                  <div class="pull-left">
-                    <a href="{{ url('profile') }}" class="btn btn-default btn-flat">Profile</a>
+                    <!--<a href="{{ url('profile') }}" class="btn btn-default btn-flat">Profile</a>-->
                   </div>
-                 <div class="pull-right">
-                    <a class="btn btn-default btn-flat" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                 <div class="text-center">
+                    <a class="btn btn-warning btn-flat" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                     Logout
                     </a>
                  </div>

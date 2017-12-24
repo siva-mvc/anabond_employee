@@ -69,7 +69,7 @@ class SocialController extends Controller
 
             if(count($dept)<=0 && count($perm)<=0){
                 Auth::logout();
-                return response('Unauthorized.', 401);
+                return response('You are not allowed to access this site. Please check with your system administrator for more details.', 401);
             }elseif(count($dept)<=0 && count($perm)>0) {
                 $dept = Department::All();
             }else{
@@ -98,6 +98,7 @@ class SocialController extends Controller
             ]);
            
            $dept = Department::where('head_of_dept', $email)->get(); 
+           $dept = Department::orderBy('name', 'asc')->get();
            if(count($dept)>0){
                 $dept_ids = array();
                 foreach ($dept as $key => $value) {
@@ -106,7 +107,7 @@ class SocialController extends Controller
                 Session::put("departments", $dept_ids);
            }else{
             Auth::logout();
-            return response('Unauthorized.', 401);
+            return response('You are not allowed to access this site. Please check with your system administrator for more details.', 401);
            }
         }
 

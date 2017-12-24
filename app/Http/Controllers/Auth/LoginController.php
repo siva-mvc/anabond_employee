@@ -39,8 +39,8 @@ class LoginController extends Controller
      * @return bool
      */
     protected function hasTooManyLoginAttempts ($request) {
-        $maxLoginAttempts = 2;
-        $lockoutTime = 5; // 5 minutes
+        $maxLoginAttempts = 10;
+        $lockoutTime = 1; // 1 minutes
         return $this->limiter()->tooManyAttempts(
             $this->throttleKey($request), $maxLoginAttempts, $lockoutTime
         );
@@ -63,8 +63,10 @@ class LoginController extends Controller
         if(count($perm)>0){
             Session::put("is_admin", true);
             $dept = Department::All();
+            $dept = Department::orderBy('name', 'asc')->get();
         }else{
             $dept = Department::where('head_of_dept', $user['email'])->get();
+            $dept = Department::orderBy('name', 'asc')->get();
         }
 
         if(count($dept)<=0) {

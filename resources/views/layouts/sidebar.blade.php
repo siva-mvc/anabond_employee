@@ -21,7 +21,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-           @if(Auth::user()->email =='admin@rekon.anbond.co.in')
+           @if(Auth::user()->email =='admin@rekon.anabond.co.in')
             <li><a href="{{ url('system-management/designation') }}">Designation</a></li>
             <li><a href="{{ url('system-management/department') }}">Department</a></li>
             <li><a href="{{ url('system-management/factor') }}">Performance Factor</a></li>
@@ -37,7 +37,7 @@
          <!--    <li><a href="{{ url('employee-perfromance-sheet-pdf') }}">Generate PDF</a></li>  -->
           </ul>
         </li>
-        @if(Auth::user()->email =='admin@rekon.anbond.co.in')
+        @if(Auth::user()->email =='admin@rekon.anabond.co.in')
         <li><a href="{{ route('user-management.index') }}"><i class="fa fa-link"></i> <span>User management</span></a></li>
         @endif 
       </ul>

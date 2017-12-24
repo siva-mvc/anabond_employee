@@ -35,10 +35,15 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
+                            <div class="col-md-1 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
                                     Update
                                 </button>
+                            </div>
+                            <div class="col-md-1 col-md-offset-1">
+                                <a href="{{ url('system-management/department') }}" class="btn btn-warning">
+                                    Cancel
+                                </a>
                             </div>
                         </div>
                     </form>

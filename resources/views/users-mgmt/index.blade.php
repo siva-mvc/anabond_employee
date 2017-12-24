@@ -34,10 +34,10 @@
           <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
             <thead>
               <tr role="row">
-                <th width="10%" class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Name: activate to sort column descending" aria-sort="ascending">User Name</th>
-                <th width="20%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending">Email</th>
-                <th width="20%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending">First Name</th>
-                <th width="20%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending">Last Name</th>
+                <th width="15%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Name: activate to sort column descending" aria-sort="ascending">User Name</th>
+                <th width="25%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending">Email</th>
+                <th width="20%" class=" hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending">First Name</th>
+                <th width="20%" class=" hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending">Last Name</th>
                 <th tabindex="0" aria-controls="example2" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending">Action</th>
               </tr>
             </thead>
@@ -60,13 +60,15 @@
                           Delete
                         </button>
                         @endif
-                    </form>
-                    @if ($user->perminssion_level != 'grand_all')
+
+                         @if ($user->perminssion_level != 'grand_all')
                     <a href="{{ route('user.set_permission', ['user_id' => $user->id]) }}" class="btn btn-default btn-margin"><i class="fa fa-lock" aria-hidden="true"></i></a>
                     @else
                        <a href="{{ route('user.remove_permission', ['user_id' => $user->id]) }}" class="btn btn-default btn-margin"><i class="fa fa-unlock" aria-hidden="true"></i></a>
                     @endif
 
+                    </form>
+                   
                   </td>
               </tr>
             @endforeach

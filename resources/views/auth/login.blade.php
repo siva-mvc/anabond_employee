@@ -71,7 +71,7 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
                         <div class="row">
                             <div class="col-md-6 col-md-offset-4">
-                                <a href="{{ route('social.redirect', ['provider' => 'google']) }}" class="btn btn-lg waves-effect waves-light btn-block google">Google+</a>
+                                <a href="{{ route('social.redirect', ['provider' => 'google']) }}" class="btn btn-lg waves-effect waves-light btn-block google">Log-in Using Anabond Email</a>
                             </div>
                         </div>
                     </form>

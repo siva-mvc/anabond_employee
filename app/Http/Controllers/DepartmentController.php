@@ -26,9 +26,9 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = DB::table('department')
+        $departments = DB::table('department')->orderBy('name', 'asc')
         ->select('department.id', 'department.name')
-        ->paginate(5);
+        ->paginate(20);
 
         return view('system-mgmt/department/index', ['departments' => $departments]);
     }
@@ -152,7 +152,7 @@ class DepartmentController extends Controller
 
             $index++;
         }
-        return $query->paginate(5);
+        return $query->paginate(20);
     }
     private function validateInput($request) {
         $this->validate($request, [

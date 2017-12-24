@@ -124,7 +124,7 @@ class EmployeeFactorController extends Controller
 
         $department = Department::find($dept_id);
 
-        $total_depts_search = DB::table('department')->whereIn('department.id',Session::get('departments'))->get();
+        $total_depts_search = DB::table('department')->whereIn('department.id',Session::get('departments'))->orderBy('name', 'asc')->get();
 
 
 

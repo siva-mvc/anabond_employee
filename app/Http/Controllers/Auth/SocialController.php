@@ -72,8 +72,10 @@ class SocialController extends Controller
                 return response('You are not allowed to access this site. Please check with your system administrator for more details.', 401);
             }elseif(count($dept)<=0 && count($perm)>0) {
                 $dept = Department::All();
+				$dept = Department::orderBy('name', 'asc')->get();
             }else{
-                $dept = Department::where('head_of_dept', $userCheck['email'])->get();   
+                $dept = Department::where('head_of_dept', $userCheck['email'])->get(); 
+				$dept = Department::orderBy('name', 'asc')->get();				
             }
 
             $dept_ids = array();
@@ -99,6 +101,7 @@ class SocialController extends Controller
            
            $dept = Department::where('head_of_dept', $email)->get(); 
            $dept = Department::orderBy('name', 'asc')->get();
+		   $dept = Department::orderBy('name', 'asc')->get();
            if(count($dept)>0){
                 $dept_ids = array();
                 foreach ($dept as $key => $value) {

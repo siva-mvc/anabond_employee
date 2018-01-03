@@ -75,7 +75,6 @@ class SocialController extends Controller
 				$dept = Department::orderBy('name', 'asc')->get();
             }else{
                 $dept = Department::where('head_of_dept', $userCheck['email'])->get(); 
-				$dept = Department::orderBy('name', 'asc')->get();				
             }
 
             $dept_ids = array();
@@ -100,8 +99,7 @@ class SocialController extends Controller
             ]);
            
            $dept = Department::where('head_of_dept', $email)->get(); 
-           $dept = Department::orderBy('name', 'asc')->get();
-		   $dept = Department::orderBy('name', 'asc')->get();
+           
            if(count($dept)>0){
                 $dept_ids = array();
                 foreach ($dept as $key => $value) {

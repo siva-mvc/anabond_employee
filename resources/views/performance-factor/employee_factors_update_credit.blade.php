@@ -2,17 +2,25 @@
 @section('action-content')
 <section class="content">
       <div class="box">
-
-        @if(Session::has('message'))
+ @if(Session::has('message'))
           <div class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('message') }}</div>
           @endif
+        
           <!-- /.box-header -->
           <div class="box-body">
+                      <form method="post" action="{{ route('employee_factor.factor_achivement_credit_save', ['dept_id' => $dept_id, 'year' =>$year]) }}">
+           {{ csrf_field() }} &nbsp;
+        <div class="row">
+        <div class="col-sm-12">
            <ul class="emp-detail-list row">
              <li>
-                <div>
-                  <label class="col-md-2 control-label">Select Department</label>
-                       <div class="col-md-2">
+              <div class="col-sm-3">
+                     <label style="font-size:20px">Update Performance Score by Factors</label>
+                  </div>
+
+                <div class="col-sm-4">
+                  <label style="text-align: right; padding-right: 0px; " ; class="col-md-4 control-label">Select Department</label>
+                       <div class="col-md-8">
                        <select class="form-control onchenageTrigger"  name="dept_id">
                        @if(Auth::user()->email =='admin@rekon.anabond.co.in')
                           <option data-url ="{{ route('employee_factor.factor_achivement_credit', ['dept_id' => '0', 'year'=>2017]) }}"  value="0" @if($dept_id == '0') selected @endif>All Depertment</option>
@@ -27,46 +35,53 @@
                       </select>
                       </div>
                   </div>
-                   <div>
-                   <label class="col-md-2 control-label">Select Year</label>
-                       <div class="col-md-2">
+                   <div class="col-sm-2">
+                   <label style="text-align: right; padding-right: 0px; " ; class="col-md-5 control-label">Select Year</label>
+                       <div class="col-md-7">
                        <select class="form-control onchenageTrigger"  name="year">
                           <option data-url ="{{ route('employee_factor.factor_achivement_credit', ['dept_id' => $dept_id, 'year'=>2017]) }}"  value="2017" @if($year == '2017') selected @endif>2017-2018</option> 
                           <option data-url ="{{ route('employee_factor.factor_achivement_credit', ['dept_id' => $dept_id, 'year'=>2018]) }}" value="2018" @if($year == '2018') selected @endif>2018-2019</option>     
                       </select>
                       </div>
                   </div>
+                  <div class="col-sm-2">
+                    @if (count($lists) >= 1)
+                         <button class="btn btn-success btn-lg" type="update">&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSave&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                         <label class="pull-right">*T- Target<br>*A- Achieved</label>
+                     @endif
+                  </div>
              </li>
           </ul>
+        </div>
+      </div>
           
-          <form method="post" action="{{ route('employee_factor.factor_achivement_credit_save', ['dept_id' => $dept_id, 'year' =>$year]) }}">
-           {{ csrf_field() }} &nbsp;
+
            <!-- Ela Code Starts Here-->
-            <button class="pull-right btn btn-success btn-sm" type="update">Save</button>
+     
             <div class="box-body-inner">
-                 <p class="text-right"> <strong>T - TARGET</strong>, <strong>A - ACHIEVED</strong></p>
+                
                     <div class="table-responsive">
                         <table class="table table-hover emp-data-table table-bordered">
                             @if (count($lists) >= 1)
                              <thead>
                                   <tr class="thead-bg">
                                         <th style="width:10%;">&nbsp;</th>
-                                        <th colspan="2">Apr</th>
-                                        <th colspan="2">May</th>
-                                        <th colspan="2">Jun</th>
+                                        <th style="text-align:center;" colspan="2">Apr</th>
+                                        <th style="text-align:center;" colspan="2">May</th>
+                                        <th style="text-align:center;" colspan="2">Jun</th>
                                         <th style="width:4%" class="total-bg" colspan="2">Q1(Avg.)</th>
-                                        <th colspan="2">Jul</th>
-                                        <th colspan="2">Aug</th>
-                                        <th colspan="2">Sep</th>
-                                        <th style="width:4%"  class="total-bg" colspan="2">Q2(Avg.)</th>
-                                        <th colspan="2">Oct</th>
-                                        <th colspan="2">Nov</th>
-                                        <th colspan="2">Dec</th>
-                                        <th style="width:4%"  class="total-bg" colspan="2">Q3(Avg.)</th>
-                                        <th colspan="2">Jan</th>
-                                        <th colspan="2">Feb</th>
-                                        <th colspan="2">Mar</th>
-                                        <th style="width:4%"  class="total-bg" colspan="2">Q4(Avg.)</th>
+                                        <th style="text-align:center;" colspan="2">Jul</th>
+                                        <th style="text-align:center;" colspan="2">Aug</th>
+                                        <th style="text-align:center;" colspan="2">Sep</th>
+                                        <th style="text-align:center;" style="width:4%"  class="total-bg" colspan="2">Q2(Avg.)</th>
+                                        <th style="text-align:center;" colspan="2">Oct</th>
+                                        <th style="text-align:center;" colspan="2">Nov</th>
+                                        <th style="text-align:center;" colspan="2">Dec</th>
+                                        <th style="text-align:center;" style="width:4%"  class="total-bg" colspan="2">Q3(Avg.)</th>
+                                        <th style="text-align:center;" colspan="2">Jan</th>
+                                        <th style="text-align:center;" colspan="2">Feb</th>
+                                        <th style="text-align:center;" colspan="2">Mar</th>
+                                        <th style="text-align:center;" style="width:4%"  class="total-bg" colspan="2">Q4(Avg.)</th>
                                     </tr>
 
                                     <tr class="thead-bg">

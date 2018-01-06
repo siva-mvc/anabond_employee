@@ -8,7 +8,7 @@
   <div class="box-body">
   <div class="row">
     <div class="col-sm-4">
-      <h2>List of Emlployees</h2>
+      <label style="font-size:20px">List of Employees</label>
     </div>
     <div class="col-sm-8">
       <form method="POST" action="{{ route('employee-management.search') }}">

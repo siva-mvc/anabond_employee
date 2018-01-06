@@ -66,7 +66,7 @@ class LoginController extends Controller
             $dept = Department::orderBy('name', 'asc')->get();
         }else{
             $dept = Department::where('head_of_dept', $user['email'])->get();
-            $dept = Department::orderBy('name', 'asc')->get();
+            
         }
 
         if(count($dept)<=0) {

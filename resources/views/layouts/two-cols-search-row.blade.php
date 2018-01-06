@@ -3,14 +3,16 @@
     $index = 0;
   @endphp
   @foreach ($items as $item)
-    <div class="col-md-4">
+
+    <div class="col-md-11">
       <div class="form-group">
+        <label class="col-md-9 control-label"></label>
           @php
             $stringFormat =  strtolower(str_replace(' ', '', $item));
           @endphp
-          <label for="input<?=$stringFormat?>" class="col-sm-4 control-label">{{$item}}</label>
-          <div class="col-sm-8">
-            <input value="{{isset($oldVals) ? $oldVals[$index] : ''}}" type="text" class="form-control" name="<?=$stringFormat?>" id="input<?=$stringFormat?>" placeholder="{{$item}}">
+
+          <div class="col-sm-3">
+            <input value="{{isset($oldVals) ? $oldVals[$index] : ''}}" type="text" class="form-control" name="<?=$stringFormat?>" id="input<?=$stringFormat?>" placeholder="Enter text and click search button">
           </div>
 
       </div>

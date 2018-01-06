@@ -91,6 +91,10 @@ Route::get('employee-factors-update-credit/{dept_id}/{year}', 'EmployeeFactorCon
 
 Route::post('employee-factors-update-credit/{dept_id}/{year}', 'EmployeeFactorController@employee_factors_update_achived_credit')->name('employee_factor.factor_achivement_credit_save');
 
+Route::get('employee-factors-update-byemp/{dept_id}/{year}', 'EmployeeFactorController@employee_factors_update_credit_byemp')->name('employee_factor.factor_achivement_credit_byemp');
+
+Route::post('employee-factors-update-byemp/{dept_id}/{year}', 'EmployeeFactorController@employee_factors_update_achived_credit_byemp')->name('employee_factor.factor_achivement_credit_save_byemp');
+
 
 Route:: get('employee-factor/configure/{employee_id}', 'EmployeeFactorController@update_employee_performance')->name('employee_factor.update_employee_performance');
 

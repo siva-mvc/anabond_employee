@@ -186,6 +186,86 @@ class EmployeeFactorController extends Controller
 
 
 
+
+
+ public function employee_factors_update_credit_byemp(Request $request, $dept_id, $year)
+    { 
+
+        $month_array = array(4,5,6,7,8,9,10,11,12,1,2,3, 13, 21, 30,15);
+
+        $department = Department::find($dept_id);
+
+        $total_depts_search = DB::table('department')->whereIn('department.id',Session::get('departments'))->orderBy('name', 'asc')->get();
+
+
+        if($dept_id != 0){
+            $empl = Employee::where('department_id', $dept_id)->get(); 
+        }
+        else
+        {
+            $empl = Employee::all();
+
+        }
+       
+
+
+
+        $available_factors = PerformanceFactor::where('department_id', $dept_id)->get();
+
+        if ($department == null || count($department) == 0) {
+            $available_factors = PerformanceFactor:: all();
+        }
+
+        $employee_with_target = DB::table('employee_factor')
+         ->leftJoin('employees', 'employee_factor.employee_id', '=', 'employees.id')
+         ->leftJoin('performance_factor', 'employee_factor.performance_factor_id', '=', 'performance_factor.id')
+        ->select('employee_factor.*', 'employees.name as employee_fname', 'employees.lastname as employee_lname', 'performance_factor.name as factor_name')
+        ->where('employee_factor.year', '=' , $year)
+        ->get();  
+
+        $whr = array('year' => $year, "department_id" => $dept_id);
+        if($dept_id == 0){
+            $whr = array('year' => $year);    
+        }
+        
+        $achiveds = EmployeeFactorAchivement::where($whr)->get();
+        
+        $month_array = array(4,5,6,7,8,9,10,11,12,1,2,3, 13, 21, 30,15);
+        $cons_requet = array();
+        foreach ($empl as $fact) {
+            $list_of_targets = array();
+            foreach ($employee_with_target as $key => $val) {
+                if($fact['id'] == $val->employee_id){
+                    $root_id = $val->id;
+                    $months_wise_achived = array();
+                    $months_wise_target = array();
+                    foreach ($month_array as $m) {
+                        // filter from array
+                        $curr_fact = array_filter(iterator_to_array($achiveds), function($obj) use($root_id, $m) {
+                        if($obj->month == $m && $obj->employee_factor_id == $root_id ){return true;} else{ return false;}}); 
+
+                        if(sizeof(array_keys($curr_fact)) > 0){
+                            $d_key = array_keys($curr_fact)[0];
+                                $months_wise_achived[$m] = $curr_fact[$d_key]['achived']; 
+                                $months_wise_target[$m] = $curr_fact[$d_key]['target'];
+                        }else{
+                            $months_wise_achived[$m] = "";
+                            $months_wise_target[$m] = "";
+                        }        
+                    }
+                        $val->targets = $months_wise_target;
+                        $val->achiveds = $months_wise_achived;
+                        
+                    array_push($list_of_targets, $val);
+                }
+            }
+            array_push($cons_requet, array("factor"=>$fact, "user_factor" =>$list_of_targets));
+        } 
+
+        return view('performance-factor/employee_factors_update_credit_byemp', 
+            ['months' =>$month_array, "lists" => $cons_requet, "dept_id"=>$dept_id, "year"=>$year, "depts" =>$total_depts_search, "dept_ids"=> Session::get('departments')]);
+    }
+
     
     public function employee_factors_update_achived_credit(Request $request, $dept_id, $year)
     { 
@@ -248,6 +328,64 @@ class EmployeeFactorController extends Controller
 
 
 
+public function employee_factors_update_achived_credit_byemp(Request $request, $dept_id, $year)
+    { 
+        $data = $request->all();
+        $fs = $data['achived'];
+        $ft = $data['target'];
+        $user = Auth::user();
+        $issued_by = $user['email'];
+        $used_fators = DB::table('employee_factor')
+             ->leftJoin('employees', 'employee_factor.employee_id', '=', 'employees.id')
+             ->leftJoin('performance_factor', 'employee_factor.performance_factor_id', '=', 'performance_factor.id')
+            ->select('employee_factor.*', 'employees.name as employee_fname', 'employees.lastname as employee_lname','employees.department_id as department_id', 'performance_factor.name as factor_name')
+            ->whereIn('employee_factor.id', array_keys($fs))
+            ->get();  
+
+        $builk_achived = array();
+        if(isset($fs)) {
+            foreach ($fs as $k => $v) {
+                $curr_fact = array_filter(iterator_to_array($used_fators), function($obj) use($k) {
+                if($obj->id == $k){return true;} else{ return false;}}); 
+                $d_key = array_keys($curr_fact)[0];
+                
+                $fac = $curr_fact[$d_key];
+                $new_achived_by_user = array(
+                    'employee_id' => $fac->employee_id,
+                    'employee_factor_id' =>$k,
+                    'department_id' => $fac->department_id,
+                    'factor_name' => $fac->factor_name,
+                    //'target'=> $fac->target,
+                    'year' => $fac->year,
+                    'issued_by' =>$issued_by
+                    );
+
+                foreach ($v as $m => $c) {
+                    $achived_by_month = array_merge($new_achived_by_user, array('target' =>$ft[$k][$m],'month'=>$m, 'achived' =>$c));
+                    array_push($builk_achived, $achived_by_month);
+
+                }
+            }
+            $whr = array('department_id' => $dept_id, 'year'=>$year);
+            if($dept_id == 0){
+                $whr = array('year'=>$year);
+            }
+            
+
+            EmployeeFactorAchivement::where($whr)->delete();
+            EmployeeFactorAchivement::insert($builk_achived);
+            //
+            //$delete = PerformanceSheet:: where(array('year' => $year))->delete();
+            //
+            Session::flash('message', 'Credit updated successfull'); 
+            Session::flash('alert-class', 'alert-success');
+            return Redirect::route('employee_factor.factor_achivement_credit_byemp', array($dept_id, $year))->with('message', 'Credit updated successfull');
+           }else{
+            Session::flash('message', 'Credit updated successfull'); 
+            Session::flash('alert-class', 'alert-danger');
+            return Redirect::route('employee_factor.factor_achivement_credit_byemp', array($dept_id, $year))->withInput();
+           }     
+    }
 
 
 
@@ -348,7 +486,8 @@ class EmployeeFactorController extends Controller
         //$whr = array('performance_sheet.year' => $year);
         $dept_id = (isset($dept_id)) ? $dept_id : Session::get('departments')[0];
 
-        $total_depts_search = DB::table('department')->whereIn('department.id',Session::get('departments'))->get();
+
+        $total_depts_search = DB::table('department')->whereIn('department.id',Session::get('departments'))->orderBy('name', 'asc')->get();
 
         $whr = array('performance_sheet.year' => $year);
 

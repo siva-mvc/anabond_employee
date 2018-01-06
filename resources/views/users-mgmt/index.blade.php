@@ -22,7 +22,7 @@
       <form method="POST" action="{{ route('user-management.search') }}">
          {{ csrf_field() }}
          @component('layouts.search', ['title' => 'Search'])
-          @component('layouts.two-cols-search-row', ['items' => ['User Name', 'First Name'], 
+          @component('layouts.two-cols-search-row', ['items' => ['User Name'], 
           'oldVals' => [isset($searchingVals) ? $searchingVals['username'] : '', isset($searchingVals) ? $searchingVals['firstname'] : '']])
           @endcomponent
           </br>

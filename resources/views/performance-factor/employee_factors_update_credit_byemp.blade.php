@@ -13,14 +13,14 @@
                 <div>
                   <label class="col-md-2 control-label">Select Department</label>
                        <div class="col-md-2">
-                       <select class="form-control onchenageTrigger"  name="dept_id">
+                        <select class="form-control onchenageTrigger"  name="dept_id">
                        @if(Auth::user()->email =='admin@rekon.anabond.co.in')
-                          <option data-url ="{{ route('employee_factor.factor_achivement_credit', ['dept_id' => '0', 'year'=>2017]) }}"  value="0" @if($dept_id == '0') selected @endif>All Depertment</option>
+                          <option data-url ="{{ route('employee_factor.factor_achivement_credit_byemp', ['dept_id' => '0', 'year'=>2017]) }}"  value="0" @if($dept_id == '0') selected @endif>All Depertment</option>
                         @endif
                         @foreach ($depts as $dept) 
 
                           @if(in_array($dept->id, Session::get('departments')))
-                             <option data-url ="{{ route('employee_factor.factor_achivement_credit', ['dept_id' => $dept->id, 'year'=>$year]) }}"  value="{{ $dept->id }}" @if($dept->id == $dept_id) selected @endif>{{ $dept->name }}</option>
+                             <option data-url ="{{ route('employee_factor.factor_achivement_credit_byemp', ['dept_id' => $dept->id, 'year'=>$year]) }}"  value="{{ $dept->id }}" @if($dept->id == $dept_id) selected @endif>{{ $dept->name }}</option>
                           @endif
 
                         @endforeach  
@@ -31,15 +31,15 @@
                    <label class="col-md-2 control-label">Select Year</label>
                        <div class="col-md-2">
                        <select class="form-control onchenageTrigger"  name="year">
-                          <option data-url ="{{ route('employee_factor.factor_achivement_credit', ['dept_id' => $dept_id, 'year'=>2017]) }}"  value="2017" @if($year == '2017') selected @endif>2017-2018</option> 
-                          <option data-url ="{{ route('employee_factor.factor_achivement_credit', ['dept_id' => $dept_id, 'year'=>2018]) }}" value="2018" @if($year == '2018') selected @endif>2018-2019</option>     
+                          <option data-url ="{{ route('employee_factor.factor_achivement_credit_byemp', ['dept_id' => $dept_id, 'year'=>2017]) }}"  value="2017" @if($year == '2017') selected @endif>2017-2018</option> 
+                          <option data-url ="{{ route('employee_factor.factor_achivement_credit_byemp', ['dept_id' => $dept_id, 'year'=>2018]) }}" value="2018" @if($year == '2018') selected @endif>2018-2019</option>     
                       </select>
                       </div>
                   </div>
              </li>
           </ul>
           
-          <form method="post" action="{{ route('employee_factor.factor_achivement_credit_save', ['dept_id' => $dept_id, 'year' =>$year]) }}">
+          <form method="post" action="{{ route('employee_factor.factor_achivement_credit_save_byemp', ['dept_id' => $dept_id, 'year' =>$year]) }}">
            {{ csrf_field() }} &nbsp;
            <!-- Ela Code Starts Here-->
             <button class="pull-right btn btn-success btn-sm" type="update">Save</button>
@@ -105,14 +105,17 @@
                                       <th class="total-bg">A</th>
                                     </tr>
                             </thead>
-                            <tbody>
-                @foreach ($lists as $list)                    
-                <tr>
+                            <tbody> 
+              
+                @foreach ($lists as $list)       
+
+                  <tr>
                      <td class="ftitle" colspan="33">{{ $list['factor']->name }}</td>
-                </tr>
+                </tr>             
+
                 @foreach ($list['user_factor'] as $u)
                 <tr>
-                     <td align="left" class="tuncate-text" title="{{ $u->employee_fname }} {{ $u->employee_lname }}">{{ $u->employee_fname }} {{ $u->employee_lname }} </td>
+                     <td align="left" class="tuncate-text" title="{{ $u->factor_name }}">{{ $u->factor_name }} </td>
 
                      <td class="c_width c_warning"><input type="text" data-qids="qid_{{ $u->id }}_q1_max" name="target[{{$u->id}}][3]" value="@isset($u->targets[3]){{$u->targets[3] }}@endisset" class="form-control form-control-emptable mw80 validate_target"></td>
 
@@ -183,14 +186,14 @@
                  </tr>
                  @endforeach
                 @endforeach
-       
-                    </tbody>
-                    @else
+
+                @else
                   <tr>
                      <td style="text-align: center"colspan="33">No records found</td>
                 </tr>
                 @endif
        
+                    </tbody>
                 </table>
             </div>
             </div>

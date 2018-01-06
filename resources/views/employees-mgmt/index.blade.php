@@ -4,26 +4,16 @@
     <section class="content">
       <div class="box">
   <div class="box-header">
-    <div class="row">
-        <div class="col-sm-10">
-          <h3 class="box-title">List of employees</h3>
-        </div>
-        <div class="col-sm-1">
-          <a class="btn btn-primary" href="{{ route('employee-management.create') }}">Add new employee</a>
-        </div>
-    </div>
+
   </div>
   <!-- /.box-header -->
   <div class="box-body">
-      <div class="row">
-        <div class="col-sm-5"></div>
-        <div class="col-sm-5"></div>
-      </div>
+
       <form method="POST" action="{{ route('employee-management.search') }}">
          {{ csrf_field() }}
          @component('layouts.search', ['title' => 'Search'])
           @component('layouts.two-cols-search-row', ['items' => ['Name'], 
-          'oldVals' => [isset($searchingVals) ? $searchingVals['name'] : '', isset($searchingVals) ? $searchingVals['department_name'] : '']])
+          'oldVals' => [isset($searchingVals) ? $searchingVals['name'] : '']])
           @endcomponent
         @endcomponent
       </form>
@@ -38,7 +28,7 @@
                 <th width="4%"  aria-controls="example2" rowspan="1" colspan="1" aria-label="HiredDate: activate to sort column ascending">Date of Joining</th>
                 <th width="10%"  aria-controls="example2" rowspan="1" colspan="1" aria-label="Department: activate to sort column ascending">Department</th>
                 <th width="10%"  aria-controls="example2" rowspan="1" colspan="1" aria-label="Designation: activate to sort column ascending">Designation</th>
-                <th width="7%"  aria-controls="example2" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending">Action</th>
+                <th width="7%"  style="text-align:center;" aria-controls="example2" rowspan="1" colspan="2" > <a class="btn btn-primary " href="{{ route('employee-management.create') }}">Add Employee</th>
               </tr>
             </thead>
             <tbody>

@@ -116,6 +116,7 @@ div.breakNow{ page-break-inside:avoid; page-break-after:always; }
     text-align: center;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: bold;
+    pointer-events: none;
 }
 
 .main-sidebar, .left-side {
@@ -182,4 +183,18 @@ div.breakNow{ page-break-inside:avoid; page-break-after:always; }
     line-height: 1.42857143;
     vertical-align: middle; 
 	border-top: 1px solid #ddd;
+}
+
+ .skin-green .sidebar-menu > li.active > a {
+    color: #000;
+background-color: #d2d6de;
+font-weight: bold;
+
+}
+
+.skin-green .treeview-menu > li.active > a {
+   color: #000;
+background-color: #939393;
+font-weight: bold;
+border-left-color: #00a65a;
 }

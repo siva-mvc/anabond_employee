@@ -3,12 +3,14 @@
     <!-- Main content -->
     <section class="content">
       <div class="box">
-  <div class="box-header">
-
-  </div>
+  
   <!-- /.box-header -->
   <div class="box-body">
-
+  <div class="row">
+    <div class="col-sm-4">
+      <h2>List of Emlployees</h2>
+    </div>
+    <div class="col-sm-8">
       <form method="POST" action="{{ route('employee-management.search') }}">
          {{ csrf_field() }}
          @component('layouts.search', ['title' => 'Search'])
@@ -17,6 +19,8 @@
           @endcomponent
         @endcomponent
       </form>
+      </div>
+    </div>
     <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
       <div class="row">
         <div class="col-sm-12">

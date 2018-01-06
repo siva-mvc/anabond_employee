@@ -4,7 +4,7 @@
   @endphp
   @foreach ($items as $item)
 
-    <div class="col-md-11">
+    <div class="col-md-10">
       <div class="form-group">
         <label class="col-md-9 control-label"></label>
           @php

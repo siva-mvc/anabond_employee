@@ -186,7 +186,7 @@ class EmployeeManagementController extends Controller
     public function search(Request $request) {
         $constraints = [
             'name' => $request['name']
-            ];
+             ];
         $employees = $this->doSearchingQuery($constraints);
         $constraints['department_name'] = $request['department_name'];
         $year = (isset($request['year'])) ? $request['year'] : date("Y");
@@ -203,15 +203,19 @@ class EmployeeManagementController extends Controller
         ->leftJoin('designation', 'employees.designation_id', '=', 'designation.id')
         ->select('employees.name as employee_name', 'employees.*','department.name as department_name', 'department.id as department_id', 'designation.name as designation_name', 'designation.id as designation_id')
         ->whereIn('employees.department_id', $ids);
+
         $fields = array_keys($constraints);
         $index = 0;
         foreach ($constraints as $constraint) {
             if ($constraint != null) {
-                $query = $query->where("employees.".$fields[$index], 'like', '%'.$constraint.'%');
+                $query = $query->where("employees.name", 'like', '%'.$constraint.'%')->orWhere("employees.employee_reg_id", 'like', '%'.$constraint.'%');
             }
 
             $index++;
+
+
         }
+       //print_r($test);
         return $query->paginate(20);
     }
 

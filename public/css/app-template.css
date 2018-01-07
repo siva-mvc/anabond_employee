@@ -198,3 +198,8 @@ background-color: #939393;
 font-weight: bold;
 border-left-color: #00a65a;
 }
+
+.tableemp > thead > tr > th {
+    vertical-align: middle;
+    background: #d2d6de;
+    }

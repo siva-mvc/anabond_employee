@@ -16,7 +16,7 @@
            <ul class="emp-detail-list row">
              <li>
               <div class="col-sm-3">
-                     <label style="font-size:20px">Update Performance Score by E</label>
+                     <label style="font-size:20px">Update Performance Score by Employee</label>
                   </div>
 
                 <div class="col-sm-4">

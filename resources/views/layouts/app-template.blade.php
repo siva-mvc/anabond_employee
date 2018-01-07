@@ -96,10 +96,10 @@
     });
 
 window.setTimeout(function() {
-    $(".alert").fadeTo(300, 0).slideUp(300, function(){
+    $(".alert").fadeTo(100, 0).slideUp(100, function(){
         $(this).remove(); 
     });
-}, 4000);
+}, 1500);
 
 </script>
   </body>

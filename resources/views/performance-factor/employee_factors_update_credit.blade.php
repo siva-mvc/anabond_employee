@@ -19,7 +19,7 @@
                   </div>
 
                 <div class="col-sm-4">
-                  <label style="text-align: right; padding-right: 0px; " ; class="col-md-4 control-label">Select Department</label>
+                  <label style="text-align: right; padding-right: 0px; padding-top:5px " ; class="col-md-4 control-label">Select Department</label>
                        <div class="col-md-8">
                        <select class="form-control onchenageTrigger"  name="dept_id">
                        @if(Auth::user()->email =='admin@rekon.anabond.co.in')
@@ -36,7 +36,7 @@
                       </div>
                   </div>
                    <div class="col-sm-2">
-                   <label style="text-align: right; padding-right: 0px; " ; class="col-md-5 control-label">Select Year</label>
+                   <label style="text-align: right; padding-right: 0px; padding-top:5px " ; class="col-md-5 control-label">Select Year</label>
                        <div class="col-md-7">
                        <select class="form-control onchenageTrigger"  name="year">
                           <option data-url ="{{ route('employee_factor.factor_achivement_credit', ['dept_id' => $dept_id, 'year'=>2017]) }}"  value="2017" @if($year == '2017') selected @endif>2017-2018</option> 

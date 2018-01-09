@@ -52,6 +52,7 @@ class PerformanceFactorController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validateInput($request);
          $check  = PerformanceFactor::where(array('department_id' =>$request['department_id'], 'name' => $request['name']))->get();
         if(count($check)>0){
             $this->validateInput($request);
@@ -105,6 +106,10 @@ class PerformanceFactorController extends Controller
     public function update(Request $request, $id)
     {
         $factor = PerformanceFactor::findOrFail($id);
+         if ($factor->name != $request['name']) {
+            $this->validateInput($request);  
+        }
+        
         $check  = PerformanceFactor::where(array('department_id' =>$request['department_id'], 'name' => $request['name']))->get();
         if(count($check) >=1 && $id != $check[0]['id']){
              $this->validateInput($request);

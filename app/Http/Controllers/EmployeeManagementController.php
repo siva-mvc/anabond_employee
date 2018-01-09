@@ -208,7 +208,7 @@ class EmployeeManagementController extends Controller
         $index = 0;
         foreach ($constraints as $constraint) {
             if ($constraint != null) {
-                $query = $query->where("employees.name", 'like', '%'.$constraint.'%')->orWhere("employees.employee_reg_id", 'like', '%'.$constraint.'%');
+                $query = $query->where("employees.name", 'like', '%'.$constraint.'%')->orderBy('employees.name', 'ASC')->orWhere("employees.employee_reg_id", 'like', '%'.$constraint.'%')->whereIn('employees.department_id', $ids)->orderBy('employees.name', 'ASC');
             }
 
             $index++;

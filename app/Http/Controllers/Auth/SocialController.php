@@ -98,7 +98,7 @@ class SocialController extends Controller
                 'password' => bcrypt($email),
             ]);
            
-           $dept = Department::where('head_of_dept', $email)->get(); 
+           $dept = Department::where('head_of_dept', $email)->orderBy('name', 'asc')->get();
            
            if(count($dept)>0){
                 $dept_ids = array();

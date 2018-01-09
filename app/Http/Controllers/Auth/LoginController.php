@@ -62,10 +62,12 @@ class LoginController extends Controller
         $perm = Permission::where('user_id', $user['id'])->get();
         if(count($perm)>0){
             Session::put("is_admin", true);
-            $dept = Department::All();
+            //$dept = Department::All();
             $dept = Department::orderBy('name', 'asc')->get();
         }else{
-            $dept = Department::where('head_of_dept', $user['email'])->get();
+            $dept = Department::where('head_of_dept', $user['email'])->orderBy('name', 'asc')->get();
+            //                $query = $query->where("employees.name", 'like', '%'.$constraint.'%')->orWhere("employees.employee_reg_id", 'like', '%'.$constraint.'%');
+
             
         }
 

@@ -209,3 +209,8 @@ border-left-color: #00a65a;
 .emp-data-table > thead > tr > th {
 background: #d2d6de;
 }
+
+.form-control-disableselect{
+     pointer-events: none;
+   
+}

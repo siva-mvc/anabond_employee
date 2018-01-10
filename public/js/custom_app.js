@@ -148,3 +148,5 @@ $('.exp_max_5').on('change',function(){
 
 
 });
+
+$('.form-control-disableselect').find('input, textarea, button, select').attr('readonly','readonly');

@@ -25,8 +25,8 @@
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label">Department</label>
-                            <div class="col-md-6">
-                                <select class="form-control" name="department_id">
+                            <div  class="col-md-6 form-control-disableselect">
+                                <select class="form-control " name="department_id">
                                     @foreach ($departments as $department)
                                         <option value="{{$department->id}}" {{$department->id == $factor->department_id ? 'selected' : ''}}>{{$department->name}}</option>
                                     @endforeach

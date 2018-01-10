@@ -40,7 +40,7 @@ class PerformanceFactorController extends Controller
      */
     public function create()
     {   
-        $departments = Department::all();
+        $departments = Department::orderBy('name', 'asc')->get();
         return view('system-mgmt/factor/create', ['departments' => $departments]);
     }
 
@@ -55,16 +55,21 @@ class PerformanceFactorController extends Controller
         $this->validateInput($request);
          $check  = PerformanceFactor::where(array('department_id' =>$request['department_id'], 'name' => $request['name']))->get();
         if(count($check)>0){
-            $this->validateInput($request);
+              $this->validate($request, [
+        'name' => 'unique:performance_factor'
+
+    ]);
         }
-        
+
+        else{
          PerformanceFactor::create([
             'name' => $request['name'],
             'department_id' => $request['department_id'],
             'description' => $request['description']
         ]);
+     }
 
-        return redirect()->intended('system-management/factor');
+        return redirect('system-management/factor');
     }
 
     /**
@@ -86,7 +91,7 @@ class PerformanceFactorController extends Controller
      */
     public function edit($id)
     {
-        $departments = Department::all();
+        $departments = Department::orderBy('name', 'asc')->get();
         $factor = PerformanceFactor::find($id);
         // Redirect to factor list if updating factor wasn't existed
         if ($factor == null || count($factor) == 0) {
@@ -173,7 +178,7 @@ class PerformanceFactorController extends Controller
     }
     private function validateInput($request) {
         $this->validate($request, [
-        'name' => 'required|max:60|unique:performance_factor'
+        'name' => 'required|max:60'
         //'name' => 'required|max:60|unique:performance_factor'
 
     ]);

@@ -120,7 +120,7 @@ $('.future_max_5').on('change',function(){
     }else{
       $(this).css('border-color', 'yellow');
     } 
-    var total_score = score+exp_max_5+sc;
+  
     var x = (total_score >=50) ? 50: total_score; 
     var clean = (isNaN(x))? '' : x;
     $('.total_score').val(clean);
@@ -138,7 +138,7 @@ $('.exp_max_5').on('change',function(){
     }else{
       $(this).css('border-color', 'yellow');
     } 
-    var total_score = score+exp_max_5+sc;
+  
     var x = (total_score >=50) ? 50: total_score; 
 
     var clean = (isNaN(x))? '' : x;

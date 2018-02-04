@@ -28,8 +28,12 @@ class PerformanceFactorController extends Controller
      */
     public function index()
     {
-        $factors = PerformanceFactor::paginate(20);
-
+        $factors = DB::table('performance_factor')
+        ->Join('department', 'performance_factor.department_id', '=', 'department.id')
+        ->select('performance_factor.*', 'department.name as department_name')
+        ->orderBy('department.name', 'asc')
+        ->orderBy('performance_factor.name', 'asc')
+        ->paginate(20);
         return view('system-mgmt/factor/index', ['factors' => $factors]);
     }
 
@@ -164,18 +168,23 @@ class PerformanceFactorController extends Controller
     }
 
     private function doSearchingQuery($constraints) {
-        $query = PerformanceFactor::query();
+            $query = DB::table('performance_factor')
+        ->Join('department', 'performance_factor.department_id', '=', 'department.id')
+        ->select('performance_factor.*', 'department.name as department_name');
+
         $fields = array_keys($constraints);
         $index = 0;
         foreach ($constraints as $constraint) {
             if ($constraint != null) {
-                $query = $query->where( $fields[$index], 'like', '%'.$constraint.'%');
+                $query = $query->where( 'performance_factor.name', 'like', '%'.$constraint.'%');
             }
 
             $index++;
         }
         return $query->paginate(20);
     }
+
+    
     private function validateInput($request) {
         $this->validate($request, [
         'name' => 'required|max:60'

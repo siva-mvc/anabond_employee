@@ -36,7 +36,8 @@
           <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
             <thead>
               <tr role="row">
-                <th width="80%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="factor: activate to sort column ascending">Factor Name</th>
+                <th width="40%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="factor: activate to sort column ascending">Factor Name</th>
+                <th width="40%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="factor: activate to sort column ascending">Department Name</th>
                 <th tabindex="0" aria-controls="example2" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending">Action</th>
               </tr>
             </thead>
@@ -44,6 +45,7 @@
             @foreach ($factors as $factor)
                 <tr role="row" class="odd">
                   <td>{{ $factor->name }}</td>
+                  <td>{{ $factor->department_name }}</td>
                   <td>
                     <form class="row" method="POST" action="{{ route('factor.destroy', ['id' => $factor->id]) }}" onsubmit = "return confirm('Are you sure?')">
                         <input type="hidden" name="_method" value="DELETE">

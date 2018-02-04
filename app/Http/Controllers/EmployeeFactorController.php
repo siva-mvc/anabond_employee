@@ -391,68 +391,25 @@ public function employee_factors_update_achived_credit_byemp(Request $request, $
 
     public function employee_perfromance_sheet(Request $request, $emp_id, $year){
         
-        $sheet = array('employee_id' => $emp_id, 'year'=>$year, 'total_score' => 0,'experience' =>0, 'future_prospect' => 0,'raw_total' =>0);
+        //$sheet = array('employee_id' => $emp_id, 'year'=>$year, 'total_score' => 0,'experience' =>0, 'future_prospect' => 0,'raw_total' =>0);
 
-        $sht = PerformanceSheet:: where(array('employee_id'=>$emp_id, 'year' => $year))->get();
+        //$sht = PerformanceSheet:: where(array('employee_id'=>$emp_id, 'year' => $year))->get();
         $history = PerformanceAudit::where(array('employee_id'=>$emp_id, 'year' => $year))->get();
 
         $employee = Employee::findOrFail($emp_id);
         
-        $requet_content = array();
-        $whr = array('employee_target_achivement.year'=>$year, 'employee_target_achivement.employee_id'=>$emp_id);
-        $lists = DB::table('employee_target_achivement')
-             ->leftJoin('employee_factor', 'employee_target_achivement.employee_factor_id', '=', 'employee_factor.id')
-            ->select('employee_target_achivement.*','employee_factor.target as actual_target')
-            ->whereIn('employee_target_achivement.month', array(13, 21, 30,15))
-            ->whereNotNull('achived')
-            ->where($whr)
+        $sheet_data = DB::table('PerfCoreView')
+            ->select ('PerfCoreView.*')
+            ->where('PerfCoreView.PFYEAR', '=', $year)   
+            ->where('PerfCoreView.ID', $emp_id)
+            ->orderBy('PerfCoreView.employee_reg_id', 'asc')
+            ->orderBy('PerfCoreView.Rating', 'desc')
             ->get();
 
-        $target_list = DB::table('employee_target_achivement')
-        ->leftJoin('employee_factor', 'employee_target_achivement.employee_factor_id', '=', 'employee_factor.id')
-        ->select('employee_target_achivement.*','employee_factor.target as actual_target')
-        ->whereNotIn('employee_target_achivement.month', array(13, 21, 30,15))
-        ->whereNotNull('achived')
-        ->where($whr)
-        ->get();  
-
-        $re_order = array(); 
-        foreach ($lists as $l => $value) {
-            $re_order[$value->factor_name]['actual_target'] = $value->actual_target;  
-            $re_order[$value->factor_name][$value->month] = $value;
-        }  
-        //new code
-        $re_order_target = array();
-        foreach ($lists as $l => $value) {
-            $re_order_target[$value->factor_name][$value->month] = $value;
-            $rating_percent = ($value->achived * 100)/ $value->target;
-            $re_order_target[$value->factor_name][$value->month]->rating = round(($rating_percent/100)* $value->actual_target, 2);
-        }
-
-        $new_targets = array();
-          foreach ($re_order_target as $key => $value) {
-            $sum = 0;
-            $d = sizeof($value);
-            foreach ($value as $k) {
-               $sum = $sum +$k->rating;
-            }
-
-           $new_targets[$key] = round($sum/$d, 2);
-        }
-        $total = array_sum($new_targets);   
-        
-        if (count($sht) > 0) {
-            $sheet = $sht[0];
-        }else{
-            $sheet['total_score'] = $total;
-            $sheet['raw_total'] = ($sheet['raw_total'] == 0) ? $total: $sheet['raw_total'];
-        }
-
-
+        //print_r($sheet_data);
 
         return view('performance-factor/employee_perfromance_sheet', 
-            ['sheets' =>$re_order, 'targets'=> $new_targets,'employee' => $employee,
-             'total' => $total, 'year'=>$year, 'sheet' => $sheet, 'history' =>$history]);
+            ['sheets' =>$sheet_data, 'employee' => $employee, 'history' =>$history , 'year'=>$year]);
     }
 
 
@@ -481,6 +438,7 @@ public function employee_factors_update_achived_credit_byemp(Request $request, $
    }
     
     public function exportList(Request $request, $dept_id){
+        print_r('tesst');
         $year = (isset($year)) ? $request['year'] : date("Y");
 
         //$whr = array('performance_sheet.year' => $year);
@@ -509,16 +467,73 @@ public function employee_factors_update_achived_credit_byemp(Request $request, $
 
     }
 
-    public function exportPDF(Request $request) {
-        $year = (isset($request['year'])) ? $request['year'] : date("Y"); 
-        $ids = Session::get('departments');
-        if(count($ids)==0){
-            $ids =array();    
+        public function exportListnew(Request $request, $dept_id, $year){
+            //print_r($year);
+        //$year = (isset($year)) ? $request['year'] : date("Y");
+
+        //$whr = array('performance_sheet.year' => $year);
+      
+
+
+        $total_depts_search = DB::table('department')->whereIn('department.id',Session::get('departments'))->orderBy('name', 'asc')->get();
+
+       /* $dept_id = (isset($dept_id)) ? $dept_id : Session::get('departments')[0];
+
+        $whr = array('year.year' => $year);
+
+       // print_r($whr);
+
+        $whrIn = array($dept_id); 
+        if($dept_id ==0){
+            $whrIn = Session::get('departments');
         }
+
+
+        $sheets = DB::table('year')
+            ->leftJoin('employee_factor', 'year.year', '=', 'employee_factor.year' )
+            ->leftJoin('employees', 'employee_factor.employee_id', '=', 'employees.id')
+            //->Join('year', 'year.year', '=', 'employee_factor.year' )
+            ->Join('department', 'employees.department_id', '=', 'department.id')
+            ->select ('employees.name as employee_name','employees.employee_reg_id as employee_id', 'department.name as department_name', 'year.year as years',
+                DB::raw('SUM(employee_factor.target)  as total_target'),
+                DB::raw('COUNT(employee_factor.performance_factor_id)  as no_of_fators')
+                
+             )
+            ->where('year.year', '=', $year)
+
+            ->whereIn('employees.department_id', $whrIn)
+            ->orderBy('employees.employee_reg_id', 'asc')
+            ->groupby('employees.name','employees.employee_reg_id', 'department.name','year.year')
+            ->distinct()
+            ->get();
+
+           
+       
+       return view('performance-factor/employee_perfromance_sheet_listnew', 
+         ['sheets' =>$sheets, 'dept_id'=>$dept_id, 'depts'=>$total_depts_search, 'year'=>$year]); */
+
+          $dept_id = (isset($dept_id)) ? $dept_id : Session::get('departments')[0];
+       // print_r($whr);
+
+        $whrIn = array($dept_id); 
+        if($dept_id ==0){
+            $whrIn = Session::get('departments');
+        }
+
+         $export_data = DB::table('PerfCoreView')
+            ->select ('PerfCoreView.*')
+            ->where('PerfCoreView.PFYEAR', '=', $year)   
+            ->whereIn('PerfCoreView.department_id', $whrIn)
+            ->orderBy('PerfCoreView.employee_reg_id', 'asc')
+            ->get();
+
+        //print_r($export_data);
+     /*   Session::put("dept", $dept_id);
+
         if($request['dept_id'] != 0){
             $ids = array($request['dept_id']); 
         }
-        $user_list = Employee::whereIn('department_id', $ids)->get();
+        $user_list = Employee::where('department_id', $dept_id)->get();
         $export_data = array(); 
 
         foreach ($user_list as $key => $emp) {
@@ -526,17 +541,78 @@ public function employee_factors_update_achived_credit_byemp(Request $request, $
             if($sheet){
                 array_push($export_data, $sheet);
             }
+        }*/
+
+         //$pdf = PDF::loadView('performance-factor/employee_perfromance_sheet-pdf', ['sheets' =>$export_data, 'dept_id'=>$dept_id,'year'=>$year]);
+     // return $pdf->download('report_for_'.$year.'.pdf');
+         //print_r($pdf);
+        //return PDF::loadFile('http://www.github.com')->inline('github.pdf');
+      //return view('performance-factor/employee_perfromance_sheet-pdf',['sheets' =>$export_data, 'dept_id'=>$dept_id,'year'=>$year]); 
+
+               return view('performance-factor/employee_perfromance_sheet_listnew', 
+         ['sheets' =>$export_data, 'dept_id'=>$dept_id, 'depts'=>$total_depts_search, 'year'=>$year]); 
+
+    }
+
+
+    public function exportPDF(Request $request ,$dept_id, $year) {
+       // $year = (isset($request['year'])) ? $request['year'] : date("Y"); 
+
+        $dept_id = (isset($dept_id)) ? $dept_id : Session::get('departments')[0];
+       // print_r($whr);
+
+        $whrIn = array($dept_id); 
+        if($dept_id ==0){
+            $whrIn = Session::get('departments');
         }
 
-        $pdf = PDF::loadView('performance-factor/employee_perfromance_sheet-pdf',['sheets' => $export_data]);
-        return $pdf->download('report_for_'.$year.'.pdf');
-        //return view('performance-factor/employee_perfromance_sheet-pdf', ['sheets' => $export_data]);
+         $export_data = DB::table('PerfCoreView')
+            ->select ('PerfCoreView.*')
+            ->where('PerfCoreView.PFYEAR', '=', $year)   
+            ->whereIn('PerfCoreView.department_id', $whrIn)
+            ->orderBy('PerfCoreView.employee_reg_id', 'asc')
+            ->get();
+
+        //print_r($export_data);
+     /*   Session::put("dept", $dept_id);
+
+        if($request['dept_id'] != 0){
+            $ids = array($request['dept_id']); 
+        }
+        $user_list = Employee::where('department_id', $dept_id)->get();
+        $export_data = array(); 
+
+        foreach ($user_list as $key => $emp) {
+            $sheet = $this->getExportingData($emp['id'], $year);
+            if($sheet){
+                array_push($export_data, $sheet);
+            }
+        }*/
+
+         //$pdf = PDF::loadView('performance-factor/employee_perfromance_sheet-pdf', ['sheets' =>$export_data, 'dept_id'=>$dept_id,'year'=>$year]);
+     // return $pdf->download('report_for_'.$year.'.pdf');
+         //print_r($pdf);
+        //return PDF::loadFile('http://www.github.com')->inline('github.pdf');
+      return view('performance-factor/employee_perfromance_sheet-pdf',['sheets' =>$export_data, 'dept_id'=>$dept_id,'year'=>$year]); 
     }
     
     private function getExportingData($emp_id, $year) {
         $employee = Employee::findOrFail($emp_id);
-        $sheet = PerformanceSheet:: where(array('employee_id'=>$emp_id, 'year' => $year))->get();
-        if(count($sheet)>0){
+
+        if(count($employee)>0){
+
+            $target_list = DB::table('PerfCoreView')
+            ->where('PerfCoreView.PFYEAR', '=', $year)   
+            ->where('PerfCoreView.ID', '=', $emp_id) 
+            ->get();
+
+        //print_r($target_list);
+            return $result = array('sheet' =>$target_list); 
+
+
+        }
+       // $sheet = PerformanceSheet:: where(array('employee_id'=>$emp_id, 'year' => $year))->get();
+       /* if(count($sheet)>0){
         
             $whr = array('employee_target_achivement.year'=>$year, 'employee_target_achivement.employee_id'=>$emp_id);
             $lists = DB::table('employee_target_achivement')
@@ -583,9 +659,7 @@ public function employee_factors_update_achived_credit_byemp(Request $request, $
              'total' => $total,'sheet' => $sheet); 
             }else{
                 return false;
-            }
-
-       
+            }*/
     }
 
 

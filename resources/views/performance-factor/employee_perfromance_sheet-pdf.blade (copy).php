@@ -1,8 +1,6 @@
 
       <style>
-      
-
-          .main-header,.main-sidebar,.main-header,.navbar,.navbar-static-top,.main-sidebar{
+                .main-header,.main-sidebar,.main-header,.navbar,.navbar-static-top,.main-sidebar,.main-footer{
             display: none;
           }
          table {
@@ -12,72 +10,32 @@
          font-size: 10px ;
          }
          td{
-         border-left: 1px solid black ;
-         border-right: 1px solid black ;
-         border-top: 1px solid black ;
-         border-bottom:1px solid black ;
+          border: 1px solid black;
          padding: 2px 2px;
          text-align:right;
          border-width: thin;
          font-size: 10px ;
          }
          th {
-         border-left: 1px solid black ;
-         border-right: 1px solid black ;
-         border-top: 1px solid black ;
-         border-bottom:1px solid black ;
+        border: 1px solid black;
          padding: 2px 2px;
            border-width: thin;
             font-weight: normal; 
             font-size: 10px ;    
          }
 
-         .content-wrapper, .right-side, .main-footer {
-    /* -webkit-transition: -webkit-transform .3s ease-in-out,margin .3s ease-in-out; */
-    -moz-transition: -moz-transform .3s ease-in-out,margin .3s ease-in-out;
-    -o-transition: -o-transform .3s ease-in-out,margin .3s ease-in-out;
-    /* transition: transform .3s ease-in-out,margin .3s ease-in-out; */
-     margin-left: 1px !important;
-    z-index: 820;
+.content-wrapper, .right-side {
+    min-height: 100%;
+    background-color: #fff !important;
+    z-index: 800;
 }
 
 
-       
-      </style>
+.skin-green .wrapper, .skin-green .main-sidebar, .skin-green .left-side {
+     background-color: #fff !important;
+}
 
-      <style>
-         @media print {
-          .main-header,.main-sidebar,.main-header,.navbar,.navbar-static-top,.main-sidebar{
-            display: none;
-          }
-         table {
-         border-collapse: collapse;
-         width: 100%;
-         border: 1px solid black;
-         font-size: 10px ;
-         }
-         td{
-         border-left: 1px solid black ;
-         border-right: 1px solid black ;
-         border-top: 1px solid black ;
-         border-bottom:1px solid black ;
-         padding: 2px 2px;
-         text-align:right;
-         border-width: thin;
-         font-size: 10px ;
-         }
-         th {
-         border-left: 1px solid black ;
-         border-right: 1px solid black ;
-         border-top: 1px solid black ;
-         border-bottom:1px solid black ;
-         padding: 2px 2px;
-           border-width: thin;
-            font-weight: normal; 
-            font-size: 10px ;    
-         }
-
-         .content-wrapper, .right-side, .main-footer {
+     .content-wrapper, .right-side, .main-footer {
     /* -webkit-transition: -webkit-transform .3s ease-in-out,margin .3s ease-in-out; */
     -moz-transition: -moz-transform .3s ease-in-out,margin .3s ease-in-out;
     -o-transition: -o-transform .3s ease-in-out,margin .3s ease-in-out;
@@ -86,17 +44,16 @@
     z-index: 820;
 }
        
-}
       </style>
+
+
 @extends('performance-factor.base')
 @section('action-content')
 <section class="content">
 
-   @if (count($sheets) > 1)
-
          @foreach ($sheets as  $index => $sheet)
          @if ($loop->first)
-         <div style="page-break-after:always" class="col-sm-12">
+         <div style="page-break-inside: avoid;" class="col-sm-12">
           <table id="example2" class="table">
                 <thead>
                   <tr>
@@ -195,7 +152,7 @@
               </table>
             </div>
 
-        <div style="page-break-inside:avoid" class="col-sm-12">
+        <div style="page-break-inside: avoid;" class="col-sm-12">
           <table id="example2" class="table">
                 <thead>
                <tr>
@@ -317,18 +274,6 @@
                 @else
                    @endif
                  @endforeach  
-   @else
 
-    <div style="page-break-after:always" class="col-sm-12">
-          <table id="example2" class="table">
-                <tbody>
-                  <tr>
-                     <td> No Records found</td>
-                     
-             <!--         <th colspan="4">Printed on {{date('d-m-Y')}}</th> -->
-                    </tr>
-
-
-   @endif
 </section>
 @endsection

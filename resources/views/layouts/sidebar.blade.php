@@ -9,8 +9,10 @@
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        <li class="{{ preg_match('/employee-management/',Request::path()) ? 'active' : '' }}"><a  href="{{ url('employee-management') }}"><span>Employee Management</span></a></li>
-
+        <li class="{{ preg_match('/employee-management/',Request::path()) ? 'active' : '' }} 
+        {{ preg_match('/employee-factors-management/',Request::path()) ? 'active' : '' }}
+        {{ preg_match('/employee-perfromance-sheet/',Request::path()) ? 'active' : '' }}" >
+        <a  href="{{ url('employee-management') }}"><span>Employee Management</span></a></li>
         @if(!empty(Session::get('departments'))) 
         
         <li class="{{ preg_match('/employee-factors-update-credit/',Request::path()) ? 'active' : '' }}" ><a href="{{ url('employee-factors-update-credit') }}/{{ Session::get('departments')[0]}}/2017"> <span>Update Score by Factors</span></a></li>
@@ -33,7 +35,7 @@
             <li class="{{ preg_match('/department/',Request::path()) ? 'active' : '' }}" ><a href="{{ url('system-management/department') }}">Department</a></li>
             <li class="{{ preg_match('/factor/',Request::path()) ? 'active' : '' }}" ><a href="{{ url('system-management/factor') }}">Performance Factor</a></li>
             <li class="{{ preg_match('/team/',Request::path()) ? 'active' : '' }}" ><a href="{{ url('system-management/team') }}">Team</a></li>
-            <li class="{{ preg_match('/report/',Request::path()) ? 'active' : '' }}" ><a href="{{ url('system-management/report') }}">Report</a></li>
+            <!-- <li class="{{ preg_match('/report/',Request::path()) ? 'active' : '' }}" ><a href="{{ url('system-management/report') }}">Report</a></li>
           
             <!-- 
             <li><a href="{{ url('system-management/country') }}">Country</a></li>
@@ -49,7 +51,10 @@
 
          @endif 
 
-          <li class="{{ preg_match('/employee-perfromance-sheet-pdf-list/',Request::path()) ? 'active' : '' }}" ><a href="{{ url('employee-perfromance-sheet-pdf-list') }}/{{ Session::get('departments')[0] }}">Perfomramce Reports</a></li> 
+           <!-- <li class="{{ preg_match('/employee-perfromance-sheet-pdf-list/',Request::path()) ? 'active' : '' }}" ><a href="{{ url('employee-perfromance-sheet-pdf-list') }}/{{ Session::get('departments')[0] }}">Perfomramce Reports</a></li> -->
+
+
+          <li class="{{ preg_match('/employee-perfromance-pdf-listnew/',Request::path()) ? 'active' : '' }}" ><a href="{{ url('employee-perfromance-pdf-listnew') }}/{{ Session::get('departments')[0]}}/2017">Performance Reports</a></li> 
 
         @if(Auth::user()->email =='admin@rekon.anabond.co.in')
         <li class="{{ preg_match('/user-management/',Request::path()) ? 'active' : '' }}" ><a href="{{ route('user-management.index') }}"><span>User management</span></a></li>

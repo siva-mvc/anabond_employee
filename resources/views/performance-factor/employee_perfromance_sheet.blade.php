@@ -40,7 +40,8 @@
                         <table class="table table-hover emp-data-table emp-data-table-onesheet table-bordered">
                           <thead>
                             <tr class="thead-bg">
-                            <th>Factor</th>
+                            <th rowspan="2">Factor</th>
+                             <th rowspan="2">Rating <br> for 50</th>
                               <th colspan="3">Q1</th>
                               <th colspan="3">Q2</th>
                               <th colspan="3">Q3</th>
@@ -49,7 +50,6 @@
                             </tr>
                            
                             <tr class="thead-bg">
-                            <th></th>
                               <th colspan="1" class="c_info">T</th>
                               <th colspan="1" class="c_success">A</th>
                               <th colspan="1">R</th>
@@ -64,61 +64,78 @@
                               <th colspan="1">R</th>
                             </tr>
                           </thead>
+                            
                             <tbody>
-                            @foreach ($sheets as $key => $value) 
+
+
+                              @if(count($sheets)>0)
+                              @foreach ($sheets as $index => $sheet) 
+
                               <tr> 
-                                <td>{{ $key }}&nbsp;[{{ $value['actual_target']}}]</td>
-                                <td class="c_info"> @isset($value[13]->target){{ $value[13]->target }}@endisset</td>
-                                <td class="c_success"> @isset($value[13]->achived) {{ $value[13]->achived }} @endisset</td>
-                                 <td class="c_success"> @isset($value[13]->rating) {{ $value[13]->rating }} @endisset</td>
-                                <td class="c_info"> @isset($value[21]->target ) {{ $value[21]->target }} @endisset</td>
-                                <td class="c_success"> @isset($value[21]->achived) {{ $value[21]->achived }} @endisset</td>
-                                <td class="c_success"> @isset($value[21]->rating) {{ $value[21]->rating }} @endisset</td>
-                                <td class="c_info"> @isset($value[30]->target ) {{ $value[30]->target }} @endisset</td>
-                                <td class="c_success"> @isset($value[30]->achived) {{ $value[30]->achived }} @endisset</td>
-                                <td class="c_success"> @isset($value[30]->rating) {{ $value[30]->rating }} @endisset</td>
-                                <td class="c_info"> @isset($value[15]->target ) {{ $value[15]->target }} @endisset</td>
-                                <td class="c_success"> @isset($value[15]->achived) {{ $value[15]->achived }} @endisset</td>
-                                <td class="c_success"> @isset($value[15]->rating) {{ $value[15]->rating }} @endisset</td>
+                                <td>{{ $sheet->factor_name }}</td>
+                                <td>{{ $sheet->Rating }}</td>
+                                <td class="c_info"> @isset($sheet->Q1AVGTARGET){{ $sheet->Q1AVGTARGET }}@endisset</td>
+                                <td class="c_success"> @isset($sheet->Q1AVGACHIVED){{ $sheet->Q1AVGACHIVED }}@endisset</td>
+                                 <td class="c_success">  @isset($sheet->Q1RATING){{ $sheet->Q1RATING }}@endisset</td>                                
+                                 <td class="c_info"> @isset($sheet->Q2AVGTARGET){{ $sheet->Q2AVGTARGET }}@endisset</td>
+                                <td class="c_success"> @isset($sheet->Q2AVGACHIVED){{ $sheet->Q2AVGACHIVED }}@endisset</td>
+                                 <td class="c_success">  @isset($sheet->Q2RATING){{ $sheet->Q2RATING }}@endisset</td>                                
+                                 <td class="c_info"> @isset($sheet->Q3AVGTARGET){{ $sheet->Q3AVGTARGET }}@endisset</td>
+                                <td class="c_success"> @isset($sheet->Q3AVGACHIVED){{ $sheet->Q3AVGACHIVED }}@endisset</td>
+                                 <td class="c_success">  @isset($sheet->Q3RATING){{ $sheet->Q3RATING }}@endisset</td>                                
+                                 <td class="c_info"> @isset($sheet->Q4AVGTARGET){{ $sheet->Q4AVGTARGET }}@endisset</td>
+                                <td class="c_success"> @isset($sheet->Q4AVGACHIVED){{ $sheet->Q4AVGACHIVED }}@endisset</td>
+                                 <td class="c_success">  @isset($sheet->Q4RATING){{ $sheet->Q4RATING }}@endisset</td>
                                 <td>
                                   <div class="input-group ingroup150">
-                                    <input disabled type="text" class="form-control form-control-empsheet" value="{{ $targets[$key] }}">
-                                    <span class="input-group-addon input-group-addon-sheets ">@isset($value['actual_target']) {{ $value['actual_target']}}@endisset</span>
+                                    <input disabled type="text" class="form-control form-control-empsheet" value="@isset($sheet->YRLYRATING){{ $sheet->YRLYRATING }}@endisset">
+                                    <span class="input-group-addon input-group-addon-sheets ">@isset($sheet->Rating){{ $sheet->Rating }}@endisset</span>
                                   </div>
                                 </td> 
                               </tr>
-                            @endforeach    
-                            <input name="raw_total" class="total_bt" type="hidden" value="{{ $sheet['raw_total'] }}">
+                            @endforeach
+                          
+                            <input name="raw_total" class="total_bt" type="hidden" value="{{ $sheets[0]->TOTALSCORE}}">
                             <tr>
                               <td>Experience</td>
-                              <td colspan="12"></td>
+                              <td colspan="13"></td>
                               <td><div class="input-group ingroup150">
-                                    <input type="text" class="form-control form-control-empsheet exp_max_5" value="{{ $sheet['experience'] }}" name="experience">
+                                    <input type="text" class="form-control form-control-empsheet exp_max_5" value="{{ $sheets[0]->experience }}" name="experience">
                                     <span class="input-group-addon input-group-addon-sheets ">5.00</span>
                                   </div></td>
                             </tr>
                             <tr>
                               <td>Future prospects</td>
-                              <td colspan="12"></td>
+                              <td colspan="13"></td>
                               <td><div class="input-group ingroup150">
-                                    <input type="text" class="form-control form-control-empsheet future_max_5" value="{{ $sheet['future_prospect'] }}" name="future_prospect">
+                                    <input type="text" class="form-control form-control-empsheet future_max_5" value="{{ $sheets[0]->future_prospect}}" name="future_prospect">
                                     <span class="input-group-addon input-group-addon-sheets ">5.00</span>
                                   </div></td>
                             </tr>
                             <tr>
-                              <td colspan="13">Performance score </td>
+                              <td colspan="14">Performance score </td>
                               <td><div class="input-group ingroup150">
-                                    <input type="text" readonly class="form-control form-control-empsheet total_score" value="{{ $sheet['total_score'] }}" name="total">
+                                    <input type="text" readonly class="form-control form-control-empsheet total_score" value="{{ $sheets[0]->TOTALSCORE}}" name="total">
                                     <span class="input-group-addon input-group-addon-sheets ">50.00</span>
                                   </div></td>
                             </tr>
 
                             </tbody>
+                            @endif
+                            @empty($sheet)
+                            <tr>
+                              <td colspan="15" style="text-align: center; font-weight: bold;"> No Records found </td>
+                         
+                            </tr>
+
+                            @endempty
+
                         </table>
                     </div>
+                      @isset($sheet)
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">History</button>
                     <button class="pull-right btn btn-success" type="submit">Save</button>
-
+                    @endisset
             </form>
 
             </div>

@@ -81,10 +81,12 @@ Route::get('employee-perfromance-sheet/{emp_id}/{year}', 'EmployeeFactorControll
 
 Route::get('employee-perfromance-sheet-pdf-list/{dept_id}', 'EmployeeFactorController@exportList')->name('employee_factor.export_list');
 
+Route::get('employee-perfromance-pdf-listnew/{dept_id}/{year}', 'EmployeeFactorController@exportListnew')->name('employee_factor.export_listnew');
+
 Route::post('employee-perfromance-sheet/{emp_id}/{year}', 'EmployeeFactorController@perfromance_sheet_save')->name('employee_factor.perfromance_sheet_save');
 
 
-Route::get('employee-perfromance-sheet-pdf/{dept_id}', 'EmployeeFactorController@exportPDF')->name('sheet.pdf');
+Route::get('employee-perfromance-sheet-pdf/{dept_id}/{year}', 'EmployeeFactorController@exportPDF')->name('sheet.pdf');
 
 
 Route::get('employee-factors-update-credit/{dept_id}/{year}', 'EmployeeFactorController@employee_factors_update_credit')->name('employee_factor.factor_achivement_credit');

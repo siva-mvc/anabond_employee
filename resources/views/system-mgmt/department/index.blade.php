@@ -3,16 +3,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="box">
-  <div class="box-header">
-    <div class="row">
-        <div class="col-sm-8">
-          <h3 class="box-title">List of departments</h3>
-        </div>
-        <div class="col-sm-4">
-          <a class="btn btn-primary" href="{{ route('department.create') }}">Add department</a>
-        </div>
-    </div>
-  </div>
+
   <!-- /.box-header -->
   <div class="box-body">
       <div class="row">
@@ -28,13 +19,13 @@
         @endcomponent
       </form>
     <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-      <div class="row">
+      <div class="row" >
         <div class="col-sm-12">
           <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
             <thead>
-              <tr role="row">
-                <th width="80%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Department: activate to sort column ascending">Department Name</th>
-                <th tabindex="0" aria-controls="example2" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending">Action</th>
+              <tr role="row" style="background-color:#d9d9d9" >
+                <th width="80%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Department Name</th>
+                <th tabindex="0" aria-controls="example2" rowspan="1" colspan="2" aria-label="">  <a class="btn btn-primary" href="{{ route('department.create') }}">Add Department</a></th>
               </tr>
             </thead>
             <tbody>

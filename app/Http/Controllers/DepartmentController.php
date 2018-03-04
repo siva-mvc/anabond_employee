@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Department;
 use App\Employee;
+use App\user;
 
 class DepartmentController extends Controller
 {
@@ -40,8 +41,9 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        $employees = Employee::all();
-        return view('system-mgmt/department/create', ['employees' => $employees]);
+        //$employees = Employee::all();
+        $user=User::orderBy('email', 'asc')->get();
+        return view('system-mgmt/department/create', ['user'=>$user]);
     }
 
     /**
@@ -55,7 +57,9 @@ class DepartmentController extends Controller
         $this->validateInput($request);
          Department::create([
             'name' => $request['name'],
-            'head_of_dept' => $request['head_of_dept']
+            'head_of_dept' => $request['head_of_dept'],
+            'div_head' => $request['div_head'],
+            'director' => $request['director']
         ]);
 
         return redirect()->intended('system-management/department');
@@ -81,13 +85,14 @@ class DepartmentController extends Controller
     public function edit($id)
     {
         $department = Department::find($id);
+        $user=User::orderBy('email', 'asc')->get();
         // Redirect to department list if updating department wasn't existed
         if ($department == null || count($department) == 0) {
             return redirect()->intended('/system-management/department');
         }
 
         $employees = Employee::all();
-        return view('system-mgmt/department/edit', ['department' => $department, 'employees' => $employees]);
+        return view('system-mgmt/department/edit', ['department' => $department, 'employees' => $employees, 'user'=>$user]);
     }
 
     /**
@@ -106,7 +111,9 @@ class DepartmentController extends Controller
         }
         $input = [
             'name' => $request['name'],
-            'head_of_dept' => $request['head_of_dept']
+            'head_of_dept' => $request['head_of_dept'],
+            'div_head' => $request['div_head'],
+            'director' => $request['director']
         ];
         Department::where('id', $id)
             ->update($input);

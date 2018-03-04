@@ -8,7 +8,10 @@ use Illuminate\Support\Facades\DB;
 use App\Department;
 use Session;
 use App\Permission;
+use App\PerformanceFactor;
+use App\users;
 use Auth;
+
 
 class LoginController extends Controller
 {
@@ -56,30 +59,78 @@ class LoginController extends Controller
     }
     protected function authenticated($request, $user)
     {
-        Session::forget('departments');
-        $dept_ids = array();
+        //Session::forget('departments');
+   
+        $dept = array();
 
-        $perm = Permission::where('user_id', $user['id'])->get();
-        if(count($perm)>0){
-            Session::put("is_admin", true);
-            //$dept = Department::All();
-            $dept = Department::orderBy('name', 'asc')->get();
-        }else{
-            $dept = Department::where('head_of_dept', $user['email'])->orderBy('name', 'asc')->get();
-            //                $query = $query->where("employees.name", 'like', '%'.$constraint.'%')->orWhere("employees.employee_reg_id", 'like', '%'.$constraint.'%');
-
-            
-        }
-
-        if(count($dept)<=0) {
-            Auth::logout();
-            return response('Unauthorized.', 401);
-        }
+        switch ($user['userrole']) {
+            case 'Sysadmin':
+                $dept = Department::orderBy('name', 'asc')->get();
+                        if(count($dept)<1) {
+                            Auth::logout();
+                            return response('Please contact your IT administrator for more details.', 401);
+                             }
        
-        foreach ($dept as $key => $value) {
+                $this->sessiondept($dept);
+                return redirect('employee-management');
+                break;
+            case 'Director':
+                $dept = Department::where('director', $user['email'])->orderBy('name', 'asc')->get();
+                                        if(count($dept)<=1) {
+                            Auth::logout();
+                            return response('Please contact your IT administrator for more details.', 401);
+                             }
+                $this->sessiondept($dept);
+                return redirect('employee-perfromance-pdf-listnew/'.Session::get('departments')[0].'/2017');
+                break;
+            case 'Division head':
+                $dept = Department::where('div_head', $user['email'])->orderBy('name', 'asc')->get();
+                                        if(count($dept)<=1) {
+                            Auth::logout();
+                            return response('Please contact your IT administrator for more details.', 401);
+                             }
+                $this->sessiondept($dept);
+                return redirect('employee-perfromance-pdf-listnew/'.Session::get('departments')[0].'/2017');
+                break;
+            case 'Department head':
+                $dept = Department::where('head_of_dept', $user['email'])->orderBy('name', 'asc')->get();
+                                        if(count($dept)<=1) {
+                            Auth::logout();
+                            return response('Please contact your IT administrator for more details.', 401);
+                             }
+                $this->sessiondept($dept);
+                return redirect('employee-management');
+                break;
+            case 'Org Head':
+                 $dept = Department::orderBy('name', 'asc')->get();
+                        if(count($dept)<1) {
+                            Auth::logout();
+                            return response('Please contact your IT administrator for more details.', 401);
+                             }
+       
+                $this->sessiondept($dept);
+                 return redirect('employee-perfromance-pdf-listnew/'.Session::get('departments')[0].'/2017');
+                break;
+            case '----':
+                Auth::logout();
+                 return response('Please contact your IT administrator for more details.', 401);
+                break;
+            default:
+                Auth::logout();
+                 return response('Please contact your IT administrator for more details.', 401);
+                break;
+        }      
+    }
+
+     protected function sessiondept($dept)
+    {
+       $dept_ids = array();
+  
+       foreach ($dept as $key => $value) {
             array_push($dept_ids, $value['id']);
         }
-        Session::put("departments", $dept_ids);
-       return redirect('employee-management');
+       Session::put("departments", $dept_ids);
     }
+
 }
+

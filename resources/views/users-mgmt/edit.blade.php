@@ -10,21 +10,9 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('user-management.update', ['id' => $user->id]) }}" enctype="multipart/form-data">
                         <input type="hidden" name="_method" value="PATCH">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                            <label for="username" class="col-md-4 control-label">User Name</label>
-
-                            <div class="col-md-6">
-                                <input id="username" type="text" class="form-control" name="username" value="{{ $user->username }}" required autofocus>
-
-                                @if ($errors->has('username'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('username') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                       
                         <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
-                            <label for="firstname" class="col-md-4 control-label">First Name</label>
+                            <label for="firstname" class="col-md-4 control-label">Name</label>
 
                             <div class="col-md-6">
                                 <input id="firstname" type="text" class="form-control" name="firstname" value="{{ $user->firstname }}" required>
@@ -36,19 +24,23 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group{{ $errors->has('lastname') ? ' has-error' : '' }}">
-                            <label for="lastname" class="col-md-4 control-label">Last Name</label>
+                       
 
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Role</label>
                             <div class="col-md-6">
-                                <input id="lastname" type="text" class="form-control" name="lastname" value="{{ $user->lastname }}" required>
+                                <select class="form-control" name="userrole">
+                                      <option selected >----</option>
+                                   @foreach ($roleslist as $roles)
+                                        <option value="{{$roles->Role}}" {{$roles->Role == $user->userrole ? 'selected' : ''}}>{{$roles->Role}}</option>
+                                    @endforeach
+                                </select>
 
-                                @if ($errors->has('lastname'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('lastname') }}</strong>
-                                    </span>
-                                @endif
                             </div>
                         </div>
+
+                        @if (!str_contains($user->picture,'googleusercontent'))
+
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">New Password</label>
 
@@ -70,11 +62,17 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
                             </div>
                         </div>
+                        @endif
 
                         <div class="form-group">
                             <label for="avatar" class="col-md-4 control-label" >Picture</label>
                             <div class="col-md-6">
-                                 <img src="../../{{$user->picture }}" width="50px" height="50px"/>   
+                                @if (str_contains($user->picture,'googleusercontent'))
+                                  <img src="{{$user->picture }}" width="50px" height="50px"/>  
+                                @else
+                                  <img src="../../{{$user->picture }}" width="50px" height="50px"/>  
+                                @endif
+                                 
                                 <input type="file" id="picture" name="picture" />
                             </div>
                         </div>

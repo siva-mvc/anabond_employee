@@ -33,6 +33,8 @@
                                 </select>
                             </div>
                         </div>
+                       
+                       
                          <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
                             <label for="description" class="col-md-4 control-label">Description</label>
 

@@ -3,25 +3,13 @@
     <!-- Main content -->
     <section class="content">
       <div class="box">
-  <div class="box-header">
-    <div class="row">
-        <div class="col-sm-8">
-          <h3 class="box-title">List of Performance Factors</h3>
-        </div>
-        <div class="col-sm-4">
-          <a class="btn btn-primary" href="{{ route('factor.create') }}">Add Performance Factor</a>
-        </div>
-    </div>
-  </div>
+
   <!-- /.box-header -->
   <div class="box-body">
                @if($errors->any())
                 <div class="alert alert-error">{{$errors->first()}}</div>
                 @endif
-      <div class="row">
-        <div class="col-sm-6"></div>
-        <div class="col-sm-6"></div>
-      </div>
+
       <form method="POST" action="{{ route('factor.search') }}">
          {{ csrf_field() }}
          @component('layouts.search', ['title' => 'Search'])
@@ -31,14 +19,17 @@
         @endcomponent
       </form>
     <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-      <div class="row">
+      <div class="row" >
         <div class="col-sm-12">
           <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
             <thead>
-              <tr role="row">
-                <th width="40%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="factor: activate to sort column ascending">Factor Name</th>
-                <th width="40%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="factor: activate to sort column ascending">Department Name</th>
-                <th tabindex="0" aria-controls="example2" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending">Action</th>
+              <tr role="row" style="background-color:#d9d9d9" >
+                <th width="42%" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Factor Name</th>
+                <th width="42%" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Department Name</th>
+   
+                <th tabindex="0" aria-controls="example2" rowspan="1" > <div class="col-sm-4">
+          <a class="btn btn-primary" href="{{ route('factor.create') }}">Add Performance Factor</a>
+        </div></th>
               </tr>
             </thead>
             <tbody>
@@ -46,6 +37,7 @@
                 <tr role="row" class="odd">
                   <td>{{ $factor->name }}</td>
                   <td>{{ $factor->department_name }}</td>
+
                   <td>
                     <form class="row" method="POST" action="{{ route('factor.destroy', ['id' => $factor->id]) }}" onsubmit = "return confirm('Are you sure?')">
                         <input type="hidden" name="_method" value="DELETE">
@@ -76,7 +68,9 @@
         </div>
         <div class="col-sm-7">
           <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-            {{ $factors->links() }}
+
+
+             {{ $factors->appends([isset($searchingVals) ? $searchingVals['name'] : '1'])->links()}}
           </div>
         </div>
       </div>

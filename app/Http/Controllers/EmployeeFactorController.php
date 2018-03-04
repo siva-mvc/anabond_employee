@@ -47,6 +47,8 @@ class EmployeeFactorController extends Controller
     
     public function employee_factors_management(Request $request, $employee_id, $year)
     {
+        
+
         //$year = (isset($request['year'])) ? $request['year'] : date("Y");
         $employee = DB::table('employees')
          ->leftJoin('department', 'employees.department_id', '=', 'department.id')

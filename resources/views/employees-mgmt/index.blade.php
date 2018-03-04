@@ -8,7 +8,7 @@
   <div class="box-body">
   <div class="row">
     <div class="col-sm-4">
-      <label style="font-size:20px">List of Employees</label>
+       <h4> List of Employees</h4>
     </div>
     <div class="col-sm-8">
       <form method="POST" action="{{ route('employee-management.search') }}">
@@ -26,7 +26,7 @@
         <div class="col-sm-12">
           <table id="example2" class="table table-bordered table-hover dataTable tableemp" role="grid" aria-describedby="example2_info">
             <thead>
-              <tr role="row">
+              <tr role="row" style="background-color:#d9d9d9">
                 <th width="3%" aria-controls="example2" rowspan="1" colspan="1" aria-label="Picture: activate to sort column descending" aria-sort="ascending">Employee ID</th>
                 <th width="12%"  aria-controls="example2" rowspan="1" colspan="1" aria-label="Name: activate to sort column descending" aria-sort="ascending">Employee Name</th>
                 <th width="4%"  aria-controls="example2" rowspan="1" colspan="1" aria-label="HiredDate: activate to sort column ascending">Date of Joining</th>

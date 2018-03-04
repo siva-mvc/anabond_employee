@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Response;
 use App\User;
 use App\Permission;
+use App\Roles;
 
 class UserManagementController extends Controller
 {
@@ -65,7 +66,7 @@ class UserManagementController extends Controller
 
         $path = $request->file('picture')->store('avatars');
          User::create([
-            'username' => $request['username'],
+           
             'email' => $request['email'],
             'password' => bcrypt($request['password']),
             'firstname' => $request['firstname'],
@@ -96,12 +97,13 @@ class UserManagementController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
+        $role = Roles::orderBy('Role', 'asc')->get();
         // Redirect to user list if updating user wasn't existed
         if ($user == null || count($user) == 0) {
             return redirect()->intended('/user-management');
         }
 
-        return view('users-mgmt/edit', ['user' => $user]);
+        return view('users-mgmt/edit', ['user' => $user, 'roleslist' => $role]);
     }
 
 
@@ -127,16 +129,18 @@ class UserManagementController extends Controller
      */
     public function update(Request $request, $id)
     {
+       
         $user = User::findOrFail($id);
+
         $constraints = [
-            'username' => 'required|max:20',
-            'firstname'=> 'required|max:60',
-            'lastname' => 'required|max:60'
+            'firstname'=> 'required|max:60'
             ];
         $input = [
-            'username' => $request['username'],
+
             'firstname' => $request['firstname'],
-            'lastname' => $request['lastname']
+            'lastname' => $request['lastname'],
+            'userrole' => $request['userrole']
+           
         ];
         if ($request['password'] != null && strlen($request['password']) > 0) {
             $constraints['password'] = 'required|min:6|confirmed';
@@ -146,6 +150,11 @@ class UserManagementController extends Controller
             $path = $request->file('picture')->store('avatars');
             $input['picture'] = $path;
         }
+
+        //print_r($input);
+
+
+         
 
         $this->validate($request, $constraints);
 
@@ -175,10 +184,10 @@ class UserManagementController extends Controller
      */
     public function search(Request $request) {
         $constraints = [
-            'username' => $request['username'],
-            'firstname' => $request['firstname'],
-            'lastname' => $request['lastname'],
-            //'department' => $request['department']
+
+            'firstname' => $request['email'],
+            'email' => $request['email'],
+            'userrole' => $request['email']
             ];
 
        $users = $this->doSearchingQuery($constraints);
@@ -191,12 +200,15 @@ class UserManagementController extends Controller
         $index = 0;
         foreach ($constraints as $constraint) {
             if ($constraint != null) {
-                $query = $query->where( $fields[$index], 'like', '%'.$constraint.'%');
+                $query = $query->where('firstname', 'like', '%'.$constraint.'%')
+                ->orWhere('email', 'like', '%'.$constraint.'%')
+                ->orWhere('userrole', 'like', '%'.$constraint.'%')
+                ->orderBy('firstname', 'ASC');
             }
 
             $index++;
         }
-        return $query->paginate(20);
+        return $query->paginate(40);
     }
 
     public function load($name) {
@@ -208,11 +220,10 @@ class UserManagementController extends Controller
     
     private function validateInput($request) {
         $this->validate($request, [
-        'username' => 'required|max:20',
+
         'email' => 'required|email|max:255|unique:users',
         'password' => 'required|min:6|confirmed',
-        'firstname' => 'required|max:60',
-        'lastname' => 'required|max:60'
+        'firstname' => 'required|max:60'
     ]);
     }
 }

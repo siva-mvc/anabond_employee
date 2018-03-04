@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\PerformanceFactor;
 use App\Department;
 use App\EmployeeFactor;
+use App\User;
 
 class PerformanceFactorController extends Controller
 {
@@ -34,6 +35,7 @@ class PerformanceFactorController extends Controller
         ->orderBy('department.name', 'asc')
         ->orderBy('performance_factor.name', 'asc')
         ->paginate(20);
+        
         return view('system-mgmt/factor/index', ['factors' => $factors]);
     }
 
@@ -45,7 +47,9 @@ class PerformanceFactorController extends Controller
     public function create()
     {   
         $departments = Department::orderBy('name', 'asc')->get();
-        return view('system-mgmt/factor/create', ['departments' => $departments]);
+        $user=User::orderBy('email', 'asc')->get();
+
+        return view('system-mgmt/factor/create', ['departments' => $departments,'user'=>$user]);
     }
 
     /**
@@ -70,6 +74,7 @@ class PerformanceFactorController extends Controller
             'name' => $request['name'],
             'department_id' => $request['department_id'],
             'description' => $request['description']
+            
         ]);
      }
 
@@ -94,7 +99,9 @@ class PerformanceFactorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
+
     {
+        $user=User::orderBy('email', 'asc')->get();
         $departments = Department::orderBy('name', 'asc')->get();
         $factor = PerformanceFactor::find($id);
         // Redirect to factor list if updating factor wasn't existed
@@ -102,7 +109,7 @@ class PerformanceFactorController extends Controller
             return redirect()->intended('/system-management/factor');
         }
 
-        return view('system-mgmt/factor/edit', ['factor' => $factor, 'departments' =>$departments]);
+        return view('system-mgmt/factor/edit', ['factor' => $factor, 'departments' =>$departments, 'user'=>$user]);
     }
 
     /**
@@ -128,6 +135,7 @@ class PerformanceFactorController extends Controller
             'name' => $request['name'],
             'department_id' => $request['department_id'],
             'description' => $request['description']
+  
         ];
         PerformanceFactor::where('id', $id)
             ->update($input);

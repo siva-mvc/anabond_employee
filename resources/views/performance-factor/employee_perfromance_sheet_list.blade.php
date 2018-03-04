@@ -23,9 +23,7 @@
       <label class="col-md-2 control-label">Select Department</label>
            <div class="col-md-2">
            <select class="form-control onchenageTrigger"  name="dept_id">
-           @if(Auth::user()->email =='admin@rekon.anabond.co.in')
-              <option data-url ="{{ route('employee_factor.export_list', ['dept_id' => 0]) }}"  value="0" @if($dept_id == '0') selected @endif>All Depertment</option>
-            @endif
+           
             @foreach ($depts as $dept) 
 
               @if(in_array($dept->id, Session::get('departments')))

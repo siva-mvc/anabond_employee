@@ -113,12 +113,13 @@
       <div class="box-body ">
 
          <div style="background-color:#d9d9d9" class="box-body noprint">
-            <label class="col-md-2 control-label">Select Department </label>
-            <div class="col-md-2">
+            <label style="text-align: left; padding-right: 0px; padding-top:5px" class="col-md-2 control-label">Select Department </label>
+            <div style="text-align: right; padding-left: 20px;" class="col-md-3">
                <select class="form-control onchenageTrigger"  name="dept_id">
-               @if(Auth::user()->email =='admin@rekon.anabond.co.in')
+                @if(Auth::user()->email =='admin@rekon.anabond.co.in')
                <option data-url ="{{ route('employee_factor.export_listnew', ['dept_id' => 0,'year'=>2017]) }}"  value="0" @if($dept_id == '0') selected @endif>All Depertment</option>
                @endif
+
                @foreach ($depts as $dept) 
                @if(in_array($dept->id, Session::get('departments')))
                <option data-url ="{{ route('employee_factor.export_listnew', ['dept_id' => $dept->id ,'year'=>$year]) }}"  value="{{ $dept->id }}" @if($dept->id == $dept_id) selected @endif>{{ $dept->name }}</option>

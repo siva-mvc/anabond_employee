@@ -9,6 +9,8 @@
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
+        @if(Auth::user()->userrole =='Sysadmin' || Auth::user()->userrole =='Department head' )
+
         <li class="{{ preg_match('/employee-management/',Request::path()) ? 'active' : '' }} 
         {{ preg_match('/employee-factors-management/',Request::path()) ? 'active' : '' }}
         {{ preg_match('/employee-perfromance-sheet/',Request::path()) ? 'active' : '' }}" >
@@ -22,7 +24,9 @@
           <li class="{{ preg_match('/employee-factors-update-byemp/',Request::path()) ? 'active' : '' }}"><a href="{{ url('employee-factors-update-byemp') }}/{{ Session::get('departments')[0]}}/2017"> <span>Update Score by Employee</span></a></li>
          @endif
         
-        @if(Auth::user()->email =='admin@rekon.anabond.co.in')
+        @endif
+
+        @if(Auth::user()->userrole =='Sysadmin')
         <li class="treeview {{ preg_match('/system-management/',Request::path()) ? 'active' : '' }}">
           <a href="#"></i> <span>System Management</span>
             <span class="pull-right-container">
@@ -56,7 +60,7 @@
 
           <li class="{{ preg_match('/employee-perfromance-pdf-listnew/',Request::path()) ? 'active' : '' }}" ><a href="{{ url('employee-perfromance-pdf-listnew') }}/{{ Session::get('departments')[0]}}/2017">Performance Reports</a></li> 
 
-        @if(Auth::user()->email =='admin@rekon.anabond.co.in')
+         @if(Auth::user()->userrole =='Sysadmin')
         <li class="{{ preg_match('/user-management/',Request::path()) ? 'active' : '' }}" ><a href="{{ route('user-management.index') }}"><span>User management</span></a></li>
         @endif 
       </ul>

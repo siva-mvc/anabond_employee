@@ -156,12 +156,22 @@ class SocialController extends Controller
 
         if (Auth::attempt(['email' => $email, 'password' => $email])){
             return redirect()->intended('employee-management');
-           
+
         }
         return redirect()->to('/login')
                 ->with('status', 'danger')
                 ->with('message', 'You did not share your profile data with our social app.');
         
         
+    }
+
+     protected function sessiondept($dept)
+    {
+       $dept_ids = array();
+  
+       foreach ($dept as $key => $value) {
+            array_push($dept_ids, $value['id']);
+        }
+       Session::put("departments", $dept_ids);
     }
 }

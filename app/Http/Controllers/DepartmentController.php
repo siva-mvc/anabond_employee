@@ -28,7 +28,7 @@ class DepartmentController extends Controller
     public function index()
     {
         $departments = DB::table('department')->orderBy('name', 'asc')
-        ->select('department.id', 'department.name')
+        ->select('department.*')
         ->paginate(20);
 
         return view('system-mgmt/department/index', ['departments' => $departments]);

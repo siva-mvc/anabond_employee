@@ -53,19 +53,17 @@
                               <form class="row" method="POST" action="{{ route('user-management.destroy', ['id' => $user->id]) }}" onsubmit = "return confirm('Are you sure?')">
                                  <input type="hidden" name="_method" value="DELETE">
                                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                 @if ($user->username != Auth::user()->username && $user->email != 'admin@rekon.anabond.co.in')
                                  <a href="{{ route('user-management.edit', ['id' => $user->id]) }}" class="btn btn-warning col-sm-3 col-xs-5 btn-margin">
                                  Update
                                  </a>
-                                 @if ($user->username != Auth::user()->username)
+                                 @endif
+                                 @if ($user->username != Auth::user()->username && $user->email != 'admin@rekon.anabond.co.in')
                                  <button type="submit" class="btn btn-danger col-sm-3 col-xs-5 btn-margin">
                                  Delete
                                  </button>
                                  @endif
-                                 @if ($user->perminssion_level != 'grand_all')
-                                 <a href="{{ route('user.set_permission', ['user_id' => $user->id]) }}" class="btn btn-default btn-margin"><i class="fa fa-lock" aria-hidden="true"></i></a>
-                                 @else
-                                 <a href="{{ route('user.remove_permission', ['user_id' => $user->id]) }}" class="btn btn-default btn-margin"><i class="fa fa-unlock" aria-hidden="true"></i></a>
-                                 @endif
+                                
                               </form>
                            </td>
                         </tr>

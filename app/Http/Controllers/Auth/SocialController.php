@@ -105,13 +105,17 @@ class SocialController extends Controller
                                 Auth::logout();
                                 return response('Please contact your IT administrator for more details.', 401);
                              }
-                             
+
                             foreach ($dept as $key => $value) {
                             array_push($dept_ids, $value['id']);
                             }
                             Session::put("departments", $dept_ids);
-                            
-                return redirect('employee-management');
+                 $socialUser = $userCheck;
+                           
+                 if (Auth::attempt(['email' => $email, 'password' => $email])){
+            return redirect()->intended('employee-management');
+
+        }
                 break;
             case 'Org Head':
                  $dept = Department::orderBy('name', 'asc')->get();

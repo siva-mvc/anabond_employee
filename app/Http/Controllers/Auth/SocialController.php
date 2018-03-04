@@ -201,9 +201,7 @@ class SocialController extends Controller
            }
         }
 
-        if (Auth::attempt(['email' => $email, 'password' => $email])){
-            return redirect()->intended('employee-management');
-
+       
         }
         return redirect()->to('/login')
                 ->with('status', 'danger')

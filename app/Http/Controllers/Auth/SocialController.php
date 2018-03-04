@@ -158,8 +158,11 @@ class SocialController extends Controller
                                 Session::put("departments", $dept_ids);
                      $socialUser = $userCheck;     
                      if (Auth::attempt(['email' => $email, 'password' => $email])){
-                 return redirect()->intended('employee-perfromance-pdf-listnew/'.Session::get('departments')[0].'/2017');
-
+                    return redirect()->intended('employee-perfromance-pdf-listnew/'.Session::get('departments')[0].'/2017');
+                    }
+                    else 
+                    {
+                        return response('Some issues.', 401);
                     }
                     break;
 
@@ -206,7 +209,7 @@ class SocialController extends Controller
 
        
         }
-    }
+
         return redirect()->to('/login')
                 ->with('status', 'danger')
                 ->with('message', 'You did not share your profile data with our social app.');  

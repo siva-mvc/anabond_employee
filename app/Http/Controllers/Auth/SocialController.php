@@ -165,7 +165,7 @@ class SocialController extends Controller
         
     }
 
-     protected function sessiondept($dept)
+     public function sessiondept($dept)
     {
        $dept_ids = array();
   

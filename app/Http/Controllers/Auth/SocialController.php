@@ -89,7 +89,7 @@ class SocialController extends Controller
                 $dept = array();
                 $dept_ids = array();
                 $dept = Department::where('director', $userCheck['email'])->orderBy('name', 'asc')->get();
-                            if(count($dept)<=1) {
+                            if(count($dept)<=0) {
                                 Auth::logout();
                                 return response('Please contact your IT administrator for more details.', 401);
                              }
@@ -108,7 +108,7 @@ class SocialController extends Controller
                 $dept = array();
                 $dept_ids = array();
                 $dept = Department::where('div_head', $userCheck['email'])->orderBy('name', 'asc')->get();
-                            if(count($dept)<=1) {
+                            if(count($dept)<=0) {
                                 Auth::logout();
                                 return response('Please contact your IT administrator for more details.', 401);
                              }
@@ -119,7 +119,7 @@ class SocialController extends Controller
                             Session::put("departments", $dept_ids);
                  $socialUser = $userCheck;     
                  if (Auth::attempt(['email' => $email, 'password' => $email])){
-            return redirect()->intended('employee-perfromance-pdf-listnew/'.Session::get('departments')[0].'/2017');
+            return redirect('employee-perfromance-pdf-listnew/'.Session::get('departments')[0].'/2017');
 
                 }
                 break;
@@ -127,7 +127,7 @@ class SocialController extends Controller
                 $dept = array();
                 $dept_ids = array();
                 $dept = Department::where('head_of_dept', $userCheck['email'])->orderBy('name', 'asc')->get();
-                            if(count($dept)<=1) {
+                            if(count($dept)<=0) {
                                 Auth::logout();
                                 return response('Please contact your IT administrator for more details.', 401);
                              }
@@ -146,9 +146,9 @@ class SocialController extends Controller
                 $dept = array();
                 $dept_ids = array();
                 $dept = Department::orderBy('name', 'asc')->get();
-                            if(count($dept)<=1) {
+                            if(count($dept)<=0) {
                                 Auth::logout();
-                                return response('Please contact your IT administrator for more details.', 401);
+                                return response('Please contact your IT administrator for more details1.', 401);
                              }
 
                             foreach ($dept as $key => $value) {
@@ -163,7 +163,7 @@ class SocialController extends Controller
                 break;
             case '----':
                 Auth::logout();
-                 return response('Please contact your IT administrator for more details.', 401);
+                 return response('Please contact your IT administrator for more details2.', 401);
                 break;
             default:
                 Auth::logout();

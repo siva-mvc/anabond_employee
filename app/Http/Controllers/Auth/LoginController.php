@@ -76,7 +76,7 @@ class LoginController extends Controller
                 break;
             case 'Director':
                 $dept = Department::where('director', $user['email'])->orderBy('name', 'asc')->get();
-                                        if(count($dept)<=1) {
+                                        if(count($dept)<=0) {
                             Auth::logout();
                             return response('Please contact your IT administrator for more details.', 401);
                              }
@@ -85,7 +85,7 @@ class LoginController extends Controller
                 break;
             case 'Division head':
                 $dept = Department::where('div_head', $user['email'])->orderBy('name', 'asc')->get();
-                                        if(count($dept)<=1) {
+                                        if(count($dept)<=0) {
                             Auth::logout();
                             return response('Please contact your IT administrator for more details.', 401);
                              }
@@ -94,7 +94,7 @@ class LoginController extends Controller
                 break;
             case 'Department head':
                 $dept = Department::where('head_of_dept', $user['email'])->orderBy('name', 'asc')->get();
-                                        if(count($dept)<=1) {
+                                        if(count($dept)<=0) {
                             Auth::logout();
                             return response('Please contact your IT administrator for more details.', 401);
                              }

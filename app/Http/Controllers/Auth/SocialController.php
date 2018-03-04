@@ -65,37 +65,63 @@ class SocialController extends Controller
 
             User::where('email', $email)->update($update_user);
 
-           
-           
-
         switch ($userCheck['userrole']) {
             case 'Sysadmin':
+                $dept = array();
+                $dept_ids = array();
                 $dept = Department::orderBy('name', 'asc')->get();
-                        if(count($dept)<1) {
-                            Auth::logout();
-                            return response('Please contact your IT administrator for more details.', 401);
+                            if(count($dept)<=1) {
+                                Auth::logout();
+                                return response('Please contact your IT administrator for more details.', 401);
                              }
-       
-                $this->sessiondept($dept);
-                return redirect('employee-management');
+
+                            foreach ($dept as $key => $value) {
+                            array_push($dept_ids, $value['id']);
+                            }
+                            Session::put("departments", $dept_ids);
+                 $socialUser = $userCheck;     
+                 if (Auth::attempt(['email' => $email, 'password' => $email])){
+                return redirect()->intended('employee-management');
+
+                }
                 break;
             case 'Director':
+                $dept = array();
+                $dept_ids = array();
                 $dept = Department::where('director', $userCheck['email'])->orderBy('name', 'asc')->get();
-                                        if(count($dept)<=1) {
-                            Auth::logout();
-                            return response('Please contact your IT administrator for more details.', 401);
+                            if(count($dept)<=1) {
+                                Auth::logout();
+                                return response('Please contact your IT administrator for more details.', 401);
                              }
-                $this->sessiondept($dept);
-                return redirect('employee-perfromance-pdf-listnew/'.Session::get('departments')[0].'/2017');
+
+                            foreach ($dept as $key => $value) {
+                            array_push($dept_ids, $value['id']);
+                            }
+                            Session::put("departments", $dept_ids);
+                 $socialUser = $userCheck;     
+                 if (Auth::attempt(['email' => $email, 'password' => $email])){
+            return redirect()->intended('employee-perfromance-pdf-listnew/'.Session::get('departments')[0].'/2017');
+
+                }
                 break;
-            case 'Division head':
+            case 'Division head': 
+                $dept = array();
+                $dept_ids = array();
                 $dept = Department::where('div_head', $userCheck['email'])->orderBy('name', 'asc')->get();
-                                        if(count($dept)<=1) {
-                            Auth::logout();
-                            return response('Please contact your IT administrator for more details.', 401);
+                            if(count($dept)<=1) {
+                                Auth::logout();
+                                return response('Please contact your IT administrator for more details.', 401);
                              }
-                $this->sessiondept($dept);
-                return redirect('employee-perfromance-pdf-listnew/'.Session::get('departments')[0].'/2017');
+
+                            foreach ($dept as $key => $value) {
+                            array_push($dept_ids, $value['id']);
+                            }
+                            Session::put("departments", $dept_ids);
+                 $socialUser = $userCheck;     
+                 if (Auth::attempt(['email' => $email, 'password' => $email])){
+            return redirect()->intended('employee-perfromance-pdf-listnew/'.Session::get('departments')[0].'/2017');
+
+                }
                 break;
             case 'Department head':
                 $dept = array();
@@ -110,22 +136,30 @@ class SocialController extends Controller
                             array_push($dept_ids, $value['id']);
                             }
                             Session::put("departments", $dept_ids);
-                 $socialUser = $userCheck;
-                           
+                 $socialUser = $userCheck;     
                  if (Auth::attempt(['email' => $email, 'password' => $email])){
             return redirect()->intended('employee-management');
 
-        }
+                }
                 break;
             case 'Org Head':
-                 $dept = Department::orderBy('name', 'asc')->get();
-                        if(count($dept)<1) {
-                            Auth::logout();
-                            return response('Please contact your IT administrator for more details.', 401);
+                $dept = array();
+                $dept_ids = array();
+                $dept = Department::orderBy('name', 'asc')->get();
+                            if(count($dept)<=1) {
+                                Auth::logout();
+                                return response('Please contact your IT administrator for more details.', 401);
                              }
-       
-                $this->sessiondept($dept);
-                 return redirect('employee-perfromance-pdf-listnew/'.Session::get('departments')[0].'/2017');
+
+                            foreach ($dept as $key => $value) {
+                            array_push($dept_ids, $value['id']);
+                            }
+                            Session::put("departments", $dept_ids);
+                 $socialUser = $userCheck;     
+                 if (Auth::attempt(['email' => $email, 'password' => $email])){
+            return redirect()->intended('employee-management');
+
+                }
                 break;
             case '----':
                 Auth::logout();
@@ -137,7 +171,8 @@ class SocialController extends Controller
                 break;
         }      
             $socialUser = $userCheck;
-        }else {
+        }
+        else {
 
            $newSocialUser = new User; 
            $newSocialUser->email = $email;
@@ -172,18 +207,6 @@ class SocialController extends Controller
         }
         return redirect()->to('/login')
                 ->with('status', 'danger')
-                ->with('message', 'You did not share your profile data with our social app.');
-        
-        
-    }
-
-     public function sessiondept($dept)
-    {
-       $dept_ids = array();
-  
-       foreach ($dept as $key => $value) {
-            array_push($dept_ids, $value['id']);
-        }
-       Session::put("departments", $dept_ids);
+                ->with('message', 'You did not share your profile data with our social app.');  
     }
 }

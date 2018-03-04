@@ -100,7 +100,8 @@ class SocialController extends Controller
                             Session::put("departments", $dept_ids);
                  $socialUser = $userCheck;     
                  if (Auth::attempt(['email' => $email, 'password' => $email])){
-            return redirect('employee-perfromance-pdf-listnew/'.Session::get('departments')[0].'/2017');
+             return redirect('employee-perfromance-pdf-listnew/'.Session::get('departments')[0].'/2017');
+
 
                 }
                 break;
@@ -157,7 +158,7 @@ class SocialController extends Controller
                             Session::put("departments", $dept_ids);
                  $socialUser = $userCheck;     
                  if (Auth::attempt(['email' => $email, 'password' => $email])){
-             return redirect('employee-perfromance-pdf-listnew/'.Session::get('departments')[0].'/2017');
+              return redirect('employee-perfromance-pdf-listnew/'.Session::get('departments')[0].'/2017');
 
                 }
                 break;

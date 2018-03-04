@@ -107,10 +107,9 @@ class SocialController extends Controller
                             array_push($dept_ids, $value['id']);
                             }
                             Session::put("departments", $dept_ids);
-                            }
+                            
                 return redirect('employee-management');
                 break;
-
             case 'Org Head':
                  $dept = Department::orderBy('name', 'asc')->get();
                         if(count($dept)<1) {

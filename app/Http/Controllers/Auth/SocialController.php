@@ -78,7 +78,7 @@ class SocialController extends Controller
                 return redirect('employee-management');
                 break;
             case 'Director':
-                $dept = Department::where('director', $user['email'])->orderBy('name', 'asc')->get();
+                $dept = Department::where('director', $userCheck['email'])->orderBy('name', 'asc')->get();
                                         if(count($dept)<=1) {
                             Auth::logout();
                             return response('Please contact your IT administrator for more details.', 401);
@@ -87,7 +87,7 @@ class SocialController extends Controller
                 return redirect('employee-perfromance-pdf-listnew/'.Session::get('departments')[0].'/2017');
                 break;
             case 'Division head':
-                $dept = Department::where('div_head', $user['email'])->orderBy('name', 'asc')->get();
+                $dept = Department::where('div_head', $userCheck['email'])->orderBy('name', 'asc')->get();
                                         if(count($dept)<=1) {
                             Auth::logout();
                             return response('Please contact your IT administrator for more details.', 401);
@@ -96,7 +96,7 @@ class SocialController extends Controller
                 return redirect('employee-perfromance-pdf-listnew/'.Session::get('departments')[0].'/2017');
                 break;
             case 'Department head':
-                $dept = Department::where('head_of_dept', $user['email'])->orderBy('name', 'asc')->get();
+                $dept = Department::where('head_of_dept', $userCheck['email'])->orderBy('name', 'asc')->get();
                                         if(count($dept)<=1) {
                             Auth::logout();
                             return response('Please contact your IT administrator for more details.', 401);

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 //use App\Models\Social;
 use App\User;
+use App\users;
 use App\Permission;
 use App\Department;
 //use App\Models\Role;
@@ -65,7 +66,7 @@ class SocialController extends Controller
 
             User::where('email', $email)->update($update_user);
        
-        switch ($user['userrole']) {
+        switch ($userCheck['userrole']) {
             case 'Sysadmin':
                 $dept = Department::orderBy('name', 'asc')->get();
                         if(count($dept)<1) {

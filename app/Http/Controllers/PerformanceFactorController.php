@@ -18,8 +18,10 @@ class PerformanceFactorController extends Controller
      * @return void
      */
     public function __construct()
+
     {
         $this->middleware('auth');
+
     }
 
     /**
@@ -134,7 +136,8 @@ class PerformanceFactorController extends Controller
         $input = [
             'name' => $request['name'],
             'department_id' => $request['department_id'],
-            'description' => $request['description']
+            'description' => $request['description'],
+            'allowexceed' => $request->has('allowexceed') ? 1 : 0
   
         ];
         PerformanceFactor::where('id', $id)

@@ -139,7 +139,7 @@ class EmployeeFactorController extends Controller
         $employee_with_target = DB::table('employee_factor')
          ->leftJoin('employees', 'employee_factor.employee_id', '=', 'employees.id')
          ->leftJoin('performance_factor', 'employee_factor.performance_factor_id', '=', 'performance_factor.id')
-        ->select('employee_factor.*', 'employees.name as employee_fname', 'employees.lastname as employee_lname', 'performance_factor.name as factor_name')
+        ->select('employee_factor.*', 'employees.name as employee_fname', 'employees.lastname as employee_lname', 'performance_factor.name as factor_name','performance_factor.allowexceed as exceed')
         ->where('employee_factor.year', '=' , $year)
         ->get();  
 
@@ -221,7 +221,7 @@ class EmployeeFactorController extends Controller
         $employee_with_target = DB::table('employee_factor')
          ->leftJoin('employees', 'employee_factor.employee_id', '=', 'employees.id')
          ->leftJoin('performance_factor', 'employee_factor.performance_factor_id', '=', 'performance_factor.id')
-        ->select('employee_factor.*', 'employees.name as employee_fname', 'employees.lastname as employee_lname', 'performance_factor.name as factor_name')
+        ->select('employee_factor.*', 'employees.name as employee_fname', 'employees.lastname as employee_lname', 'performance_factor.name as factor_name','performance_factor.allowexceed as exceed')
         ->where('employee_factor.year', '=' , $year)
         ->get();  
 

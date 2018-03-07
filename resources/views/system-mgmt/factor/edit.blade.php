@@ -47,6 +47,16 @@
                                 @endif
                             </div>
                         </div>
+
+
+
+                        <div class="form-group">
+                            <label for="description" class="col-md-4 control-label"> Allow Exceeds</label>
+                                <div class="col-md-6">
+                                  <input type="checkbox"  class="" name="allowexceed" value="{{$factor->allowexceed}}" @if($factor->allowexceed) checked @endif>
+                                </div>             
+                         </div>
+
                         <div class="form-group">
                             <div class="col-md-1 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">

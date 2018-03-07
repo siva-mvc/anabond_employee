@@ -77,7 +77,39 @@ $('.validate_target').on('change',function(){
      $("[data-target-sum = '"+data_attr+"']").val(clean);
   });
 
-  $('.validate_credit').on('change',function(){
+  $('.validate_credit1').on('change',function(){
+
+    var max_id = $(this).data('maximum');
+    var max = $("input[name='"+max_id+"']").val();
+    var clean = (isNaN($(this).val()))? 0 : $(this).val();
+    $(this).val(clean);
+
+    if($.isNumeric($(this).val()) && $(this).val()<=parseFloat(max)){
+      $(this).val(parseFloat(clean));
+      $(this).css('border-color', 'yellow');
+    }else{
+      //$(this).css('border-color', 'red');
+     // $(this).val('');
+    }
+    //Adding to sum of values
+    var data_attr = $(this).data('qids');
+    var total = 0;
+    var i = 0;
+     $("[data-qids = '"+data_attr+"']").each(function() {
+        if($.isNumeric($(this).val())){
+          i+=1;
+          total+=parseFloat($(this).val());
+        }
+     });
+
+    var x = (total/i).toFixed(2);
+    var clean = (isNaN(x))? '' : x;
+     $("[data-sum = '"+data_attr+"']").val(clean);
+     update_targets(data_attr+"_max");
+
+  });
+
+  $('.validate_credit0').on('change',function(){
 
     var max_id = $(this).data('maximum');
     var max = $("input[name='"+max_id+"']").val();

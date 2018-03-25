@@ -9,12 +9,13 @@
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        @if(Auth::user()->userrole =='Sysadmin' || Auth::user()->userrole =='Department head' )
-
+      @if(Auth::user()->userrole =='Sysadmin' || Auth::user()->userrole =='Department head' || Auth::user()->userrole =='Division head' )
         <li class="{{ preg_match('/employee-management/',Request::path()) ? 'active' : '' }} 
         {{ preg_match('/employee-factors-management/',Request::path()) ? 'active' : '' }}
         {{ preg_match('/employee-perfromance-sheet/',Request::path()) ? 'active' : '' }}" >
         <a  href="{{ url('employee-management') }}"><span>Employee Management</span></a></li>
+      @endif
+        @if(Auth::user()->userrole =='Sysadmin' || Auth::user()->userrole =='Department head' )
         @if(!empty(Session::get('departments'))) 
         
         <li class="{{ preg_match('/employee-factors-update-credit/',Request::path()) ? 'active' : '' }}" ><a href="{{ url('employee-factors-update-credit') }}/{{ Session::get('departments')[0]}}/2017"> <span>Update Score by Factors</span></a></li>

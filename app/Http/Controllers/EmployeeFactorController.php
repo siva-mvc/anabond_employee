@@ -423,14 +423,14 @@ public function employee_factors_update_achived_credit_byemp(Request $request, $
         if($data['total'] >0){
             $whr = array('employee_id'=>$emp_id, 'year' => $year);
             $ex = PerformanceSheet:: where($whr)->get();
-            $psheet  = array('employee_id' => $emp_id, 'year'=>$year, 'total_score' => $data['total'],'experience' => $data['experience'], 'future_prospect' => $data['future_prospect'],'raw_total' =>$data['raw_total'], 'created_by'=>$firstname);
+            $psheet  = array('employee_id' => $emp_id, 'year'=>$year, 'total_score' => $data['total'],'experience' => $data['experience'], 'future_prospect' => $data['future_prospect'],'raw_total' =>$data['raw_total'], 'created_by'=>$firstname , 'notes'=>$data['notes']);
             if(count($ex)>0){
                 $update = PerformanceSheet:: where($whr)->update($psheet);
             }else{
                 
                 $create = PerformanceSheet::create($psheet);
             }    
-            $save = PerformanceAudit::create(array('employee_id' => $emp_id, 'year'=>$year, 'total_score' => $data['total'],'experience' => $data['experience'], 'future_prospect' => $data['future_prospect'],'raw_total' =>$data['raw_total'], 'created_by'=>$firstname));
+            $save = PerformanceAudit::create(array('employee_id' => $emp_id, 'year'=>$year, 'total_score' => $data['total'],'experience' => $data['experience'], 'future_prospect' => $data['future_prospect'],'raw_total' =>$data['raw_total'], 'notes'=>$data['notes'] ,'created_by'=>$firstname));
 
             return Redirect::route('employee_factor.perfromance_sheet', array($emp_id, $year))->with('message', 'Credit updated successfull');
         }else{

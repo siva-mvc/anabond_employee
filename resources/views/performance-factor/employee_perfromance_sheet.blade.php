@@ -100,7 +100,7 @@
                               <td>Experience</td>
                               <td colspan="13"></td>
                               <td><div class="input-group ingroup150">
-                                    <input type="text" class="form-control form-control-empsheet exp_max_5" value="{{ $sheets[0]->experience }}" name="experience">
+                                    <input type="text"  class="form-control form-control-empsheet exp_max_5" value="{{ $sheets[0]->experience }}" name="experience">
                                     <span class="input-group-addon input-group-addon-sheets ">5.00</span>
                                   </div></td>
                             </tr>
@@ -131,11 +131,24 @@
                             @endempty
 
                         </table>
+                        @if(count($sheets)>0)
+                        <div class="form-group">
+                        <label class="col-md-2 control-label"></label>.
+                       <div class="col-md-8">
+                    
+                        <textarea maxlength="900" placeholder="Enter Notes here.. " rows="4" cols="100" class="form-control" value="notes" name="notes">{{ $sheets[0]->notes }}</textarea>                          
+                      </div>
+                      @endif
+                  </div>
+                       
                     </div>
                       @isset($sheet)
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">History</button>
                     <button class="pull-right btn btn-success" type="submit">Save</button>
                     @endisset
+
+                   
+
             </form>
 
             </div>
@@ -164,6 +177,7 @@
                 <td>Issued by</td>
                 <td>Issued date</td>
               </tr>
+              @empty(!$history)
               @foreach ($history as $key => $v)
                 <tr>
                 <td>{{ $v['experience'] }}</td>
@@ -173,7 +187,7 @@
                 <td>{{ $v['created_at']->format('d/m/Y')}} </td>
               </tr>
               @endforeach
-
+              @endempty
             </table>
           </div>
           <div class="modal-footer">

@@ -101,6 +101,15 @@ class LoginController extends Controller
                 $this->sessiondept($dept);
                 return redirect('employee-management');
                 break;
+            case 'Branch Head':
+                $dept = Department::where('branch_head', $user['email'])->orderBy('name', 'asc')->get();
+                                        if(count($dept)<=0) {
+                            Auth::logout();
+                            return response('Please contact your IT administrator for more details.', 401);
+                             }
+                $this->sessiondept($dept);
+                return redirect('employee-management');
+                break;
             case 'Org Head':
                  $dept = Department::orderBy('name', 'asc')->get();
                         if(count($dept)<1) {

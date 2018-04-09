@@ -32,7 +32,11 @@
                 <th width="4%"  aria-controls="example2" rowspan="1" colspan="1" aria-label="HiredDate: activate to sort column ascending">Date of Joining</th>
                 <th width="10%"  aria-controls="example2" rowspan="1" colspan="1" aria-label="Department: activate to sort column ascending">Department</th>
                 <th width="10%"  aria-controls="example2" rowspan="1" colspan="1" aria-label="Designation: activate to sort column ascending">Designation</th>
-                <th width="7%"  style="text-align:center;" aria-controls="example2" rowspan="1" colspan="2" > <a class="btn btn-primary " href="{{ route('employee-management.create') }}">Add Employee</th>
+                <th width="7%"  style="text-align:center;" aria-controls="example2" rowspan="1" colspan="2" > 
+                @if(Auth::user()->userrole =='Sysadmin') 
+                <a class="btn btn-primary " href="{{ route('employee-management.create') }}">Add Employee
+                @endif
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -45,24 +49,26 @@
                   <td class="hidden-xs">{{ $employee->department_name }}</td>
                   <td class="hidden-xs">{{ $employee->designation_name }}</td>
                   <td align="center">
+                 
                     <form class="row" method="POST" action="{{ route('employee-management.destroy', ['id' => $employee->id]) }}" onsubmit = "return confirm('Are you sure?')">
                         <input type="hidden" name="_method" value="DELETE">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        
+                  @if(Auth::user()->userrole =='Sysadmin')     
                         <a class="btn btn-success btn-margin" title="configure factor" href="{{ route('employee_factor.factors_management', ['employee_id' => $employee->id, 'year' => $year]) }}"><i class="fa fa-cog"></i></a>
 
                         <a href="{{ route('employee-management.edit', ['id' => $employee->id]) }}" title="Edit" class="btn btn-success btn-margin">
                         <i class="fa fa-pencil"></i>
                         </a>
-
+                  @endif
                         <a href="{{ route('employee_factor.perfromance_sheet', ['employee_id' => $employee->id, 'year'=>2017]) }}" title="perfromance sheet" class="btn btn-success btn-margin">
                         <i class="fa-list-alt"></i>
                         </a>
 
-                        
+                  @if(Auth::user()->userrole =='Sysadmin')
                          <button class="btn btn-danger btn-margin" title="Delete"  type="submit">
                           <i class="fa fa-trash"></i>
                         </button>
+                        @endif
                     </form>
                   </td>
               </tr>

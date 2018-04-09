@@ -35,6 +35,20 @@
                      </div>
                   </div>
                   <div class="form-group">
+                     <label class="col-md-4 control-label">Branch Head</label>
+                     <div class="col-md-6">
+                        <select class="form-control" name="branch_head">
+                           <option selected >----</option>
+                           @forelse ($user as $users)
+                           @if ($users->userrole == 'Branch Head')
+                           <option value="{{$users->email}}" {{$users->email == $department->branch_head ? 'selected' : ''}}>{{$users->email}} </option>
+                           @endif
+                           @empty
+                           @endforelse
+                        </select>
+                     </div>
+                  </div>
+                  <div class="form-group">
                      <label class="col-md-4 control-label">Division Head</label>
                      <div class="col-md-6">
                         <select class="form-control" name="div_head">

@@ -59,7 +59,8 @@ class DepartmentController extends Controller
             'name' => $request['name'],
             'head_of_dept' => $request['head_of_dept'],
             'div_head' => $request['div_head'],
-            'director' => $request['director']
+            'director' => $request['director'],
+            'branch_head' => $request['branch_head']
         ]);
 
         return redirect()->intended('system-management/department');
@@ -90,7 +91,6 @@ class DepartmentController extends Controller
         if ($department == null || count($department) == 0) {
             return redirect()->intended('/system-management/department');
         }
-
         $employees = Employee::all();
         return view('system-mgmt/department/edit', ['department' => $department, 'employees' => $employees, 'user'=>$user]);
     }
@@ -113,7 +113,8 @@ class DepartmentController extends Controller
             'name' => $request['name'],
             'head_of_dept' => $request['head_of_dept'],
             'div_head' => $request['div_head'],
-            'director' => $request['director']
+            'director' => $request['director'],
+            'branch_head' => $request['branch_head']
         ];
         Department::where('id', $id)
             ->update($input);

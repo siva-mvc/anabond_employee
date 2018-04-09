@@ -9,7 +9,7 @@
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-      @if(Auth::user()->userrole =='Sysadmin' || Auth::user()->userrole =='Department head' || Auth::user()->userrole =='Division head' )
+      @if(Auth::user()->userrole =='Sysadmin' || Auth::user()->userrole =='Department head' || Auth::user()->userrole =='Division head' || Auth::user()->userrole =='Branch Head' )
         <li class="{{ preg_match('/employee-management/',Request::path()) ? 'active' : '' }} 
         {{ preg_match('/employee-factors-management/',Request::path()) ? 'active' : '' }}
         {{ preg_match('/employee-perfromance-sheet/',Request::path()) ? 'active' : '' }}" >

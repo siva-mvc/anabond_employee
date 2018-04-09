@@ -24,10 +24,11 @@
           <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
             <thead>
               <tr role="row" style="background-color:#d9d9d9" >
-                <th width="20%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Department Name</th>
-                <th width="20%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Department Head</th>
-                <th width="20%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Division Head</th>
-                <th width="20%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Director</th>
+                <th width="17%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Department Name</th>
+                <th width="17%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Department Head</th>
+                <th width="17%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Branch Head</th>
+                <th width="17%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Division Head</th>
+                <th width="17%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Director</th>
                 <th tabindex="0" aria-controls="example2" rowspan="1" colspan="2" aria-label="">  <a class="btn btn-primary" href="{{ route('department.create') }}">Add Department</a></th>
               </tr>
             </thead>
@@ -36,6 +37,7 @@
                 <tr role="row" class="odd">
                   <td>{{ $department->name }}</td>
                   <td>{{ $department->head_of_dept }}</td>
+                  <td>{{ $department->branch_head }}</td>
                   <td>{{ $department->div_head }}</td>
                   <td>{{ $department->director }}</td>
                   <td>

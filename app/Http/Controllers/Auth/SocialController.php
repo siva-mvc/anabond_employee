@@ -143,6 +143,25 @@ class SocialController extends Controller
 
                 }
                 break;
+            case 'Branch Head':
+                $dept = array();
+                $dept_ids = array();
+                $dept = Department::where('branch_head', $userCheck['email'])->orderBy('name', 'asc')->get();
+                            if(count($dept)<=0) {
+                                Auth::logout();
+                                return response('Please contact your IT administrator for more details.', 401);
+                             }
+
+                            foreach ($dept as $key => $value) {
+                            array_push($dept_ids, $value['id']);
+                            }
+                            Session::put("departments", $dept_ids);
+                 $socialUser = $userCheck;     
+                 if (Auth::attempt(['email' => $email, 'password' => $email])){
+            return redirect('employee-management');
+
+                }
+                break;
             case 'Org Head':
                 $dept = array();
                 $dept_ids = array();

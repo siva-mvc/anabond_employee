@@ -33,7 +33,9 @@
           <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
             <thead>
               <tr role="row">
-                <th width="80%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="team: activate to sort column ascending">Team Name</th>
+                <th width="30%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="team: activate to sort column ascending">Team Name</th>
+                <th width="25%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="team: activate to sort column ascending">2017 Increment</th>
+                <th width="25%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="team: activate to sort column ascending">2018 Increment</th>
                 <th tabindex="0" aria-controls="example2" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending">Action</th>
               </tr>
             </thead>
@@ -41,6 +43,8 @@
             @foreach ($teams as $team)
                 <tr role="row" class="odd">
                   <td>{{ $team->name }}</td>
+                  <td>{{ $team->increment2017 }}</td>
+                  <td>{{ $team->increment2018 }}</td>
                   <td>
                     <form class="row" method="POST" action="{{ route('team.destroy', ['id' => $team->id]) }}" onsubmit = "return confirm('Are you sure?')">
                         <input type="hidden" name="_method" value="DELETE">

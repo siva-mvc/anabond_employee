@@ -50,7 +50,10 @@ class TeamController extends Controller
     {
         $this->validateInput($request);
          Team::create([
-            'name' => $request['name']
+            'name' => $request['name'],
+            'increment2017' => $request['increment2017'],
+            'increment2018' => $request['increment2018'],
+            
         ]);
 
         return redirect()->intended('system-management/team');
@@ -99,7 +102,10 @@ class TeamController extends Controller
         }
         
         $input = [
-            'name' => $request['name']
+            'name' => $request['name'],
+            'increment2017' => $request['increment2017'],
+            'increment2018' => $request['increment2018'],
+            
         ];
         Team::where('id', $id)
             ->update($input);

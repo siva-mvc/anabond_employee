@@ -594,10 +594,33 @@ public function employee_factors_update_achived_credit_byemp(Request $request, $
          //$pdf = PDF::loadView('performance-factor/employee_perfromance_sheet-pdf', ['sheets' =>$export_data, 'dept_id'=>$dept_id,'year'=>$year]);
      // return $pdf->download('report_for_'.$year.'.pdf');
          //print_r($pdf);
-        //return PDF::loadFile('http://www.github.com')->inline('github.pdf');
+        //return PDF::loadFile('http://www.github.com')->inline('github.pdf');employee-perfromance-pdf-listnew
       return view('performance-factor/employee_perfromance_sheet-pdf',['sheets' =>$export_data, 'dept_id'=>$dept_id,'year'=>$year]); 
     }
     
+
+    public function consolidatedpay(Request $request, $year) {
+        // $year = (isset($request['year'])) ? $request['year'] : date("Y"); 
+ 
+         $dept_id = (isset($dept_id)) ? $dept_id : Session::get('departments')[0];
+        // print_r($whr);
+ 
+        $total_depts_search = DB::table('department')->whereIn('department.id',Session::get('departments'))->orderBy('name', 'asc')->get();
+
+         $whrIn = array($dept_id); 
+         if($dept_id ==0){
+             $whrIn = Session::get('departments');
+         }
+ 
+          $export_data = DB::table('consolidated')
+             ->select ('consolidated.*')
+             ->orderBy('consolidated.deptname', 'asc')
+             ->get();
+
+             return view('performance-factor/consolidated_revised', 
+             ['sheets' =>$export_data]);
+     }
+
     private function getExportingData($emp_id, $year) {
         $employee = Employee::findOrFail($emp_id);
 
@@ -634,14 +657,19 @@ public function employee_factors_update_achived_credit_byemp(Request $request, $
             ->get();  
 
             $re_order = array(); 
-            foreach ($lists as $l => $value) {
+            foreach ($lists as $l => $value) {select ee.employee_reg_id, ee.name, tm.name as Teamname, dept.name as deptname, gs.Totalscore as scroefor50, 50+gs.Totalscore as Totalscore,
+round(((50+gs.Totalscore)/100)*tm.increment2017,2) as Revisedpay from employees ee 
+join GRANDSCORE gs on ee.employee_reg_id=gs.employee_reg_id
+left join department dept on ee.department_id=dept.id
+left join team tm on ee.team_id=tm.id
+order by dept.name asc, tm.name desc
                 $re_order[$value->factor_name]['actual_target'] = $value->actual_target;  
                 $re_order[$value->factor_name][$value->month] = $value;
             }  
             //new code
             $re_order_target = array();
             foreach ($lists as $l => $value) {
-                $re_order_target[$value->factor_name][$value->month] = $value;
+                $re_order_target[$value->factor_name][$value->moconsolidated_revisednth] = $value;
                 $rating_percent = ($value->achived * 100)/ $value->target;
                 $re_order_target[$value->factor_name][$value->month]->rating =  round(($rating_percent/100)* $value->actual_target, 2);
             }

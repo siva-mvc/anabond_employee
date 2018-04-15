@@ -126,6 +126,8 @@ class EmployeeFactorController extends Controller
 
         $department = Department::find($dept_id);
 
+        $department123 = Department::find($dept_id);
+
         $total_depts_search = DB::table('department')->whereIn('department.id',Session::get('departments'))->orderBy('name', 'asc')->get();
 
 
@@ -183,7 +185,7 @@ class EmployeeFactorController extends Controller
         } 
 
         return view('performance-factor/employee_factors_update_credit', 
-            ['months' =>$month_array, "lists" => $cons_requet, "dept_id"=>$dept_id, "year"=>$year, "depts" =>$total_depts_search, "dept_ids"=> Session::get('departments')]);
+            ['months' =>$month_array, "lists" => $cons_requet, "dept_id"=>$dept_id, "year"=>$year, "depts" =>$total_depts_search, "dept_ids"=> Session::get('departments'), "dt"=>$department]);
     }
 
 
@@ -200,6 +202,7 @@ class EmployeeFactorController extends Controller
         $total_depts_search = DB::table('department')->whereIn('department.id',Session::get('departments'))->orderBy('name', 'asc')->get();
 
 
+
         if($dept_id != 0){
             $empl = Employee::where('department_id', $dept_id)->get(); 
         }
@@ -208,9 +211,6 @@ class EmployeeFactorController extends Controller
             $empl = Employee::all();
 
         }
-       
-
-
 
         $available_factors = PerformanceFactor::where('department_id', $dept_id)->get();
 
@@ -265,7 +265,7 @@ class EmployeeFactorController extends Controller
         } 
 
         return view('performance-factor/employee_factors_update_credit_byemp', 
-            ['months' =>$month_array, "lists" => $cons_requet, "dept_id"=>$dept_id, "year"=>$year, "depts" =>$total_depts_search, "dept_ids"=> Session::get('departments')]);
+            ['months' =>$month_array, "lists" => $cons_requet, "dept_id"=>$dept_id, "year"=>$year, "depts" =>$total_depts_search, "dept_ids"=> Session::get('departments'), "dt" =>$department]);
     }
 
     

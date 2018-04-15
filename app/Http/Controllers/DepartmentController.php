@@ -114,7 +114,9 @@ class DepartmentController extends Controller
             'head_of_dept' => $request['head_of_dept'],
             'div_head' => $request['div_head'],
             'director' => $request['director'],
-            'branch_head' => $request['branch_head']
+            'branch_head' => $request['branch_head'],
+            'freeze2017' => $request->has('freeze2017') ? 1 : 0,
+            'freeze2018' => $request->has('freeze2018') ? 1 : 0
         ];
         Department::where('id', $id)
             ->update($input);

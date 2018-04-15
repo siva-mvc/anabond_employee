@@ -25,10 +25,12 @@
             <thead>
               <tr role="row" style="background-color:#d9d9d9" >
                 <th width="17%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Department Name</th>
-                <th width="17%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Department Head</th>
-                <th width="17%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Branch Head</th>
-                <th width="17%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Division Head</th>
-                <th width="17%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Director</th>
+                <th width="15%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Department Head</th>
+                <th width="15%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Branch Head</th>
+                <th width="15%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Division Head</th>
+                <th width="15%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Director</th>
+                <th width="2%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Freeze <br> 2017</th>
+                <th width="2%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Freeze <br> 2018</th>
                 <th tabindex="0" aria-controls="example2" rowspan="1" colspan="2" aria-label="">  <a class="btn btn-primary" href="{{ route('department.create') }}">Add Department</a></th>
               </tr>
             </thead>
@@ -40,6 +42,8 @@
                   <td>{{ $department->branch_head }}</td>
                   <td>{{ $department->div_head }}</td>
                   <td>{{ $department->director }}</td>
+                  <td style="text-align:center"><input @if($department->freeze2017) checked @endif type="checkbox"  disabled ></td>
+                  <td style="text-align:center"><input @if($department->freeze2018) checked @endif type="checkbox" disabled </td>
                   <td>
                     <form class="row" method="POST" action="{{ route('department.destroy', ['id' => $department->id]) }}" onsubmit = "return confirm('Are you sure?')">
                         <input type="hidden" name="_method" value="DELETE">

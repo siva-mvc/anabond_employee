@@ -76,6 +76,20 @@
                         </select>
                      </div>
                   </div>
+
+                <div class="form-group">
+                            <label for="description" class="col-md-4 control-label"> Freeze 2017</label>
+                                <div class="col-md-6">
+                                  <input type="checkbox"  class="" name="freeze2017" value="{{$department->freeze2017}}" @if($department->freeze2017) checked @endif>
+                                </div>             
+                </div>
+                <div class="form-group">
+                            <label for="description" class="col-md-4 control-label"> Freeze 2018</label>
+                                <div class="col-md-6">
+                                  <input type="checkbox"  class="" name="freeze2018" value="{{$department->freeze2018}}" @if($department->freeze2018) checked @endif>
+                                </div>             
+                </div>
+
                   <div class="form-group">
                      <div class="col-md-1 col-md-offset-4">
                         <button type="submit" class="btn btn-primary">

@@ -37,9 +37,14 @@
                   </div>
                </div>
                <div class="col-sm-2">
-                  @if (count($lists) >= 1)
+                   @if (count($lists) >= 1)
+                  @if ($year == 2017 && $dt->freeze2017 ==0)
                   <button class="btn btn-success btn-lg" type="update">&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSave&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
                   <label class="pull-right">*T- Target<br>*A- Achieved</label>
+                  @elseif ($year == 2018 && $dt->freeze2018 ==0)
+                  <button class="btn btn-success btn-lg" type="update">&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSave&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                  <label class="pull-right">*T- Target<br>*A- Achieved</label>
+                  @endif
                   @endif
                </div>
             </div>

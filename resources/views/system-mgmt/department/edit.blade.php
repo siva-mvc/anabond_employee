@@ -78,13 +78,13 @@
                   </div>
 
                 <div class="form-group">
-                            <label for="description" class="col-md-4 control-label"> Freeze 2017</label>
+                            <label for="description" class="col-md-4 control-label"> Freeze FY 2017-18</label>
                                 <div class="col-md-6">
                                   <input type="checkbox"  class="" name="freeze2017" value="{{$department->freeze2017}}" @if($department->freeze2017) checked @endif>
                                 </div>             
                 </div>
                 <div class="form-group">
-                            <label for="description" class="col-md-4 control-label"> Freeze 2018</label>
+                            <label for="description" class="col-md-4 control-label"> Freeze FY 2018-19</label>
                                 <div class="col-md-6">
                                   <input type="checkbox"  class="" name="freeze2018" value="{{$department->freeze2018}}" @if($department->freeze2018) checked @endif>
                                 </div>             

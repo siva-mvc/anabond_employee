@@ -34,8 +34,8 @@
             <thead>
               <tr role="row">
                 <th width="30%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="team: activate to sort column ascending">Team Name</th>
-                <th width="25%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="team: activate to sort column ascending">2017 Increment</th>
-                <th width="25%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="team: activate to sort column ascending">2018 Increment</th>
+                <th width="25%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="team: activate to sort column ascending">FY 2017-18 Increment</th>
+                <th width="25%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="team: activate to sort column ascending">FY 2018-19 Increment</th>
                 <th tabindex="0" aria-controls="example2" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending">Action</th>
               </tr>
             </thead>

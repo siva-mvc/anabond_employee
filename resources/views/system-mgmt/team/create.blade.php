@@ -24,7 +24,7 @@
                             </div>
                         </div>
                         <div class="form-group{{ $errors->has('increment2017') ? ' has-error' : '' }}">
-                            <label for="increment2017" class="col-md-4 control-label">2017 increment</label>
+                            <label for="increment2017" class="col-md-4 control-label">FY 2017-18 increment</label>
 
                             <div class="col-md-6">
                                 <input id="increment2017" type="number" class="form-control" name="increment2017" value="{{ old('increment2017') }}"  >
@@ -37,7 +37,7 @@
                             </div>
                         </div>
                         <div class="form-group{{ $errors->has('increment2018') ? ' has-error' : '' }}">
-                            <label for="increment2018" class="col-md-4 control-label">2018 increment</label>
+                            <label for="increment2018" class="col-md-4 control-label">FY 2018-19 increment</label>
 
                             <div class="col-md-6">
                                 <input id="increment2018" type="nCumber" class="form-control" name="increment2018" value="{{ old('increment2018') }}"  >

@@ -28,9 +28,9 @@
                 <th width="15%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Department Head</th>
                 <th width="15%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Branch Head</th>
                 <th width="15%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Division Head</th>
-                <th width="15%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Director</th>
-                <th width="2%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Freeze <br> 2017</th>
-                <th width="2%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Freeze <br> 2018</th>
+                <th width="14%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Director</th>
+                <th width="2%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Freeze <br> 2017-18</th>
+                <th width="2%" class="" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" ">Freeze <br> 2018-19</th>
                 <th tabindex="0" aria-controls="example2" rowspan="1" colspan="2" aria-label="">  <a class="btn btn-primary" href="{{ route('department.create') }}">Add Department</a></th>
               </tr>
             </thead>

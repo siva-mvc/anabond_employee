@@ -1,5 +1,5 @@
 
-    <style>
+<style>
       
        .yesprint{
             display: none;
@@ -31,20 +31,13 @@
             font-weight: normal; 
             font-size: 12px ;    
          }
+}  
+</style>
 
 
-
-  
-    
-}
-
-
-       
-      </style>
-
-      <style>
+<style>
          @media print {
-          .main-header,.main-sidebar,.main-header,.navbar,.navbar-static-top,.main-sidebar,.noprint,.main-footer{
+          .main-header,.main-sidebar,.main-header,.navbar,.navbar-static-top,.main-sidebar,.noprint,.main-footer,.box-header{
             display: none;
           }
            .yesprint{
@@ -57,7 +50,7 @@
        padding-top: 2.5cm;
        padding-bottom: 2.5cm;
        height: auto;
-}
+      }
 
           .printdiv{
             min-height: 850px !important;
@@ -92,9 +85,11 @@
      margin-left: 1px !important;
     z-index: 820;
 }
+
+.box {border-top: 0px solid #d2d6de !important;}
        
 }
-      </style>
+</style>
 
 @extends('performance-factor.base')
 @section('action-content')
@@ -157,7 +152,7 @@
                   </tr>
                   <tr>
                      <th colspan="1"  style="border-right: 0px solid black; border-bottom: 0px solid black; border-top: 0px solid black; text-align:left;">Employee name: </th>
-                     <th colspan="16" style="border-left: 0px solid black;  border-bottom: 0px solid black; border-top: 0px solid black; text-align:left;"> Mr/Mrs/Ms., {{ $sheet->NAME }}</th>
+                     <th colspan="16" style="border-left: 0px solid black;  border-bottom: 0px solid black; border-top: 0px solid black; text-align:left;"> {{ $sheet->NAME }}</th>
                   </tr>
                   <tr>
                      <th colspan="1" style=" border-right: 0px solid black; border-bottom: 0px solid black; border-top: 0px solid black; text-align:left;">Department: </th>
@@ -232,6 +227,11 @@
                      <td colspan="16" style="text-align:right;  font-size: 16px; font-weight: bold;">Performance score for the year {{ $sheets[$index-1]->DisplayYear}}</td>
                      <td style="text-align:right;  font-size: 16px; font-weight: bold;" >{{ $sheets[$index-1]->TOTALSCORE}}</td>
                   </tr>
+                  @if( ! empty($sheets[$index-1]->notes))
+                  <tr>
+                        <td colspan="17"  style="text-align:left; font-size: 12px; " >Comments: {{ $sheets[$index-1]->notes}}</td>
+                  </tr>
+                  @endif
                </tbody>
             </table>
          </div>
@@ -249,7 +249,7 @@
                   </tr>
                   <tr>
                      <th colspan="1"  style="border-right: 0px solid black; border-bottom: 0px solid black; border-top: 0px solid black; text-align:left;">Employee name: </th>
-                     <th colspan="16" style="border-left: 0px solid black;  border-bottom: 0px solid black; border-top: 0px solid black; text-align:left;"> Mr/Mrs/Ms., {{ $sheet->NAME }}</th>
+                     <th colspan="16" style="border-left: 0px solid black;  border-bottom: 0px solid black; border-top: 0px solid black; text-align:left;"> {{ $sheet->NAME }}</th>
                   </tr>
                   <tr>
                      <th colspan="1" style=" border-right: 0px solid black; border-bottom: 0px solid black; border-top: 0px solid black; text-align:left;">Department: </th>
@@ -347,6 +347,11 @@
                      <td colspan="16" style="text-align:right; font-size: 16px; font-weight: bold;">Performance score for the year {{ $sheets[$index-1]->DisplayYear}}</td>
                      <td style="text-align:right;  font-size: 16px; font-weight: bold;" >{{ $sheet->TOTALSCORE}}</td>
                   </tr>
+                  @if( ! empty($sheets[$index-1]->notes))
+                  <tr>
+                        <td colspan="17"  style="text-align:left; font-size: 12px; " >Comments: {{ $sheets[$index-1]->notes}}</td>
+                  </tr>
+                  @endif
                </tbody>
             </table>
          </div>

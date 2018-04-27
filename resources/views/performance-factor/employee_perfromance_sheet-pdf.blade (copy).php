@@ -147,6 +147,7 @@
                         
                         <td style="text-align:right;  font-size: 16px; font-weight: bold;" >{{ $sheets[$index-1]->TOTALSCORE}}</td>
                      </tr>
+                    
                   </tbody>
                 
               </table>

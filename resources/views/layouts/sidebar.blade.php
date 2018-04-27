@@ -51,7 +51,7 @@
           <ul class="treeview-menu"> 
           <li class="{{ preg_match('/employee-perfromance-pdf-listnew/',Request::path()) ? 'active' : '' }}" ><a href="{{ url('employee-perfromance-pdf-listnew') }}/{{ Session::get('departments')[0]}}/2017">Performance Reports</a></li> 
           @if(Auth::user()->userrole =='Sysadmin')
-          <li class="{{ preg_match('/consolidated-revisedpay/',Request::path()) ? 'active' : '' }}" ><a href="{{ url('consolidated-revisedpay') }}/2017">Consolidted Revised Pay Report</a></li> 
+          <li class="{{ preg_match('/consolidated-revisedpay/',Request::path()) ? 'active' : '' }}" ><a href="{{ url('consolidated-revisedpay') }}/{{ Session::get('departments')[0]}}/2017">Consolidted Revised Pay Report</a></li> 
           @endif 
           </ul>
         </li>

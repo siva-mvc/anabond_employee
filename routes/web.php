@@ -85,7 +85,7 @@ Route::get('employee-perfromance-pdf-listnew/{dept_id}/{year}', 'EmployeeFactorC
 
 Route::post('employee-perfromance-sheet/{emp_id}/{year}', 'EmployeeFactorController@perfromance_sheet_save')->name('employee_factor.perfromance_sheet_save');
 
-Route::get('consolidated-revisedpay/{year}', 'EmployeeFactorController@consolidatedpay')->name('employee_factor.consolidatedpay');
+Route::get('consolidated-revisedpay/{dept_id}/{year}', 'EmployeeFactorController@consolidatedpay')->name('employee_factor.consolidatedpay');
 
 
 Route::get('employee-perfromance-sheet-pdf/{dept_id}/{year}', 'EmployeeFactorController@exportPDF')->name('sheet.pdf');

@@ -599,7 +599,7 @@ public function employee_factors_update_achived_credit_byemp(Request $request, $
     }
     
 
-    public function consolidatedpay(Request $request, $year) {
+    public function consolidatedpay(Request $request,$dept_id,$year) {
         // $year = (isset($request['year'])) ? $request['year'] : date("Y"); 
  
          $dept_id = (isset($dept_id)) ? $dept_id : Session::get('departments')[0];
@@ -607,18 +607,33 @@ public function employee_factors_update_achived_credit_byemp(Request $request, $
  
         $total_depts_search = DB::table('department')->whereIn('department.id',Session::get('departments'))->orderBy('name', 'asc')->get();
 
-         $whrIn = array($dept_id); 
+       
+
+        $whrIn = array($dept_id); 
          if($dept_id ==0){
              $whrIn = Session::get('departments');
          }
- 
+        
+         if($year == 2017)
+         {
           $export_data = DB::table('consolidated')
              ->select ('consolidated.*')
              ->orderBy('consolidated.deptname', 'asc')
+             ->whereIn('consolidated.department_id', $whrIn)
              ->get();
 
+         }
+         else
+         {
+            $export_data = DB::table('consolidated18')
+            ->select ('consolidated18.*')
+            ->orderBy('consolidated18.deptname', 'asc')
+            ->whereIn('consolidated18.department_id', $whrIn)
+            ->get();
+         }
+
              return view('performance-factor/consolidated_revised', 
-             ['sheets' =>$export_data]);
+             ['sheets' =>$export_data, 'dept_id'=>$dept_id, 'depts'=>$total_depts_search, 'year'=>$year]);
      }
 
     private function getExportingData($emp_id, $year) {
